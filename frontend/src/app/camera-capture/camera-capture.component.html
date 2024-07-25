@@ -1,0 +1,16 @@
+<div class="camera-container">
+    <button (click)="startCamera()"> open Camera</button>
+    <video #video width="100%" height="100%" autoplay></video>
+    <button (click)="capture()">Capture</button>
+    <canvas #canvas style="display: none;"></canvas>
+    <img *ngIf="imageSrc" [src]="imageSrc" alt="Captured Image" />
+  </div>
+
+
+  <!-- <div class="camera-container">
+    <button (click)="startCamera()">Open Camera</button>
+    <video #video width="100%" height="100%" *ngIf="isCameraOpen" autoplay></video>
+    <button (click)="capture()" *ngIf="isCameraOpen">Capture</button>
+    <canvas #canvas style="display: none;"></canvas>
+    <img *ngIf="imageSrc" [src]="imageSrc" alt="Captured Image" />
+  </div> -->

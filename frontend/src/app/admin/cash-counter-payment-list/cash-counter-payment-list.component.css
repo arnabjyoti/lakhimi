@@ -1,0 +1,63 @@
+/* Styles for the first table */
+.table-one {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table-one th, .table-one td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+  }
+  
+  /* Define specific widths for each column in the first table */
+  .table-one .sl-column {
+    width: 5%;
+  }
+  
+  .table-one .savings-column {
+    width: 25%;
+  }
+  
+  .table-one .voucher-column {
+    width: 20%;
+  }
+  
+  .table-one .amount-column {
+    width: 10%;
+  }
+  
+  .table-one .entry-column {
+    width: 20%;
+  }
+  
+  .table-one .image-column {
+    width: 20%;
+  }
+  
+  .table-one th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Styles for the second table */
+  .table-two {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table-two th, .table-two td {
+    padding: 8px 12px;
+    border: 1px solid #aaa; /* Different border color */
+  }
+  
+  /* Define specific widths for each column in the second table */
+  .table-two .id-column {
+    width: 30%;
+  }
+  
+  .table-two .role-column {
+    width: 70%;
+  }
+  
+  .table-two th {
+    background-color: #e0e0e0; /* Different background color */
+  }

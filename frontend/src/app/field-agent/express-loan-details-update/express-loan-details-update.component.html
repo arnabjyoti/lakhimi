@@ -1,0 +1,393 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Express Loan Details Update</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">customer</a></li>
+                        <li class="breadcrumb-item active">Express Loan Details Update</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <!-- Main row -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-sm-12">
+                        <!-- </div>
+                    <div class="col-md-12 text-center text-danger" *ngIf="notFound">
+                        <h2>No data found!</h2>
+                    </div> -->
+                        <div>
+                            <div class="col-12">
+
+                                <div class="row">
+                                    <div class="col-12 text-center reason-bg rounded p-0 text-danger"
+                                        *ngIf="memberData.bm_status == 'Rejected'">
+                                        <h4 class="p-2 m-0"><b>Reason:</b> {{memberData.bm_reason}}</h4>
+                                    </div>
+                                    <br>
+                                    <div class="col-md-12">
+                                        <div class="border border-secondary rounded">
+                                            <div>
+                                                <div class="col-sm-12 text-center head-color h6">
+                                                    <h3><b>PERSONAL INFORMATION</b></h3>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-4">
+                                                            <label>Applicant Name:<span
+                                                                    class="required">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Applicant Name" disabled
+                                                                value="{{memberData.full_name}}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label>Email:<span class="required">*</span></label>
+                                                            <input type="email" class="form-control" placeholder="Email"
+                                                                disabled [(ngModel)]="memberData.membership_email">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label> Mobile No.:<span class="required">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder=" Fathers Name" disabled
+                                                                value="{{memberData.membership_phone_no}}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label>Address:<span class="required">*</span></label>
+                                                            <textarea class="form-control" placeholder="Address"
+                                                                disabled
+                                                                value="{{memberData.membership_address}}"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+                                                <!-- ********************** -->
+                                                <div class="col-sm-12 text-center head-color h6">
+                                                    <h3><b>EMPLOYEMENT DETAILS</b></h3>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label>Employement Type:<span
+                                                                    class="required">*</span></label>
+                                                            <!-- <select class="form-control" (change)="onSchemeChange()"
+                                                                [(ngModel)]="memberData.l_loan_scheme"> -->
+                                                            <select class="form-control"
+                                                                [(ngModel)]="memberData.l_emp_type">
+                                                                <option label="Please Select"></option>
+                                                                <option value="Salaried">Salaried</option>
+                                                                <option value="Business">Business</option>
+                                                                <option value="Others">Others</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label>Annual Income:<span class="required">*</span></label>
+                                                            <input type="number" min="0" class="form-control"
+                                                                placeholder="Annual Income"
+                                                                [(ngModel)]="memberData.l_annual_incm">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <!-- ********************** -->
+                                                <div class="col-sm-12 text-center head-color h6">
+                                                    <h3><b>PRODUCT DETAILS</b></h3>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label>Product Category:<span
+                                                                    class="required">*</span></label>
+                                                            <!-- <select class="form-control" (change)="onSchemeChange()"
+                                                                [(ngModel)]="memberData.l_loan_scheme"> -->
+                                                            <select class="form-control"
+                                                                [(ngModel)]="memberData.l_product_ategory">
+                                                                <option label="Please Select"></option>
+                                                                <option value="Consumer Appliance">Consumer Appliance
+                                                                </option>
+                                                                <option value="Home Appliance">Home Appliance</option>
+                                                                <option value="furniture">furniture</option>
+                                                                <option value="Others">Others</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label>Make:<span class="required">*</span></label>
+                                                            <input type="text" class="form-control" placeholder="Make"
+                                                                [(ngModel)]="memberData.l_make">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label>Model:<span class="required">*</span></label>
+                                                            <input type="text" class="form-control" placeholder="Model"
+                                                                [(ngModel)]="memberData.l_model">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label>Serial No.:<span class="required">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Serial No."
+                                                                [(ngModel)]="memberData.l_serial_no">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <!-- ********************** -->
+                                                <div class="col-sm-12 text-center head-color h6">
+                                                    <h3><b>VENDOR DETAILS</b></h3>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-4">
+                                                            <label>Vendor:<span class="required">*</span></label>
+                                                            <!-- <select class="form-control" (change)="onSchemeChange()"
+                                                                [(ngModel)]="memberData.l_loan_scheme"> -->
+                                                            <select class="form-control"
+                                                                [(ngModel)]="memberData.l_vendor_new">
+                                                                <option value="{{memberData.vendorId}}">{{memberData.shop_name}}</option>
+                                                                <option *ngFor="let vd of vendorData;"
+                                                                    value="{{vd.id}}">
+                                                                    {{vd.shop_name}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <!-- ********************** -->
+                                                <!-- ********************** -->
+                                                <div class="col-sm-12 text-center head-color h6">
+                                                    <h3><b>FINANCE DETAILS</b></h3>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="col-md-12">
+                                                            <p class="text-purple h5"><u><b>Old finance details</b></u></p>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group col-md-12">
+                                                                <b>Product Cost:
+                                                                </b>{{this.memberData.l_product_cost |
+                                                                currency:'INR':'symbol':'1.2-2'}}
+                                                            </div>
+                                                            <div class="form-group col-md-12">
+                                                                <b>Total Return Amt.:
+                                                                </b>{{this.memberData.l_total_return_amnt |
+                                                                currency:'INR':'symbol':'1.2-2'}}
+                                                            </div>
+                                                            <!-- <div class="form-group col-md-12">
+                                                                <b>Processing Fee: </b>
+                                                                {{memberData.l_processing_fee |
+                                                                currency:'INR':'symbol':'1.2-2'}}
+                                                            </div> -->
+                                                            <div class="form-group col-md-12">
+                                                                <b>Adv. EMI (Total of 3 Months): </b>{{memberData.adv_emi |
+                                                                currency:'INR':'symbol':'1.2-2'}} <i>to be paid at the time of purchase.</i>
+                                                            </div>
+                                                            <div class="form-group col-md-12">
+                                                                <b>EMI: </b> {{memberData.emi_amnt |
+                                                                currency:'INR':'symbol':'1.2-2'}} <i>to be paid for subseqent 9 months.</i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-sm-6">
+                                                        <div class="col-md-12">
+                                                            <p class="text-purple h5"><u><b>New finance details</b></u></p>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label>Product Cost:<span
+                                                                            class="required">*</span></label>
+                                                                    <input type="number" min="0" class="form-control"
+                                                                        placeholder="Product Cost"
+                                                                        [(ngModel)]="l_product_cost_new"
+                                                                        (keyup)="Calculate()">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group col-md-12">
+                                                                <b>Total Return Amt.:
+                                                                </b>{{l_total_return_amnt_new |
+                                                                currency:'INR':'symbol':'1.2-2'}}
+                                                            </div>
+                                                            <!-- <div class="form-group col-md-12">
+                                                                <b>Processing Fee: </b>
+                                                                {{l_processing_fee_new |
+                                                                currency:'INR':'symbol':'1.2-2'}}
+                                                            </div> -->
+                                                            <div class="form-group col-md-12">
+                                                                <b>Adv. EMI (Total of 3 Months): </b>{{adv_emi_new |
+                                                                currency:'INR':'symbol':'1.2-2'}} <i>to be paid at the time of purchase.</i>
+                                                            </div>
+                                                            <div class="form-group col-md-12">
+                                                                <b>EMI: </b> {{emi_amnt_new |
+                                                                currency:'INR':'symbol':'1.2-2'}} <i>to be paid for subseqent 9 months.</i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <!-- ********************** -->
+                                                <div class="col-sm-12 text-center head-color h6">
+                                                    <h3><b>UPLOAD DOCUMENT</b></h3>
+                                                </div>
+                                                <div class="row p-3">
+                                                    <div class="col-sm-6">
+                                                        <div class="row">
+                                                            <div class="col-12 text-center">
+                                                                Income proof (Max size 2MB, pdf)
+                                                                <br>
+                                                                <small>3 months bank statement / ITR / Other Income
+                                                                    Proof</small>
+                                                            </div>
+
+                                                            <div class="col-12" *ngIf="memberData.incm_prf != null">
+                                                                <a target="_blank"
+                                                                    href="{{endpoint}}/docs/customer/{{memberData.membership_id+'_'}}/{{memberData.incm_prf}}">
+                                                                    <div class="btn btn-primary btn-block">Income proof
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-12 text-danger"
+                                                                *ngIf="memberData.incm_prf == null">
+                                                                Income proof NOT UPLOADED
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <div class="form-row p-1">
+                                                                    <div class="form-group col-12">
+                                                                        <label class="custom-file-label"
+                                                                            for="file">{{EXP_incm_proof}}</label>
+                                                                        <input type="file" accept="application/pdf"
+                                                                            class="custom-file-input"
+                                                                            aria-describedby="inputGroupFileAddon01"
+                                                                            name="file" id="file"
+                                                                            (change)="onFileSelectedIncm($event)">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-row">
+                                                                    <div class="form-group col-12">
+                                                                        <div class="form-group col-4">
+                                                                            <button class="btn btn-primary"
+                                                                            (click)="uploadIncm()"><i
+                                                                                    class="fas fa-upload"></i>
+                                                                                Upload</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group col-12" *ngIf="successIncm">
+                                                                        <p class="text-success">Upload Successful!</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-sm-6">
+                                                        <div class="row">
+                                                            <div class="col-12 text-center">
+                                                                Product Photo (Max size 200KB, jpg/jpeg/png)
+                                                            </div>
+
+                                                            <div class="col-12"
+                                                                *ngIf="memberData.product_photo != null">
+                                                                <a target="_blank"
+                                                                    href="{{endpoint}}/docs/customer/{{memberData.membership_id+'_'}}/{{memberData.product_photo}}">
+                                                                    <div class="btn btn-primary btn-block">Product Photo
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-12 text-danger"
+                                                                *ngIf="memberData.product_photo == null">
+                                                                Product Photo NOT UPLOADED
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <div class="form-row p-1">
+                                                                    <div class="form-group col-12">
+                                                                        <label class="custom-file-label"
+                                                                            for="file">{{Exp_product_photo}}</label>
+                                                                        <input type="file"
+                                                                            accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                                            class="custom-file-input"
+                                                                            aria-describedby="inputGroupFileAddon01"
+                                                                            name="file" id="file"
+                                                                            (change)="onFileSelectedProduct($event)">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-row">
+                                                                    <div class="form-group col-12">
+                                                                        <button class="btn btn-primary"
+                                                                        (click)="uploadProduct()"><i
+                                                                                class="fas fa-upload"></i>
+                                                                            Upload</button>
+                                                                    </div>
+                                                                    <div class="form-group col-12"
+                                                                        *ngIf="successProduct">
+                                                                        <p class="text-success">Upload Successful!</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                                <div class="form-group row pt-5"
+                                                    *ngIf="memberData.bm_status != 'Forwarded'">
+                                                    <div class="col-sm-12 text-center">
+                                                        <button mat-raised-button color="primary"
+                                                            (click)="checkUploads()">Checked</button>
+                                                        &nbsp;
+                                                        <button mat-raised-button color="primary" (click)="updateData()"
+                                                        *ngIf="finalBtn">Final Submit</button>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row (main row) -->
+            </div><!-- /.container-fluid -->
+
+            <!-- /.content -->
+
+        </div>

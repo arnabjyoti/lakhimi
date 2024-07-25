@@ -1,0 +1,532 @@
+<!-- Loading starts -->
+<div id="loading-wrapper" *ngIf="isLodaing">
+    <ngx-spinner bdColor="rgba(0,0,0,0.9)" type="ball-clip-rotate"></ngx-spinner>
+</div>
+
+<!-- Loading ends -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="card px-2">
+                <div class="row mb-2">
+                    <div class="col-sm-6 pt-1">
+                        <h1 class="m-0">Close Account Details</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6 pt-2">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Close Account Details</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="card px-2">
+                <!-- Main row -->
+                <div class="row">
+
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 pt-2">
+
+
+                        <div class="row">
+                            <div class="col progress-step">
+                                <div class="step-number-one">1</div>
+                                <div class="step-title">Field Agent</div>
+                                <!-- <div class="sm-txt">Product cost: {{inputForm.l_product_cost | currency:'INR':'symbol':'1.2-2'}}</div> -->
+                            </div>
+                            <div class="col progress-step">
+                                <div class="step-number-two">2</div>
+                                <div class="step-title">Branch Manager</div>
+                                <div class="text-danger" *ngIf="inputForm.bm_status == 'Rejected'">
+                                    <div class="sm-txt"><b>Status:</b> {{inputForm.bm_status}}</div>
+                                    <div class="sm-txt"><b>Reason:</b> {{inputForm.bm_reason}}</div>
+                                    <div class="sm-txt"> Date: {{inputForm.bm_fwd_date |
+                                        date:'dd-MM-YYYY'}}</div>
+                                </div>
+                                <div *ngIf="inputForm.bm_status == 'Forwarded'">
+                                    <div class="sm-txt">Proposed Date: {{inputForm.bm_fwd_date |
+                                        date:'dd-MM-YYYY'}}</div>
+                                </div>
+                            </div>
+                            <div class="col progress-step">
+                                <div class="step-number-three">3</div>
+                                <div class="step-title">Loan Officer</div>
+                                <div class="text-danger" *ngIf="inputForm.lo_status == 'Rejected'">
+                                    <div class="sm-txt"><b>Status:</b> {{inputForm.lo_status}}</div>
+                                    <div class="sm-txt"><b>Reason:</b> {{inputForm.lo_reason}}</div>
+                                    <div class="sm-txt"> Date: {{inputForm.lo_fwd_date |
+                                        date:'dd-MM-YYYY'}}</div>
+                                </div>
+                                <div *ngIf="inputForm.lo_status == 'Forwarded'">
+                                    <div class="sm-txt">Proposed Date: {{inputForm.lo_fwd_date |
+                                        date:'dd-MM-YYYY'}}</div>
+                                </div>
+                            </div>
+                            <div class="col progress-step">
+                                <div class="step-number-four">4</div>
+                                <div class="step-title">Managing Director</div>
+                                <div class="text-danger" *ngIf="inputForm.md_status == 'Rejected'">
+                                    <div class="sm-txt"><b>Status:</b> {{inputForm.md_status}}</div>
+                                    <div class="sm-txt"><b>Reason:</b> {{inputForm.md_reason}}</div>
+                                    <div class="sm-txt"> Date: {{inputForm.md_fwd_date |
+                                        date:'dd-MM-YYYY'}}</div>
+                                </div>
+                                <div *ngIf="inputForm.md_status == 'Forwarded'">
+                                    <div class="sm-txt">Proposed Date: {{inputForm.md_fwd_date |
+                                        date:'dd-MM-YYYY'}}</div>
+                                </div>
+                            </div>
+                            <div class="col progress-step">
+                                <div class="step-number-five">5</div>
+                                <div class="step-title">Chairman</div>
+                                <div class="text-danger" *ngIf="inputForm.cm_status == 'Rejected'">
+                                    <div class="sm-txt"><b>Status:</b> {{inputForm.cm_status}}</div>
+                                    <div class="sm-txt"><b>Reason:</b> {{inputForm.cm_reason}}</div>
+                                    <div class="sm-txt"> Date: {{inputForm.cm_fwd_date |
+                                        date:'dd-MM-YYYY'}}</div>
+                                </div>
+                                <div *ngIf="inputForm.cm_status == 'Approved'">
+                                    <div class="sm-txt">Proposed Date: {{inputForm.cm_fwd_date |
+                                        date:'dd-MM-YYYY'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="showProgressBar">
+                            <div *ngIf="inputForm.fwd_status == 'Branch Manager'">
+                                <div class="progress mt-3"
+                                    *ngIf="inputForm.loan_status == 'Applied' || inputForm.loan_status == 'Rejected'">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                        [style.width]="progressWidthFa">20%</div>
+                                </div>
+                            </div>
+                            <div *ngIf="inputForm.fwd_status == 'Loan Officer'">
+                                <div class="progress mt-3"
+                                    *ngIf="inputForm.loan_status == 'Applied' || inputForm.loan_status == 'Rejected'">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                        [style.width]="progressWidthBm">40%</div>
+                                </div>
+                            </div>
+                            <div *ngIf="inputForm.fwd_status == 'Managing Director'">
+                                <div class="progress mt-3"
+                                    *ngIf="inputForm.loan_status == 'Applied' || inputForm.loan_status == 'Rejected'">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                        [style.width]="progressWidthLo">60%</div>
+                                </div>
+                            </div>
+                            <div *ngIf="inputForm.fwd_status == 'Chairman'">
+                                <div class="progress mt-3"
+                                    *ngIf="inputForm.loan_status == 'Applied' || inputForm.loan_status == 'Rejected'">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                        [style.width]="progressWidthMd">80%</div>
+                                </div>
+                            </div>
+                            <div class="progress mt-3"
+                                *ngIf="inputForm.loan_status == 'Approved' || inputForm.loan_status == 'Completed'">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                    [style.width]="progressWidthCm">100%</div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="row bg-lightblue p-1">
+                            <div class="col-md-4">
+                                <b>Applied by field agent:</b> {{inputForm.fieldAgent_frm_applied}}
+                            </div>
+                            <div class="col-md-4">
+                                <b>Applied from branch name & code:</b> {{inputForm.branch_frm_applied}} - {{inputForm.branchCode_frm_applied}}
+                            </div>
+                        </div>
+                        <br>
+
+
+                        <!-- for branch manager -->
+                        <div *ngIf="isBM == true">
+
+                            <div
+                                *ngIf="inputForm.bm_status == null || inputForm.lo_status == 'Rejected' || inputForm.md_status == 'Rejected' || inputForm.cm_status == 'Rejected'">
+
+                                <div *ngIf="inputForm.bm_status != 'Rejected'">
+                                    <div class="form-row pt-2">
+                                        <div class="form-group col-md-4">
+                                            <label class="text-danger" for="inputEmail4">Action
+                                                (Forward/Reject):</label>
+                                            <div class="">
+                                                <select class="form-control" id="sourceOfFund"
+                                                    [(ngModel)]="bmInput.action">
+                                                    <option label="Please Select"></option>
+                                                    <option value="Forward">Forward</option>
+                                                    <option value="Reject">Reject</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row pt-2" *ngIf="bmInput.action == 'Forward'">
+                                        <div class="form-group col-md-5">
+                                            <button mat-raised-button color="primary" class="btn-block"
+                                                (click)="updateBMStatus()"><small>Forward to Loan
+                                                    Officer</small></button>
+                                        </div>
+                                    </div>
+                                    <div class="form-row pt-2" *ngIf="bmInput.action == 'Reject'">
+                                        <div class="form-group col-md-12">
+                                            <textarea class="form-control" placeholder="Reason"
+                                                [(ngModel)]="bmInput.bm_reason"></textarea>
+                                        </div>
+                                        <div class="form-group col-md-5">
+                                            <button mat-raised-button color="primary" class="btn-block"
+                                                (click)="rejectBMStatus()"><small>Reject</small></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- for loan officer -->
+                        <div *ngIf="inputForm.lo_status == null && isLO == true && inputForm.bm_status == 'Forwarded'">
+
+                            <br>
+                            <div class="form-row pt-2">
+                                <div class="form-group col-md-4">
+                                    <label class="text-danger" for="inputEmail4">Action (Forward/Reject):</label>
+                                    <div class="">
+                                        <select class="form-control" id="sourceOfFund" [(ngModel)]="loInput.action">
+                                            <option label="--Please Select --"></option>
+                                            <option value="Forward">
+                                                Forward
+                                            </option>
+                                            <option value="Reject">
+                                                Reject
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row pt-2" *ngIf="loInput.action == 'Forward'">
+                                <div class="form-group col-md-4">
+                                    <button mat-raised-button color="primary" class="btn-block"
+                                        (click)="updateLOStatus()"><small>Forward to Managing Director</small></button>
+                                </div>
+                            </div>
+                            <div class="form-row pt-2" *ngIf="loInput.action == 'Reject'">
+                                <div class="form-group col-md-12">
+                                    <textarea class="form-control" placeholder="Reason"
+                                        [(ngModel)]="loInput.lo_reason"></textarea>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <button mat-raised-button color="primary" class="btn-block"
+                                        (click)="rejectLOStatus()"><small>Reject</small></button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- for Managing Director -->
+                        <div *ngIf="inputForm.md_status == null && isMD == true && inputForm.lo_status == 'Forwarded'">
+
+
+                            <br>
+                            <div class="form-row pt-2">
+                                <div class="form-group col-md-4">
+                                    <label class="text-danger" for="inputEmail4">Action (Forward/Reject):</label>
+                                    <div class="">
+                                        <select class="form-control" id="sourceOfFund" [(ngModel)]="mdInput.action">
+                                            <option label="--Please Select --"></option>
+                                            <option value="Forward">
+                                                Forward
+                                            </option>
+                                            <option value="Reject">
+                                                Reject
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row pt-2" *ngIf="mdInput.action == 'Forward'">
+                                <div class="form-group col-md-4">
+                                    <button mat-raised-button color="primary" class="btn-block"
+                                        (click)="updateMDStatus()"><small>Forward to Chairman</small></button>
+                                </div>
+                            </div>
+                            <div class="form-row pt-2" *ngIf="mdInput.action == 'Reject'">
+                                <div class="form-group col-md-12">
+                                    <textarea class="form-control" placeholder="Reason"
+                                        [(ngModel)]="mdInput.md_reason"></textarea>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <button mat-raised-button color="primary" class="btn-block"
+                                        (click)="rejectMDStatus()"><small>Reject</small></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- for Chairman -->
+                        <div *ngIf="inputForm.cm_status == null && isCM == true && inputForm.md_status == 'Forwarded'">
+
+                            <br>
+                            <div class="form-row pt-2">
+                                <div class="form-group col-md-4">
+                                    <label class="text-danger" for="inputEmail4">Action (Approve/Reject):</label>
+                                    <div class="">
+                                        <select class="form-control" id="sourceOfFund" [(ngModel)]="cmInput.action">
+                                            <option label="--Please Select --"></option>
+                                            <option value="Approve">
+                                                Approve
+                                            </option>
+                                            <option value="Reject">
+                                                Reject
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row pt-2" *ngIf="cmInput.action == 'Approve'">
+                                <div class="form-group col-md-4">
+                                    <button mat-raised-button color="primary" class="btn-block"
+                                        (click)="updateCMStatus()"><small>Approve</small></button>
+                                </div>
+                            </div>
+                            <div class="form-row pt-2" *ngIf="cmInput.action == 'Reject'">
+                                <div class="form-group col-md-12">
+                                    <textarea class="form-control" placeholder="Reason"
+                                        [(ngModel)]="cmInput.cm_reason"></textarea>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <button mat-raised-button color="primary" class="btn-block"
+                                        (click)="rejectCMStatus()"><small>Reject</small></button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="accordion" id="accordionExample">
+
+
+
+
+
+
+
+
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                            data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                                            aria-controls="collapseOne">
+                                            1. Form
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                    data-parent="#accordionExample">
+                                    <div class="card-body">
+
+                                        <div class="row  px-4">
+                                            <button printSectionId="print-first-form" ngxPrint [useExistingCss]="true"
+                                                styleSheetFile="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+                                                mat-raised-button color="primary"><i class="fas fa-print"></i>
+                                                print</button>
+                                        </div>
+                                        <div id="print-first-form" class="py-3">
+
+                                            <div class="col-sm-12 text-center">
+                                                <u><b>
+                                                        <h2>Refund Claim Application ({{inputForm.closing_type}})</h2>
+                                                    </b></u>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="row border border-dark rounded px-4">
+                                                <div class="col-4 py-3">
+                                                    <p>To,</p>
+                                                    <p>
+                                                        The Branch Manager: {{inputForm.branch_frm_applied}}
+                                                    </p>
+                                                </div>
+                                                <div class="col-4 py-3"></div>
+                                                <div class="col-4 py-3">
+                                                    <p>Date of submission: {{inputForm.apply_date}}</p>
+                                                </div>
+                                                <div class="row">
+                                                <div class="col-12">
+                                                    Sir, I hereby request to refund my/ our estimated subscription deposit amount urgently. Refund claim has been submitted and full-fill the conditions for urgent claim. So, initiate my/ our Matured/ Pre-Matured amount as soon as possible. I also understand that normal refund claims delivery period is 30 days from the date of claim submission. Therefore you are request to manage from RESERVE FUNDS as per provision of  the Bye-laws.
+                                                </div>
+
+                                                <div class="col-4 py-3">
+                                                    <b>1. Claim for:</b> {{inputForm.claim_for}} 
+                                                </div>
+                                                <div class="col-4 py-3">
+                                                    <b>2. Type of Ac.:</b> {{inputForm.type_of_ac}} 
+                                                </div>
+                                                <div class="col-4 py-3">
+                                                    <b>3. New Ac. No.:</b> {{inputForm.new_ac_no}}
+                                                </div>
+                                                <div class="col-4 py-3">
+                                                    <b>Open Date:</b> {{inputForm.open_date}}
+                                                </div>
+                                                <div class="col-4 py-3">
+                                                    <b>End:</b> {{inputForm.end_date}}
+                                                </div>
+                                                </div>
+
+                                                <div class="col-12 py-3">
+                                                    <b><u>4. CLAIMING ACCOUNT DETAILS</u></b>: 
+                                                </div>
+                                                <div class="col-12 py-3">
+                                                    <b>1. Ac Holder Name:</b> {{inputForm.claiming_ac_holder_name}}
+                                                </div>
+                                                <div class="col-8 py-3">
+                                                    <b>2. Account No.:</b> {{inputForm.claiming_ac_no}} 
+                                                </div>
+                                                <div class="col-4 py-3">
+                                                    <b>C. ID:</b> {{inputForm.claiming_c_id}}
+                                                </div>
+                                                <div class="col-8 py-3">
+                                                    <b>3. Opening Date:</b> {{inputForm.claiming_opening_date}}
+                                                </div>
+                                                <div class="col-4 py-3">
+                                                    <b>Closing Date:</b> {{inputForm.claiming_closing_date}} 
+                                                </div>
+                                                <div class="col-8 py-3">
+                                                    <b>4. Agent Name:</b> {{inputForm.claiming_agent_name}} 
+                                                </div>
+                                                <div class="col-4 py-3">
+                                                    <b>Code:</b> {{inputForm.claiming_code}}
+                                                </div>
+                                                <div class="col-12 py-3">
+                                                    <b>5. Branch Name:</b> {{inputForm.claiming_branch_name}} 
+                                                </div>
+
+                                                <div class="col-12 py-3">
+                                                    <b>5. NOMINEE NAME:</b> {{inputForm.nominee_name}}
+                                                </div>
+                                                <div class="col-12 py-3">
+                                                    <b>Address:</b> {{inputForm.address}}
+                                                </div>
+
+                                                <div class="col-12 py-3">
+                                                    <b>6. CAUSE OF PRE-MATURITY:</b>: 
+                                                </div>
+                                                <div class="col-12 py-3">
+                                                    <b>7. SUPPORTING DOCUMENTS:</b>: 
+                                                </div>
+
+                                                <div class="col-12 py-3">
+                                                    <b><u>8. BANK ACCOUNT DETAILS FOR PAYMENT (Cancel Cheque/ Passbook photo copy attach herewith)</u></b>: 
+                                                </div>
+                                                <div class="col-12 py-3">
+                                                    <b>1. Bank Name:</b> {{inputForm.bank_name}} 
+                                                </div>
+                                                <div class="col-12 py-3">
+                                                    <b>2. Branch Name:</b> {{inputForm.br_name}} 
+                                                </div>
+                                                <div class="col-12 py-3">
+                                                    <b>3. Name in Account:</b> {{inputForm.name_ac}}
+                                                </div>
+                                                <div class="col-12 py-3">
+                                                    <b>4. Account Number:</b> {{inputForm.ac_no}}
+                                                </div>
+                                                <div class="col-12 py-3">
+                                                    <b>5. IFSC Code No.:</b> {{inputForm.ifsc}}
+                                                </div>
+
+                                                <br>
+                                                <div class="col-12">
+                                                    I / We hereby declare that all amount on this deposit account has been finally closed. The Claim amount has been approved by me/us. Now I/We have no claim against the Organisation, what so ever ! I/We would like to receive the Matured Value through my / our Bank Account, which provided by me/us hereof.
+                                                </div>
+
+                                                <br><br><br><br>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
+                        <div class="card">
+                            <div class="card-header" id="headingThirteen">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                        data-toggle="collapse" data-target="#documets" aria-expanded="false"
+                                        aria-controls="documets">
+                                        Ducuments
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="documets" class="collapse" aria-labelledby="headingThirteen"
+                                data-parent="#accordionExample">
+                                <div class="card-body">
+
+
+                                    <div id="print-eight-form" class="">
+                                        <div class="col-sm-12">
+                                            <div class="row p-2">
+                                                <div class="col-sm-12">
+                                                    <h4><u>Applicant Documents:</u></h4>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <a target="_blank"
+                                                        href="{{endpoint}}/docs/closed_account/{{inputForm.id+'_'}}/{{inputForm.passbook_lakhimi}}">
+                                                        <div class="btn btn-primary btn-block">Lakhimi Passbook</div>
+                                                    </a>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <a target="_blank"
+                                                        href="{{endpoint}}/docs/closed_account/{{inputForm.id+'_'}}/{{inputForm.passbook_bank}}">
+                                                        <div class="btn btn-primary btn-block">Bank Passbook</div>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                    </div>
+                </div>
+                <!-- /.row (main row) -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+    <!-- Account Opening Modal -->
+    <!-- update Modal -->
+
+    <!-- end model -->
+
+
+
+</div>

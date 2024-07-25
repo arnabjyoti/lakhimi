@@ -1,0 +1,229 @@
+<!-- Loading starts -->
+<div id="loading-wrapper" *ngIf="isLodaing">
+    <ngx-spinner bdColor="rgba(0,0,0,0.9)" type="ball-clip-rotate"></ngx-spinner>
+</div>
+
+<!-- Loading ends -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="card px-2">
+                <div class="row mb-2">
+                    <div class="col-sm-6 pt-1">
+                        <h1 class="m-0">Cash Counter Payment</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6 pt-2">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Cash Counter Payment</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card p-2">
+                <div class="mat-elevation-z8">
+                    <div class="row justify-content-start p-3">
+                        <div class="col-md-2 p-1">
+                            <input class="form-control" (keyup)="FilterChange($event)" placeholder="Search here">
+                        </div>
+                        <div class="col-md-2 p-1">
+                            <input type="date" class="form-control" id="inputEmail4" placeholder=" "
+                                [(ngModel)]="startDate">
+                        </div>
+                        <div class="col-md-2 p-1">
+                            <input type="date" class="form-control" id="inputEmail4" placeholder=" "
+                                [(ngModel)]="endDate">
+                        </div>
+                        <div class="col-md-1 p-1">
+                            <button mat-raised-button color="primary" data-toggle="modal" data-target="#loanAccountOpeningPdf" (click)="applyFilter()"><i class="fas fa-filter"></i></button>
+
+                        </div>
+                    </div>
+                    <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+
+                        <!-- Serial number Column -->
+                        <ng-container matColumnDef="Sl">
+                            <th mat-header-cell *matHeaderCellDef class="text-center"> Sl. No. </th>
+                            <td mat-cell *matCellDef="let element let i = index;" class="text-center">
+                                {{ paginator.pageIndex*paginator.pageSize + (i + 1) }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="Co_op_ac_no">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef>Savings A/c No.</th>
+                            <td mat-cell *matCellDef="let element"> {{element.Co_op_ac_no}}</td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="voucer_no">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Voucher No.</th>
+                            <td mat-cell *matCellDef="let element"> {{element.voucer_no}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="Amount">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef>Amount</th>
+                            <td mat-cell *matCellDef="let element"> {{element.amount |
+                                currency:'INR':'symbol':'1.2-2'}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="entry_date">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef>Entry Date</th>
+                            <td mat-cell *matCellDef="let element"> {{element.createdAt |date:'dd/MM/yyyy HH:mm'}} </td>
+                        </ng-container>
+
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="text-center"> Image </th>
+                            <td mat-cell *matCellDef="let row element" class="text-center">
+                                <button mat-raised-button color="purple" (click)="showImageModal(row)" data-toggle="modal" data-target="#loanAccountOpeningImage"><i class="fas fa-image"></i></button>
+                            </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                    <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons
+                        aria-label="Select page of periodic elements">
+                    </mat-paginator>
+                </div>
+            </div>
+            <!-- Main row -->
+            <div class="row">
+
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+    
+    <!-- Loan Account Opening Modal -->
+    <div class="modal fade" id="loanAccountOpeningImage" tabindex="-1" role="dialog" aria-labelledby="accountOpeningLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accountOpeningLabel">New Cash Counter Payment Image</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeShowImage()">
+                        <span aria-hidden="true" id="modalClose">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="card-body">
+                        <div class="col-12">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="tab-content border border-secondary rounded" id="v-pills-tabContent">
+                                        <div class="tab-pane fade show active" id="v-pills-loan-application"
+                                            role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                            <div class="col-sm-12 text-center head-color h6">
+                                                <h3><b>CASH COUNTER PAYMENT IMAGE</b></h3>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-row">
+                                                    <div class="col-12 text-center pt-2" *ngIf="showImage">
+                                                        <img src="{{endpoint}}/docs/CashCounter/{{selectedAccount.userId+'_'}}/{{selectedAccount.photo}}" class="img-fluid border"
+                                                    alt="Project image">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end model -->
+    </div>
+
+
+
+    <!-- Loan Account Opening Modal -->
+    <div class="modal fade" id="loanAccountOpeningPdf" tabindex="-1" role="dialog" aria-labelledby="accountOpeningLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accountOpeningLabel">New Cash Counter Payment pdf download</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeShowImage()">
+                        <span aria-hidden="true" id="modalClose">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="card-body">
+                        <div class="col-12">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="tab-content" id="v-pills-tabContent">
+                                        <div class="tab-pane fade show active" id="v-pills-loan-application"
+                                            role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                            <div class="col-sm-12 py-2">
+                                                <button printSectionId="print-first-form" ngxPrint [useExistingCss]="true"
+                                                    styleSheetFile="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+                                                    mat-raised-button color="primary"><i class="fas fa-print"></i>
+                                                    print</button>
+                                            </div>
+                                            <div class="col-sm-12 pdf-download" id="print-first-form">
+                                                <p>Data showing from<b> Start Date: </b>{{startDate}} - to <b>End Date: </b>{{endDate}}</p>
+                                                <p>Total Number of transactions: {{items.length}}</p>
+                                                <br>
+                                                <table class="table-one">
+                                                    <thead>
+                                                      <tr>
+                                                        <th class="sl-column">Sl. No.</th>
+                                                        <th class="savings-column">Savings A/c Number</th>
+                                                        <th class="voucher-column">Voucher Number</th>
+                                                        <th class="amount-column">Amount</th>
+                                                        <th class="entry-column">Entry Date & Time</th>
+                                                        <th class="image-column">Image</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      <tr *ngFor="let item of items; let i = index">
+                                                        <td class="sl-column">{{ i + 1 }}</td>
+                                                        <td class="savings-column">{{ item.Co_op_ac_no }}</td>
+                                                        <td class="voucher-column">{{ item.voucer_no }}</td>
+                                                        <td class="amount-column">{{ item.amount  |
+                                                            currency:'INR':'symbol':'1.2-2'}}</td>
+                                                        <td class="entry-column">{{ item.createdAt |date:'dd/MM/yyyy HH:mm'}}</td>
+                                                        <td class="image-column"><img src="{{endpoint}}/docs/CashCounter/{{item.userId+'_'}}/{{item.photo}}" class="img-fluid border"
+                                                            alt="Project image"></td>
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end model -->
+    </div>
+</div>

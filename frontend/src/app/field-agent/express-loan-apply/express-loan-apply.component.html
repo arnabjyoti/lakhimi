@@ -1,0 +1,512 @@
+<!-- Loading starts -->
+<div id="loading-wrapper" *ngIf="isLodaing">
+    <ngx-spinner bdColor="rgba(0,0,0,0.9)" type="ball-clip-rotate"></ngx-spinner>
+</div>
+
+<!-- Loading ends -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="card px-2">
+                <div class="row mb-2">
+                    <div class="col-sm-6 pt-1">
+                        <h1 class="m-0">New Express Loan Application</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6 pt-2">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">New Express Loan Application</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card p-2">
+                <!-- Small boxes (Stat box) -->
+                <div class="row justify-content-end p-3">
+                    <button mat-raised-button color="primary" data-toggle="modal"
+                        data-target="#expressloanAccountOpening">+
+                        New Express
+                        Loan Apply</button>
+                </div>
+            </div>
+            <!-- Main row -->
+            <div class="row">
+
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card p-2">
+                <div class="mat-elevation-z8">
+                    <form class="example-form">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Search Here</mat-label>
+                            <input matInput (keyup)="FilterChange($event)" placeholder="Search">
+                        </mat-form-field>
+                    </form>
+                    <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+
+                        <!-- Serial number Column -->
+                        <ng-container matColumnDef="Sl">
+                            <th mat-header-cell *matHeaderCellDef class="text-center"> Sl. No. </th>
+                            <td mat-cell *matCellDef="let element let i = index;" class="text-center">
+                                {{ paginator.pageIndex*paginator.pageSize + (i + 1) }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="full_name">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef> Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.full_name}}</td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="membership_id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Membership ID</th>
+                            <td mat-cell *matCellDef="let element"> {{element.membership_id}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="apply_amount">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef>Loan Amount</th>
+                            <td mat-cell *matCellDef="let element"> {{element.apply_amount |
+                                currency:'INR':'symbol':'1.2-2'}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="reference_no">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef> Reference Number </th>
+                            <td mat-cell *matCellDef="let element"> {{element.reference_no}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="fwd_status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Office </th>
+                            <td mat-cell *matCellDef="let element"> {{element.fwd_status}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="loan_status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                            <td mat-cell *matCellDef="let element">
+                                <div class="text-warning" *ngIf="element.loan_status == 'Applied'">
+                                    {{element.loan_status}}</div>
+                                <div class="text-success" *ngIf="element.loan_status == 'Completed'">
+                                    {{element.loan_status}}</div>
+                                <div class="text-purple" *ngIf="element.loan_status == 'Approved'">
+                                    {{element.loan_status}} </div>
+                                <div class="text-danger" *ngIf="element.loan_status == 'Rejected'">
+                                    {{element.loan_status}} </div>
+                                <div class="text-info" *ngIf="element.loan_status == 'Documents not Uploaded'">
+                                    {{element.loan_status}} </div>
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="apply_date">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Apply Date </th>
+                            <td mat-cell *matCellDef="let element"> {{element.apply_date | date:"dd/MM/yyyy"}} </td>
+                        </ng-container>
+
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+                            <td mat-cell *matCellDef="let element" class="text-center">
+                                <a *ngIf="element.loan_status == 'Applied' || element.loan_status == 'Completed' || element.loan_status == 'Approved' || element.loan_status == 'Rejected'"
+                                    target="_blank" routerLink="/express-loan-details/{{element.id}}" mat-raised-button
+                                    color="primary"><i class="fas fa-arrow-circle-right"></i></a>
+                                <a *ngIf="element.loan_status == 'Documents not Uploaded' || element.bm_status == 'Rejected'" target="_blank" routerLink="/express-loan-details-update/{{element.id}}" mat-raised-button
+                                    color="purple"><i class="fas fa-arrow-circle-right"></i></a>
+
+                            </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                    <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons
+                        aria-label="Select page of periodic elements">
+                    </mat-paginator>
+                </div>
+            </div>
+            <!-- Main row -->
+            <div class="row">
+
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+    <!-- Loan Account Opening Modal -->
+    <div class="modal fade" id="expressloanAccountOpening" tabindex="-1" role="dialog"
+        aria-labelledby="accountOpeningLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accountOpeningLabel">NEW EXPRESS LOAN ACCOUNT OPEN</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="modalClose" (click)="resetForm()">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="card-body" *ngIf="inputForm">
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="number" min="0" class="form-control" placeholder="Reference Number"
+                                        [(ngModel)]="ckInput.Reference_no">
+                                </div>
+                                <div class="form-group col-2">
+                                    <button mat-raised-button color="primary" (click)="checkMember()">Search</button>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="col-md-12 text-center text-danger" *ngIf="notFound">
+                            <h2>No data found!</h2>
+                        </div>
+                        <div *ngIf="found">
+                            <div class="col-12">
+
+                                <div class="row" *ngIf="inputForm">
+                                    <div class="col-md-12">
+                                        <div class="tab-content border border-secondary rounded"
+                                            id="v-pills-tabContent">
+                                            <div class="tab-pane fade show active" id="v-pills-loan-application"
+                                                role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                                <div class="col-sm-12 text-center head-color h6">
+                                                    <h3><b>PERSONAL INFORMATION</b></h3>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-4">
+                                                            <label>Applicant Name:<span
+                                                                    class="required">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Applicant Name" disabled
+                                                                value="{{memberData.f_name}} {{memberData.l_name}}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label>Email:<span class="required">*</span></label>
+                                                            <input type="email" class="form-control" placeholder="Email"
+                                                                disabled [(ngModel)]="memberData.email">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label> Mobile No.:<span class="required">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder=" Fathers Name" disabled
+                                                                value="{{memberData.phone_no}}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label>Address:<span class="required">*</span></label>
+                                                            <textarea class="form-control" placeholder="Address"
+                                                                disabled value="{{memberData.address}}"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+                                                <!-- ********************** -->
+                                                <div class="col-sm-12 text-center head-color h6">
+                                                    <h3><b>EMPLOYEMENT DETAILS</b></h3>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label>Employement Type:<span
+                                                                    class="required">*</span></label>
+                                                            <!-- <select class="form-control" (change)="onSchemeChange()"
+                                                                [(ngModel)]="memberData.l_loan_scheme"> -->
+                                                            <select class="form-control"
+                                                                [(ngModel)]="memberData.l_emp_type">
+                                                                <option label="Please Select"></option>
+                                                                <option value="Salaried">Salaried</option>
+                                                                <option value="Business">Business</option>
+                                                                <option value="Others">Others</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label>Annual Income:<span class="required">*</span></label>
+                                                            <input type="number" min="0" class="form-control"
+                                                                placeholder="Annual Income"
+                                                                [(ngModel)]="memberData.l_annual_incm">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <!-- ********************** -->
+                                                <div class="col-sm-12 text-center head-color h6">
+                                                    <h3><b>PRODUCT DETAILS</b></h3>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label>Product Category:<span
+                                                                    class="required">*</span></label>
+                                                            <!-- <select class="form-control" (change)="onSchemeChange()"
+                                                                [(ngModel)]="memberData.l_loan_scheme"> -->
+                                                            <select class="form-control"
+                                                                [(ngModel)]="memberData.l_product_ategory">
+                                                                <option label="Please Select"></option>
+                                                                <option value="Consumer Appliance">Consumer Appliance
+                                                                </option>
+                                                                <option value="Home Appliance">Home Appliance</option>
+                                                                <option value="furniture">furniture</option>
+                                                                <option value="Others">Others</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label>Make:<span class="required">*</span></label>
+                                                            <input type="text" class="form-control" placeholder="Make"
+                                                                [(ngModel)]="memberData.l_make">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label>Model:<span class="required">*</span></label>
+                                                            <input type="text" class="form-control" placeholder="Model"
+                                                                [(ngModel)]="memberData.l_model">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label>Serial No.:<span class="required">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Serial No."
+                                                                [(ngModel)]="memberData.l_serial_no">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <!-- ********************** -->
+                                                <div class="col-sm-12 text-center head-color h6">
+                                                    <h3><b>VENDOR DETAILS</b></h3>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-4">
+                                                            <label>Vendor:<span class="required">*</span></label>
+                                                            <!-- <select class="form-control" (change)="onSchemeChange()"
+                                                                [(ngModel)]="memberData.l_loan_scheme"> -->
+                                                            <select class="form-control"
+                                                                [(ngModel)]="memberData.l_vendor">
+                                                                <option label="Please Select"></option>
+                                                                <option *ngFor="let vd of vendorData;"
+                                                                    value="{{vd.id}}">
+                                                                    {{vd.shop_name}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <!-- ********************** -->
+                                                <div class="col-sm-12 text-center head-color h6">
+                                                    <h3><b>FINANCE DETAILS</b></h3>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label>Product Cost:<span class="required">*</span></label>
+                                                            <!-- <select class="form-control" (change)="onSchemeChange()"
+                                                                [(ngModel)]="memberData.l_loan_scheme"> -->
+                                                            <input type="number" min="0" class="form-control"
+                                                                placeholder="Product Cost"
+                                                                [(ngModel)]="memberData.l_product_cost"
+                                                                (keyup)="Calculate()">
+                                                        </div>
+                                                        <!-- <div class="form-group col-md-6">
+                                                            <label>Select Tenure:<span class="required">*</span></label>
+                                                            <select class="form-control"
+                                                                [(ngModel)]="memberData.l_tenure"
+                                                                (change)="Calculate()">
+                                                                <option label="Please Select"></option>
+                                                                <option value="3">3 Months</option>
+                                                                <option value="6">6 Months</option>
+                                                                <option value="9">9 Months</option>
+                                                                <option value="12">12 Months</option>
+                                                                <option value="18">18 Months</option>
+                                                            </select>
+                                                        </div> -->
+                                                        <!-- <div class="form-group col-md-6">
+                                                            <label>Select Tenure:<span class="required">*</span></label>
+                                                                <input type="range" [(ngModel)]="memberData.l_tenure" (change)="Calculate()" class="custom-range" id="customRange" [min]="0" [max]="steps.length - 1" [(ngModel)]="currentStepIndex" (input)="updateValue()">
+                                                                <p>Value: <span id="rangeValue">{{ currentValue }}</span></p>
+                                                        </div> -->
+
+                                                        <!-- <div class="col-sm-12 text-center">
+                                                            <button mat-raised-button color="primary"
+                                                                (click)="Calculate()">Calculate</button>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <!-- <div class="form-group">
+                                                        <label for="customRange">Range Slider</label>
+                                                        <input type="range" class="custom-range" id="customRange" [min]="0" [max]="steps.length - 1" [(ngModel)]="currentStepIndex" (input)="updateValue()">
+                                                        <p>Value: <span id="rangeValue">{{ currentValue }}</span></p>
+                                                      </div> -->
+
+                                                    <div class="form-group col-md-12">
+                                                        <b>Total Return Amt.: </b>{{this.memberData.l_total_return_amnt |
+                                                        currency:'INR':'symbol':'1.2-2'}}
+                                                    </div>
+                                                    <!-- <div class="form-group col-md-12">
+                                                        <b>Processing Fee: </b>
+                                                        {{memberData.l_processing_fee |
+                                                        currency:'INR':'symbol':'1.2-2'}}
+                                                    </div> -->
+                                                    <!-- <div class="form-group col-md-12">
+                                                        <b>Net Finance Amt.: </b> {{memberData.net_finance_amnt | currency:'INR':'symbol':'1.2-2'}}
+                                                    </div> -->
+                                                    <div class="form-group col-md-12">
+                                                        <b>Adv. EMI (Total of 3 Months): </b>{{memberData.adv_emi |
+                                                        currency:'INR':'symbol':'1.2-2'}} <i>to be paid at the time of purchase.</i>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <b>EMI: </b> {{memberData.emi_amnt |
+                                                        currency:'INR':'symbol':'1.2-2'}} <i>to be paid for subseqent 9 months.</i>
+                                                    </div>
+
+
+                                                    <div class="form-group row p-4">
+                                                        <div class="col-sm-12 text-center">
+                                                            
+                                                                Note : The total return amount shown above consists of the Principal amount, Interest amount (13.5% - flat), Share fee, Share admission fee, Account admission fee, Processing fee (1%), MSS Super fee & NACH Mandate charges all included.
+                                                                <br><br>
+                                                                <input class="form-check-input" type="checkbox" value=""
+                                                                id="defaultCheck1" checked>
+                                                                    I do hereby agree to repay the shown amounts is all specific due times, failure to which, late fees are applicableas as per the organization policies. Subjected to Dhemaji jurisdiction only.
+                                                                
+                                                            
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12 text-center">
+                                                        <button mat-raised-button color="primary"
+                                                            (click)="saveData()">Final Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body" *ngIf="uploadForm">
+                        <div class="row border border-secondary rounded">
+                            <!-- ********************** -->
+                            <div class="col-sm-12 text-center upload head-color h6">
+                                <h3><b>UPLOAD DOCUMENTS</b></h3>
+                            </div>
+
+                            <div class="col-12" *ngIf="showIncm">
+                                <div class="row">
+                                    <div class="col-sm-4 col-12">
+                                        <label for="inputEmail4">Income proof (Max size 2MB, pdf):</label>
+                                        <label for="inputEmail4">
+                                            <small>3 months bank statement / ITR / Other Income Proof</small>
+                                        </label>
+                                        <div class="form-row">
+                                            <div class="form-group col-12">
+                                                <label class="custom-file-label" for="file">{{EXP_incm_proof}}</label>
+                                                <input type="file" accept="application/pdf" class="custom-file-input"
+                                                    aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                    (change)="onFileSelectedIncm($event)">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-4">
+                                                <button class="btn"
+                                                    [ngClass]="{'btn-success': successIncm==false, 'btn-warning': successIncm}"
+                                                    (click)="uploadIncm()"><i class="fas fa-upload"></i> Upload</button>
+                                            </div>
+
+                                            <div class="form-group col-8" *ngIf="successIncm">
+                                                <p class="text-success">Upload Successful!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12" *ngIf="showProduct">
+                                <div class="row">
+                                    <div class="col-sm-4 col-12">
+                                        <label for="inputEmail4">Product Photo (Max size 200KB, jpg/jpeg/png):</label>
+                                        <div class="form-row">
+                                            <div class="form-group col-12">
+                                                <label class="custom-file-label"
+                                                    for="file">{{Exp_product_photo}}</label>
+                                                <input type="file" accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                    class="custom-file-input" aria-describedby="inputGroupFileAddon01"
+                                                    name="file" id="file" (change)="onFileSelectedProduct($event)">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-4">
+                                                <button class="btn"
+                                                    [ngClass]="{'btn-success': successProduct==false, 'btn-warning': successProduct}"
+                                                    (click)="uploadProduct()"><i class="fas fa-upload"></i>
+                                                    Upload</button>
+                                            </div>
+
+                                            <div class="form-group col-8" *ngIf="successProduct">
+                                                <p class="text-success">Upload Successful!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end model -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>

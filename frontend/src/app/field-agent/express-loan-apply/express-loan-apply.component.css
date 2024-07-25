@@ -1,0 +1,23 @@
+.nav-pills .nav-link {
+    border: none;
+    margin: 5px;
+}
+.head-color{
+    background-color: #99c5ec;
+}
+.li-style{
+    list-style: none;
+}
+    .form-group label .required {
+        color: red;
+        margin-left: 5px; /* Adjust the spacing as needed */
+      }
+
+.upload h3{
+    margin: 0;
+}
+
+.slider-container {
+    max-width: 400px;
+    margin: 50px auto;
+  }

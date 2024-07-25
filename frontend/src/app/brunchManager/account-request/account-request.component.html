@@ -1,0 +1,719 @@
+<!-- Loading starts -->
+<div id="loading-wrapper" *ngIf="isLodaing">
+    <ngx-spinner bdColor="rgba(0,0,0,0.9)" type="ball-clip-rotate"></ngx-spinner>
+</div>
+
+<!-- Loading ends -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="card px-2">
+                <div class="row mb-2">
+                    <div class="col-sm-6 pt-1">
+                        <h1 class="m-0">Account Request</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6 pt-2">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Account Request</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+
+            <div class="mat-elevation-z8">
+                <form class="example-form">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Search Here</mat-label>
+                        <input matInput (keyup)="FilterChange($event)" placeholder="Search">
+                    </mat-form-field>
+                </form>
+                <table mat-table [dataSource]="dataSource">
+
+
+                    <!-- Serial number Column -->
+                    <ng-container matColumnDef="Sl">
+                        <th mat-header-cell *matHeaderCellDef class="text-center"> Sl. No. </th>
+                        <td mat-cell *matCellDef="let element let i = index;" class="text-center">
+                            {{ paginator.pageIndex*paginator.pageSize + (i + 1) }}
+                        </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.f_name}} {{element.l_name}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="ac_no">
+                        <th mat-header-cell *matHeaderCellDef> Account Number </th>
+                        <td mat-cell *matCellDef="let element"> {{element.account_no}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="type">
+                        <th mat-header-cell *matHeaderCellDef> Type </th>
+                        <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="membershipId">
+                        <th mat-header-cell *matHeaderCellDef> Membership ID</th>
+                        <td mat-cell *matCellDef="let element"> {{element.membership_No}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="referenceNo">
+                        <th mat-header-cell *matHeaderCellDef> Reference Number </th>
+                        <td mat-cell *matCellDef="let element"> {{element.reference_no}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <!-- <ng-container matColumnDef="phoneNo">
+                        <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+                        <td mat-cell *matCellDef="let element"> {{element.phone_no}} </td>
+                    </ng-container> -->
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef> Status</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="text-warning" *ngIf="element.status == 'Applied'">{{element.status}} </div>
+                            <div class="text-success" *ngIf="element.status == 'Approved'">{{element.status}} </div>
+                            <div class="text-danger" *ngIf="element.status == 'Reject'">{{element.status}} </div>
+                        </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="apply_date">
+                        <th mat-header-cell *matHeaderCellDef> Apply Date </th>
+                        <td mat-cell *matCellDef="let element"> {{element.createdAt | date:"dd/MM/yyyy"}} </td>
+                    </ng-container>
+
+                    <!-- Action Column -->
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+                        <td mat-cell *matCellDef="let row" class="text-center">
+                            <button (click)="showRequestUpdateModal(row)" data-toggle="modal"
+                                data-target="#requestUpdate" mat-icon-button color="primary"><i
+                                    class="fas fa-arrow-circle-right"></i></button>
+                            <!-- <span *ngIf="row.status == 'Approved'"><button mat-icon-button color="accent"><i class="fas fa-print"></i></button></span> -->
+                            <!-- <a target="_blank" routerLink="/account-request-details/{{row.id}}"><i class="fas fa-arrow-circle-right"></i></a> -->
+                        </td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons
+                    aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </div>
+
+
+            <!-- Main row -->
+            <div class="row">
+
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+    <!-- Account Opening Modal -->
+    <!-- update Modal -->
+    <div class="modal fade" id="requestUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Account Openning Request Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="modalClose">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row  px-4" *ngIf="selectedAccount.status == 'Approved'">
+                        <button printSectionId="print-section" ngxPrint [useExistingCss]="true"
+                            styleSheetFile="../node_modules/bootstrap/dist/css/bootstrap.min.css" mat-raised-button
+                            color="primary"><i class="fas fa-print"></i> print</button>
+                    </div>
+                    <div id="print-section" class="p-4">
+
+                        <div class="row border border-dark rounded p-4">
+                            <div class="col-12 text-center">
+                                <h3><u>MEMBERSHIP DETAILS</u> </h3>
+                            </div>
+                            <div class="col-9 pt-3">
+                                <div class="form-row">
+                                    <div class="form-group col-6">
+                                        <b>Name</b>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <b>:</b> {{selectedAccount.f_name}} {{selectedAccount.l_name}}
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <b>Membership ID</b>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <b>:</b>
+                                        {{selectedAccount.membership_No}}
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <b> Fathers Name</b>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <b>:</b> {{selectedAccount.fathers_name}}
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <b>Address</b>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <b>:</b> {{selectedAccount.address}}
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <b>Date of Birth</b>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <b>:</b> {{selectedAccount.dob}}
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <b>Gender:</b>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <b>:</b> {{selectedAccount.gender}}
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <b>PAN</b>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <b>:</b> {{selectedAccount.panNo}}
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <b>AADHAAR</b>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <b>:</b> {{selectedAccount.adharNo}}
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-2 offset-1">
+                                <img src="{{endpoint}}/docs/customer/{{selectedAccount.membershipId+'_'}}/{{selectedAccount.photo}}"
+                                    class="img-fluid border p-2" alt="photo">
+                                    <br>
+                                    <img src="{{endpoint}}/docs/customer/{{selectedAccount.membershipId+'_'}}/{{selectedAccount.sign}}"
+                                    class="img-fluid border p-2" alt="sign">
+                            </div>
+
+
+                            <div class="form-group col-3">
+                                <b>Purpose of Membership</b>
+                            </div>
+                            <div class="form-group col-3">
+                                <b>:</b> {{selectedAccount.purpose}}
+                            </div>
+
+                            <div class="form-group col-3">
+                                <b>Occupation</b>
+                            </div>
+                            <div class="form-group col-3">
+                                <b>:</b> {{selectedAccount.occupation}}
+                            </div>
+
+                            <div class="form-group col-3">
+                                <b>Introducer Member Name</b>
+                            </div>
+                            <div class="form-group col-3">
+                                <b>:</b> {{selectedAccount.introducer}}
+                            </div>
+
+                            <div class="form-group col-3">
+                                <b>Introducer Membership ID</b>
+                            </div>
+                            <div class="form-group col-3">
+                                <b>:</b> {{selectedAccount.introducer_id}}
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="row border border-dark rounded p-4">
+                            <div class="col-12 text-center">
+                                <h3><u>SHARE APPLICATION</u></h3>
+                            </div>
+                            <div class="col-12 pt-3">
+                                <div class="form-row">
+                                    <div class="form-group col-1">
+                                        <b>Class</b>
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <b>:</b> {{selectedAccount.class}}
+                                    </div>
+
+                                    <div class="form-group col-1">
+                                        <b>Price Rs</b>
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <b>:</b> {{selectedAccount.classPrice}}
+                                    </div>
+
+                                    <div class="form-group col-2">
+                                        <b>Admin Fee</b>
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <b>:</b> {{selectedAccount.classAdminFee}}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row border border-dark rounded p-4">
+                            <div class="col-12 text-center">
+                                <h3><u>NOMINATION</u></h3>
+                            </div>
+                            <div class="col-12 pt-3">
+                                <div class="form-row">
+                                    <div class="form-group col-3">
+                                        <b> Nominee Name</b>
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <b>:</b> {{selectedAccount.nomineeName}}
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <b>Date of Birth</b>
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <b>:</b> {{selectedAccount.nomineeDOB}}
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <b>Date of Birth</b>
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <b>:</b> {{selectedAccount.nomineeDOB}}
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <b>Gender</b>
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <b>:</b> {{selectedAccount.nomineeGender}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col-12">
+                            <div class="form-row" *ngIf="selectedAccount.status == 'Approved'">
+                                <div class="col-12">
+                                    <label for="inputEmail4">Declaration</label>
+
+                                    <label class="form-check-label text-justify" for="exampleCheck1">
+                                        I hereby agree to be a member of the Lakhimi Sanchay and Rindan S.S.
+                                        Limited
+                                        subject to the rules and regulations of the approved Share of the
+                                        Society
+                                        and future amendments to the same. I shall
+                                        maintain my duties and responsibilities as member of the society and
+                                        follow
+                                        up rules & regulations lay down by the society time to time.
+                                        <br>
+                                        (Approval is subject to consideration of BOD. If not, money will
+                                        returned as
+                                        same).
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row border border-dark rounded p-4">
+                            <div class="col-12 text-center">
+                                <h3><u>ACCOUNT APPLICATION</u></h3>
+                            </div>
+                            <div class="col-12 pt-3">
+                                <div class="form-row">
+                                    <div class="form-group col-5">
+                                        <b>Account Type</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.type}}
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>Deposit Scheme</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.scheme}}
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>Deposit Period</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.dep_period}}
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>Frequency</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.dep_frequency}}
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>Start Date</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.startDate}}
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>End Date</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.endDate}}
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>First Instalment Amount</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.first_instlmnt}}
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>Opening Fee</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.openingFee}}
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>CSP/ MSP Code</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.csp_msp}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="row border border-dark rounded p-4">
+                            <div class="col-12 text-center">
+                                <h3><u>BANK ACCOUNT DETAILS</u></h3>
+                            </div>
+                            <div class="col-12 pt-3">
+                                <div class="form-row">
+                                    <div class="form-group col-5">
+                                        <b>Name in Account</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.ac_name}}
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>Account Type</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.ac_type}}
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>Account Number</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.ac_no}}
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>IFSC</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.ac_ifsc}}
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>Bank Name</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.ac_ifsc}}
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>Branch</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> {{selectedAccount.ac_brName}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-12">
+                            <div class="form-row" *ngIf="selectedAccount.status == 'Approved'">
+                                <div class="col-12 text-center">
+                                    <h3><u>Terms and Conditions</u></h3>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-check-label text-justify ft-large" for="exampleCheck1">
+                                        Under the Section- 123 of Assam Cooperative Societies Act,2007 and provision of
+                                        bye-low section -123. This is a mutual deposit scheme for
+                                        the members of the Lakhimi Sanchay and Rindan SS. Ltd. A registered credit
+                                        cooperative society under Assam cooperative societies Act,
+                                        1949(1 of 1950), Regd. No.-DJ270B.
+                                        <br><br>
+                                        <li>The applicant should be a member of the society.</li>
+                                        <li>The applicants are request to read and understand rules of the deposit
+                                            scheme before subscribed.</li>
+                                        <li>The applicants has morale duty to know the rules and regulations of the
+                                            bye-laws of the society.</li>
+                                        <li>The applicants has duty to identify Authorised Representative/MSP-Executive
+                                            before make any payment.</li>
+                                        <li>The pre-maturity claim shall not allowed before 12 months from the date of
+                                            opening.</li>
+                                        <li>The pre-maturity charge is applicable on all type of deposit schemes.</li>
+                                        <li>The Normal Refund Settlement claim period within 30 days(working) from the
+                                            date of submission.</li>
+                                        <li>The Urgent Refund Settlement claim period within 7 days(working) from the
+                                            date of submission.</li>
+                                        <li>The Emergency Refund Settlement claim period within 3 days(working) from the
+                                            date of submission.</li>
+                                        <li>The cash settlement is not more than 20 thousands for an individual/s.</li>
+                                        <li>The matured value shall be paid /credit/ transfer to the depositors bank
+                                            account within the settlement period.</li>
+                                        <li>The late payment penalty is 1% on pending amount.</li>
+                                        <li>The revival period is 3+2 =5 months from the date of last payment.</li>
+                                        <li>The management can be freeze or hold my/ our account if found illegal
+                                            activities.</li>
+                                        <li>Incase of loan overdue or NPA, deposits can be hold where as depositor is
+                                            borrower or guarantee if any.</li>
+                                        <li>The depositor has duty to keep passbook carefully in own custody and update
+                                            at least once in a month.</li>
+                                        <li>The door step collection service is a real time payment service, So check
+                                            and confirm sms before make any payment.</li>
+                                        <li>The Collection Hand Book maintain is a unauthorised activity and no
+                                            liabilities shall be taken by the society.</li>
+                                        <li>No any person/ Collector/ MSP-Executive/ Field Executive allowed to issue
+                                            money receipt on behalf of the society.</li>
+                                        <li>Incase changed existing mobile number replace correct Mobile Number
+                                            immediately in writing your branch.</li>
+                                        <li>The Mobile Banking/ mPassbook / SMS banking activation available for check
+                                            transactions are important key.</li>
+                                        <li>Incase of doubtful transaction/ technical issue/ door step collection issue
+                                            will inform nearest branch immediately.</li>
+                                        <li>Incase of any amendment/ alter/ new rules, execution regarding account
+                                            operation will confirm through the visit- branch/ website/ call to
+                                            customer support/ MSP-Executive.</li>
+                                        <li>The Customer Care Executive : + 91 9707663756</li>
+                                        <li>The Official website : www.lakhimisr.in</li>
+                                        <li>The Official email address : customercare&#64;lakhimisr.in</li>
+                                        <br>
+                                        I, the above mentioned named, do here by agreed and promise to abide terms and
+                                        conditions binding on account operation and will be
+                                        executed by the society time to time. As a responsible member of the society and
+                                        aware citizen of India it is my duty follow up official
+                                        directions of the institution. I also agreed that the deposit subscription is on
+                                        the interest of members only and I shall maintain properly the
+                                        rules mentioned herein above. I will be self-responsible for any loss incase of
+                                        careless activities.
+                                        The above mentioned informations are true and correct on my best of knowledge
+                                        and belief.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="col-12 text-right">
+                            <img src="{{endpoint}}/docs/customer/{{selectedAccount.membershipId+'_'}}/{{selectedAccount.sign}}"
+                                    class="img-fluid border p-2" alt="sign">
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="row border border-dark rounded p-4">
+                            <div class="col-12 text-center">
+                                <h3><u>ACKNOWLEDGEMENT RECEIPT</u></h3>
+                            </div>
+                            <div class="col-10 pt-3">
+                                <div class="form-row">
+                                    <div class="form-group col-3">
+                                        <b>Dear Applicant :</b>
+                                    </div>
+                                    <div class="form-group text-center col-9 lakhimi">
+                                        Welcome to Lakhimi Sanchay and Rindan SS. Ltd.
+                                    </div>
+
+                                    <div class="form-group col-12">
+                                        <b>We received your application for -</b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <img src="../../../assets/image/login/Lakhimi-Logo.png" class="img-fluid"
+                                    alt="Project image">
+                            </div>
+                            <div class="col-12 pt-3">
+                                <div class="form-row">
+                                    <div class="form-group col-3">
+                                        <b>A/c with opening balance</b>
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <b>:</b> {{selectedAccount.opening_balance | currency: 'INR':'symbol':'1.0-0'}}
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <b>and Admin Fee</b>
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <b>:</b> {{50 | currency: 'INR':'symbol':'1.0-0'}}
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <b>Share Subscription</b>
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <b>:</b> {{selectedAccount.classPrice | currency: 'INR':'symbol':'1.0-0'}}
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <b>and Admission Fee</b>
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <b>:</b> {{50 | currency: 'INR':'symbol':'1.0-0'}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-check-label text-justify" for="exampleCheck1">
+                                    Your Membership/ Share / Account opening request is received and forwarding to
+                                    process in System, in case rejection you will
+                                    inform within 7 days.
+                                </label>
+                            </div>
+                            <br>
+                            <div class="col-12 pt-3">
+                                <h4>Contact :</h4>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-row">
+                                    <div class="form-group col-5">
+                                        <b>The Customer Care Executive</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> + 91 9707663756
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>The Official website </b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> www.lakhimisr.in
+                                    </div>
+
+                                    <div class="form-group col-5">
+                                        <b>The Official email address</b>
+                                    </div>
+                                    <div class="form-group col-7">
+                                        <b>:</b> customercare&#64;lakhimisr.in
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col-md-12">
+                            <div class="form-row" *ngIf="selectedAccount.status == 'Applied'">
+                                <div class="col-md-12">
+                                    <label for="inputEmail4">Declaration</label>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1"
+                                            [(ngModel)]="check">
+                                        <label class="form-check-label text-justify" for="exampleCheck1">
+                                            I hereby agree to be a member of the Lakhimi Sanchay and Rindan S.S.
+                                            Limited
+                                            subject to the rules and regulations of the approved Share of the
+                                            Society
+                                            and future amendments to the same. I shall
+                                            maintain my duties and responsibilities as member of the society and
+                                            follow
+                                            up rules & regulations lay down by the society time to time.
+                                            <br>
+                                            (Approval is subject to consideration of BOD. If not, money will
+                                            returned as
+                                            same).
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col-md-12" *ngIf="selectedAccount.status == 'Applied'">
+                            <div class="form-group col-md-4">
+                                <label class="text-danger" for="inputEmail4">Action (Approve/Reject):</label>
+                                <div class="">
+                                    <select class="form-control" id="sourceOfFund" [(ngModel)]="brAction.action">
+                                        <option label="--Please Select --"></option>
+                                        <option value="Approve">
+                                            Approve
+                                        </option>
+                                        <option value="Reject">
+                                            Reject
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12" *ngIf="brAction.action == 'Approve'">
+
+                                <button mat-raised-button color="primary" (click)="approve()">Appove
+                                    application</button>
+                            </div>
+                            <div class="col-sm-12" *ngIf="brAction.action == 'Reject'">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputEmail4">Reason:</label>
+                                        <textarea type="text" class="form-control" id="inputEmail4"
+                                            [(ngModel)]="reject.reason" placeholder="Reason"></textarea>
+                                    </div>
+                                </div>
+                                <button mat-raised-button color="primary" (click)="remark()">Reject</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end model -->
+
+
+
+</div>

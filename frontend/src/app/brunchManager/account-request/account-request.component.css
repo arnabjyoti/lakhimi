@@ -1,0 +1,30 @@
+.mat-column-action {
+    /* word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 18% !important; */
+  /* width: 15% !important; */
+  /* overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto; */
+}
+
+.row{
+  margin: 0;
+}
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+.lakhimi{
+  font-family: 'Caveat', cursive;
+  font-size:x-large;
+}
+.ft-larger{
+  font-size: larger;
+}
+.form-group {
+  margin-bottom: 0.7rem;
+}

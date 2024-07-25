@@ -1,0 +1,348 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Membership Request Details</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">customer</a></li>
+                        <li class="breadcrumb-item active">membership-request-details</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <!-- Main row -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-12" *ngIf="regInput.reference_number != null">
+                                    <h2 class="text-center text-success border">Reference Number: {{regInput.reference_number}}</h2>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">Shop Name:</label>
+                                    <input type="text" class="form-control" [(ngModel)]="regInput.shop_name"
+                                        id="inputEmail4" placeholder="Shop Name">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">Proprietor Name:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.proprietor_name" placeholder="Proprietor Name">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4"> Phone Number 1:</label>
+                                    <input type="number" class="form-control" [(ngModel)]="regInput.contact_number_1"
+                                        id="inputEmail4" placeholder="+91">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4"> Phone Number 2 (Optional):</label>
+                                    <input type="number" class="form-control" [(ngModel)]="regInput.contact_number_2"
+                                        id="inputEmail4" placeholder=" +91 ">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">Phone Number 3 (Optional):</label>
+                                    <input type="number" class="form-control" id="inputEmail4" placeholder=" +91 "
+                                        [(ngModel)]="regInput.contact_number_3">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">GST Number:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.gst_number" placeholder="GST Number">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4"> Account Name:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.ac_name" placeholder="Account Name">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4"> Account Number:</label>
+                                    <input type="number" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.ac_number" placeholder="Account Number">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">IFSC Code:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" [(ngModel)]="regInput.ifsc"
+                                        placeholder="IFSC Code">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">Bank Name:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.bank_name" placeholder="Bank Name">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">Branch Name:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.bank_branch" placeholder="Branch Name">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">City:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" [(ngModel)]="regInput.city"
+                                        placeholder="City">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">Post Office:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" [(ngModel)]="regInput.p_o"
+                                        placeholder="Post Office">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">District:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.district" placeholder="District">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">State:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.state" placeholder="State">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">PIN Code:</label>
+                                    <input type="number" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.pin_code" placeholder="PIN Code">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">Address:</label>
+                                    <textarea type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.address" placeholder="Address"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row"
+                                *ngIf="regInput.status == 'Pending' || regInput.status == 'Reject'">
+                                <div class="col-sm-12 text-center" *ngIf="userFieldAgent">
+                                    <button mat-raised-button color="primary" (click)="updateData()">Update
+                                        form</button>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="col-sm-12 text-center display-28 font-weight-600 p-3">
+                                <u>UPLOAD DOCUMENT</u>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 p-1 border">
+                                    <div class="row">
+                                        <div class="col-12" *ngIf="regInput.shop_photo != null">
+                                            <a target="_blank"
+                                                href="{{endpoint}}/docs/vendor/{{regInput.id+'_'}}/{{regInput.shop_photo}}">
+                                                <div class="btn btn-primary btn-block">SHOP IMAGE</div>
+                                            </a>
+                                        </div>
+                                        <div class="col-12 text-danger" *ngIf="regInput.shop_photo == null">
+                                            PROPRIETOR IMAGE NOT UPLOADED
+                                        </div>
+                                        <div class="col-12" *ngIf="regInput.status == 'Pending' || regInput.status == 'Reject'">
+                                            <div class="form-row p-1" *ngIf="userFieldAgent">
+                                                <div class="form-group col-6">
+                                                    <label class="custom-file-label" for="file">{{shop}}</label>
+                                                    <input type="file"
+                                                        accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                        class="custom-file-input"
+                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                        (change)="onFileSelectedShop($event)">
+                                                </div>
+                                                <div class="form-group col-2">
+                                                    <button mat-raised-button color="primary" (click)="uploadShop()"><i
+                                                            class="fas fa-upload"></i></button>
+                                                </div>
+                                                <div class="form-group col-4" *ngIf="!showShopSc">
+                                                    <p class="text-success">Upload Successful!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-1 border">
+                                    <div class="row">
+                                        <div class="col-12" *ngIf="regInput.proprietor_photo != null">
+                                            <a target="_blank"
+                                                href="{{endpoint}}/docs/vendor/{{regInput.id+'_'}}/{{regInput.proprietor_photo}}">
+                                                <div class="btn btn-primary btn-block">PROPRIETOR IMAGE</div>
+                                            </a>
+                                        </div>
+                                        <div class="col-12 text-danger" *ngIf="regInput.proprietor_photo == null">
+                                            PROPRIETOR IMAGE NOT UPLOADED
+                                        </div>
+                                        <div class="col-12" *ngIf="regInput.status == 'Pending' || regInput.status == 'Reject'">
+                                            <div class="form-row p-1" *ngIf="userFieldAgent">
+                                                <div class="form-group col-6">
+                                                    <label class="custom-file-label" for="file">{{proprietor}}</label>
+                                                    <input type="file"
+                                                        accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                        class="custom-file-input"
+                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                        (change)="onFileSelectedProprietor($event)">
+                                                </div>
+                                                <div class="form-group col-2">
+                                                    <button mat-raised-button color="primary"
+                                                        (click)="uploadProprietor()"><i
+                                                            class="fas fa-upload"></i></button>
+                                                </div>
+                                                <div class="form-group col-3" *ngIf="!showProprietor">
+                                                    <p class="text-success">Upload Successful!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-1 border">
+                                    <div class="row">
+                                        <div class="col-12" *ngIf="regInput.trade_license != null">
+                                            <a target="_blank"
+                                                href="{{endpoint}}/docs/vendor/{{regInput.id+'_'}}/{{regInput.trade_license}}">
+                                                <div class="btn btn-primary btn-block">TRADE LICENSE</div>
+                                            </a>
+                                        </div>
+                                        <div class="col-12 text-danger" *ngIf="regInput.trade_license == null">
+                                            TRADE LICENSE NOT UPLOADED
+                                        </div>
+                                        <div class="col-12" *ngIf="regInput.status == 'Pending' || regInput.status == 'Reject'">
+                                            <div class="form-row p-1" *ngIf="userFieldAgent">
+                                                <div class="form-group col-6">
+                                                    <label class="custom-file-label" for="file">{{trade}}</label>
+                                                    <input type="file"
+                                                        accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                        class="custom-file-input"
+                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                        (change)="onFileSelectedTrade($event)">
+                                                </div>
+                                                <div class="form-group col-2">
+                                                    <button mat-raised-button color="primary" (click)="uploadTrade()"><i
+                                                            class="fas fa-upload"></i></button>
+                                                </div>
+                                                <div class="form-group col-3" *ngIf="!showTradeSc">
+                                                    <p class="text-success">Upload Successful!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-1 border">
+                                    <div class="row">
+                                        <div class="col-12" *ngIf="regInput.gst_certificate != null">
+                                            <a target="_blank"
+                                                href="{{endpoint}}/docs/vendor/{{regInput.id+'_'}}/{{regInput.gst_certificate}}">
+                                                <div class="btn btn-primary btn-block">GST CERTIFICATE</div>
+                                            </a>
+                                        </div>
+                                        <div class="col-12 text-danger" *ngIf="regInput.gst_certificate == null">
+                                            GST CERTIFICATE NOT UPLOADED
+                                        </div>
+                                        <div class="col-12" *ngIf="regInput.status == 'Pending' || regInput.status == 'Reject'">
+                                            <div class="form-row p-1" *ngIf="userFieldAgent">
+                                                <div class="form-group col-6">
+                                                    <label class="custom-file-label" for="file">{{GST}}</label>
+                                                    <input type="file"
+                                                        accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                        class="custom-file-input"
+                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                        (change)="onFileSelectedGST($event)">
+                                                </div>
+                                                <div class="form-group col-2">
+                                                    <button mat-raised-button color="primary" (click)="uploadGST()"><i
+                                                            class="fas fa-upload"></i></button>
+                                                </div>
+                                                <div class="form-group col-3" *ngIf="!showGSTSc">
+                                                    <p class="text-success">Upload Successful!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-1 border">
+                                    <div class="row">
+                                        <div class="col-12" *ngIf="regInput.bank_stmnt != null">
+                                            <a target="_blank"
+                                                href="{{endpoint}}/docs/vendor/{{regInput.id+'_'}}/{{regInput.bank_stmnt}}">
+                                                <div class="btn btn-primary btn-block">BANK STATEMENT</div>
+                                            </a>
+                                        </div>
+                                        <div class="col-12 text-danger" *ngIf="regInput.bank_stmnt == null">
+                                            BANK STATEMENT NOT UPLOADED
+                                        </div>
+                                        <div class="col-12" *ngIf="regInput.status == 'Pending' || regInput.status == 'Reject'">
+                                            <div class="form-row p-1" *ngIf="userFieldAgent">
+                                                <div class="form-group col-6">
+                                                    <label class="custom-file-label" for="file">{{bank}}</label>
+                                                    <input type="file"
+                                                        accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                        class="custom-file-input"
+                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                        (change)="onFileSelectedBank($event)">
+                                                </div>
+                                                <div class="form-group col-2">
+                                                    <button mat-raised-button color="primary" (click)="uploadBank()"><i
+                                                            class="fas fa-upload"></i></button>
+                                                </div>
+                                                <div class="form-group col-3" *ngIf="!showBankSc">
+                                                    <p class="text-success">Upload Successful!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="form-group row p-3" *ngIf="resubmit">
+                                <div class="col-sm-12 text-center" *ngIf="userFieldAgent">
+                                    <button *ngIf="regInput.status == 'Pending' || regInput.status == 'Reject'" mat-raised-button color="primary" (click)="resubmitData()">Resubmit
+                                        form</button>
+                                </div>
+                            </div>
+
+
+                            <br>
+                    <br>
+                    <div class="row" *ngIf="regInput.status == 'Applied' && !userFieldAgent">
+                        <div class="form-group col-md-4" >
+                            <label class="text-danger" for="inputEmail4">Action (Approve/Reject):</label>
+                            <div class="">
+                                <select class="form-control" id="sourceOfFund" [(ngModel)]="brAction.action">
+                                    <option label="--Please Select --"></option>
+                                    <option value="Approve">
+                                        Approve
+                                    </option>
+                                    <option value="Reject">
+                                        Reject
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" *ngIf="brAction.action == 'Approve'">
+                            <button mat-raised-button color="primary" (click)="approve()">Appove application</button>
+                        </div>
+                        <div class="col-sm-12" *ngIf="brAction.action == 'Reject'">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">Reason:</label>
+                                    <textarea type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="reject.reason" placeholder="Reason"></textarea>
+                                </div>
+                            </div>
+                            <button mat-raised-button color="primary" (click)="remark()">Reject</button>
+                        </div>
+                    </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+</div>

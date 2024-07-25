@@ -1,0 +1,878 @@
+<!-- Loading starts -->
+<div id="loading-wrapper" *ngIf="isLodaing">
+    <ngx-spinner bdColor="rgba(0,0,0,0.9)" type="ball-clip-rotate"></ngx-spinner>
+  </div>
+  
+  <!-- Loading ends -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="card px-2">
+                <div class="row mb-2">
+                    <div class="col-sm-6 pt-1">
+                        <h1 class="m-0">New Membership</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6 pt-2">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">New Membership</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card p-2">
+            <!-- Small boxes (Stat box) -->
+            <div class="row justify-content-end p-3">
+                <button mat-raised-button color="primary" data-toggle="modal" data-target="#newMembership">+ New
+                    Membership</button>
+            </div>
+            <div class="mat-elevation-z8">
+                <form class="example-form">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Search Here</mat-label>
+                      <input matInput (keyup)="FilterChange($event)" placeholder="Search">
+                    </mat-form-field>
+                </form>   
+                <table mat-table [dataSource]="dataSource">
+
+
+                    <!-- Serial number Column -->
+                    <ng-container matColumnDef="Sl">
+                        <th mat-header-cell *matHeaderCellDef class="text-center"> Sl. No. </th>
+                        <td mat-cell *matCellDef="let element let i = index;" class="text-center">
+                            {{ paginator.pageIndex*paginator.pageSize + (i + 1) }}
+                        </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="brunch_code">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.f_name}} {{element.l_name}} </td>
+                    </ng-container>
+
+                     <!-- Name Column -->
+                     <ng-container matColumnDef="membership_id">
+                        <th mat-header-cell *matHeaderCellDef> Membership ID</th>
+                        <td mat-cell *matCellDef="let element"> {{element.membership_id}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="brunch_location">
+                        <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+                        <td mat-cell *matCellDef="let element"> {{element.phone_no}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="brunch_adrs">
+                        <th mat-header-cell *matHeaderCellDef> PAN </th>
+                        <td mat-cell *matCellDef="let element"> {{element.panNo}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="brunch_cntct_no">
+                        <th mat-header-cell *matHeaderCellDef> ADHAR </th>
+                        <td mat-cell *matCellDef="let element"> {{element.adharNo}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="brunch_email">
+                        <th mat-header-cell *matHeaderCellDef> Reference Number </th>
+                        <td mat-cell *matCellDef="let element"> {{element.reference_no}} </td>
+                    </ng-container>
+
+                     <!-- Name Column -->
+                     <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef> Status </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="text-warning" *ngIf="element.status == 'Applied'">{{element.status}} </div>
+                            <div class="text-success" *ngIf="element.status == 'Approved'">{{element.status}} </div>
+                            <div class="text-danger" *ngIf="element.status == 'Reject'">{{element.status}} </div>
+                        </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="applyDate">
+                        <th mat-header-cell *matHeaderCellDef> Apply Date </th>
+                        <td mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd/MM/yyyy'}} </td>
+                    </ng-container>
+
+                    <!-- Action Column -->
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+                        <td mat-cell *matCellDef="let row" class="text-center">
+                            <!-- <button (click)="showRequestUpdateModal(row)" data-toggle="modal" data-target="#requestUpdate" mat-raised-button color="primary"><i class="fas fa-arrow-circle-right"></i></button> -->
+                            <a target="_blank" routerLink="/membership-request-details/{{row.id}}" mat-raised-button color="primary"><i class="fas fa-arrow-circle-right"></i></a>
+                        </td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons
+                    aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </div>
+            </div>
+            <!-- Main row -->
+            <div class="row">
+
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+    <!-- Account Opening Modal -->
+    <div class="modal fade" id="newMembership" tabindex="-1" role="dialog" aria-labelledby="newMembershipLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newMembershipLabel">NEW MEMBERSHIP OPEN</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modalClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="card-body">
+                        <!-- <div class="col-sm-12 text-center">
+                            <h3>FRESH MEMBERSHIP APPLICATION</h3>
+                        </div> -->
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">First Name:</label>
+                                    <input type="text" class="form-control" [(ngModel)]="regInput.f_name"
+                                        id="inputEmail4" placeholder="First Name">
+                                </div>
+                                <!-- <div class="form-group col-md-4">
+                                <label for="inputEmail4">Middle Name:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="Middle Name">
+                            </div> -->
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Last Name:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.l_name" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Fathers Name:</label>
+                                    <input type="text" class="form-control" [(ngModel)]="regInput.fathers_name"
+                                        id="inputEmail4" placeholder=" Fathers Name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Phone Number:</label>
+                                    <input type="number" class="form-control" [(ngModel)]="regInput.phone_no"
+                                        id="inputEmail4" placeholder=" +91 ">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Date of Birth:</label>
+                                    <input type="date" class="form-control" id="inputEmail4" placeholder=" "
+                                        [(ngModel)]="regInput.dob">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Gender:</label>
+                                    <select id="inputState" class="form-control" [(ngModel)]="regInput.gender">
+                                        <option label="--Please Select --"></option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Address:</label>
+                                    <textarea type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.address" placeholder="Address"></textarea>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Email:</label>
+                                    <input type="email" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.email" placeholder="Youremail@gmail.com">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> PAN Number:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.panNo" placeholder="PAN Number">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">ADHAR Number:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.adharNo" placeholder="xxxx-xxxx-xxxx">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Purpose of Membership:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.purpose" placeholder="Purpose of Membership">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Occupation:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.occupation" placeholder="Occupation">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Introducer Member Name:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.introducer" placeholder="Introducer Member Name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Introducer Membership ID:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="regInput.introducer_id" placeholder="Introducer Membership ID">
+                                </div>
+                            </div>
+                            <div class="form-group row" *ngIf="!showSaveData">
+                                <div class="col-sm-12 text-center">
+                                    <button mat-raised-button color="primary" (click)="saveData()">Sumbit form</button>
+                                </div>
+                                <!-- <div class="col-sm-12 text-center">
+                                    <button type="button" id="modalClose" class="btn btn-danger"
+                                        data-dismiss="modal">Cancel</button>
+                                </div> -->
+                            </div>
+                            <div *ngIf="!showUpload">
+                                <h2 class="text-center text-success border">Reference Number: {{rfrncNo}}</h2>
+                                <div class="col-sm-12 text-center">
+                                    <h3>UPLOAD DOCUMENT</h3>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12" *ngIf="!showPan">
+                                        <label for="inputEmail4">PAN Card:</label>
+                                        <div class="form-row">
+                                            <div class="form-group col-6">
+                                                <label class="custom-file-label" for="file">{{pan}}</label>
+                                                <input type="file" accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                    class="custom-file-input" aria-describedby="inputGroupFileAddon01"
+                                                    name="file" id="file" (change)="onFileSelect($event)">
+                                            </div>
+                                            <div class="form-group col-2" *ngIf="!showPanBtn">
+                                                <button mat-raised-button color="primary" (click)="uploadPan()"><i
+                                                        class="fas fa-upload"></i></button>
+                                            </div>
+                                            <div class="form-group col-4" *ngIf="!showPanSc">
+                                                <p class="text-success">Upload Successful!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12" *ngIf="!showAdhar">
+                                        <label for="inputEmail4">Adhar Card:</label>
+                                        <div class="form-row">
+                                            <div class="form-group col-6">
+                                                <label class="custom-file-label" for="file">{{adhar}}</label>
+                                                <input type="file" accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                    class="custom-file-input" aria-describedby="inputGroupFileAddon01"
+                                                    name="file" id="file" (change)="onFileSelected($event)">
+                                            </div>
+                                            <div class="form-group col-2" *ngIf="!showAdharBtn">
+                                                <button mat-raised-button color="primary" (click)="uploadAdhar()"><i
+                                                        class="fas fa-upload"></i></button>
+                                            </div>
+                                            <div class="form-group col-3" *ngIf="!showAdharSc">
+                                                <p class="text-success">Upload Successful!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" *ngIf="!showPhoto">
+                                        <label for="inputEmail4">Applicant Image:</label>
+                                        <div class="form-row">
+                                            <div class="form-group col-6">
+                                                <label class="custom-file-label" for="file">{{photo}}</label>
+                                                <input type="file" accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                    class="custom-file-input" aria-describedby="inputGroupFileAddon01"
+                                                    name="file" id="file" (change)="onFileSelectedPhoto($event)">
+                                            </div>
+                                            <div class="form-group col-2" *ngIf="!showPhotoBtn">
+                                                <button mat-raised-button color="primary" (click)="uploadPhoto()"><i
+                                                        class="fas fa-upload"></i></button>
+                                            </div>
+                                            <div class="form-group col-3" *ngIf="!showPhotoSc">
+                                                <p class="text-success">Upload Successful!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12" *ngIf="!showSign">
+                                        <label for="inputEmail4">Applicant Signature:</label>
+                                        <div class="form-row">
+                                            <div class="form-group col-6">
+                                                <label class="custom-file-label" for="file">{{sign}}</label>
+                                                <input type="file" accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                    class="custom-file-input" aria-describedby="inputGroupFileAddon01"
+                                                    name="file" id="file" (change)="onFileSelectedsign($event)">
+                                            </div>
+                                            <div class="form-group col-2" *ngIf="!showSignBtn">
+                                                <button mat-raised-button color="primary" (click)="uploadSign()"><i
+                                                        class="fas fa-upload"></i></button>
+                                            </div>
+                                            <div class="form-group col-3" *ngIf="!showSignSc">
+                                                <p class="text-success">Upload Successful!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- <div class="form-group row" *ngIf="!showSave">
+                        <div class="col-sm-12 text-center">
+                            <button mat-raised-button color="primary" (click)="uploadPan()">Sumbit</button>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <button type="button" id="modalClose" class="btn btn-danger"
+                                data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end model -->
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- update Modal -->
+    <div class="modal fade" id="requestUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Account Openning Request Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" id="modalClose">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">First Name:</label>
+                            <input type="text" class="form-control" [(ngModel)]="selectedMember.f_name"
+                                id="inputEmail4" placeholder="First Name">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">Last Name:</label>
+                            <input type="text" class="form-control" id="inputEmail4"
+                                [(ngModel)]="selectedMember.l_name" placeholder="Last Name">
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4"> Fathers Name:</label>
+                            <input type="text" class="form-control" [(ngModel)]="selectedMember.fathers_name"
+                                id="inputEmail4" placeholder=" Fathers Name">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4"> Phone Number:</label>
+                            <input type="text" class="form-control" [(ngModel)]="selectedMember.phone_no"
+                                id="inputEmail4" placeholder=" +91 " disabled>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label for="inputEmail4">Date of Birth:</label>
+                            <input type="date" class="form-control" id="inputEmail4" placeholder=" "
+                                [(ngModel)]="selectedMember.dob">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputEmail4">Gender:</label>
+                            <select id="inputState" class="form-control" [(ngModel)]="selectedMember.gender">
+                                <option label="--Please Select --"></option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="inputEmail4">Address:</label>
+                            <input type="text" class="form-control" id="inputEmail4"
+                                [(ngModel)]="selectedMember.address" placeholder="Address">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4"> Email:</label>
+                            <input type="email" class="form-control" id="inputEmail4"
+                                [(ngModel)]="selectedMember.email" placeholder="Youremail@gmail.com">
+                        </div>
+
+
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4"> PAN Number:</label>
+                            <input type="text" class="form-control" id="inputEmail4"
+                                [(ngModel)]="selectedMember.panNo" placeholder="PAN Number">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">ADHAR Number:</label>
+                            <input type="number" class="form-control" id="inputEmail4"
+                                [(ngModel)]="selectedMember.adharNo" placeholder="xxxx-xxxx-xxxx">
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4"> Purpose of Membership:</label>
+                            <input type="text" class="form-control" id="inputEmail4"
+                                [(ngModel)]="selectedMember.purpose" placeholder="Purpose of Membership">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">Occupation:</label>
+                            <input type="text" class="form-control" id="inputEmail4"
+                                [(ngModel)]="selectedMember.occupation" placeholder="Occupation">
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4"> Introducer Member Name:</label>
+                            <input type="text" class="form-control" id="inputEmail4"
+                                [(ngModel)]="selectedMember.introducer" placeholder="Introducer Member Name">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">Introducer Membership ID:</label>
+                            <input type="text" class="form-control" id="inputEmail4"
+                                [(ngModel)]="selectedMember.introducer_id" placeholder="Introducer Membership ID">
+                        </div>
+                    </div>
+                    <div class="form-group row"  *ngIf="selectedMember.status == 'Applied' || selectedMember.status == 'Reject'">
+                        <div class="col-sm-12 text-center">
+                            <button mat-raised-button color="primary" (click)="updateData()">Update
+                                form</button>
+                        </div>
+                        <!-- <div class="col-sm-12 text-center">
+                    <button type="button" id="modalClose" class="btn btn-danger"
+                        data-dismiss="modal">Cancel</button>
+                </div> -->
+                    </div>
+                    <div class="col-sm-12 text-center display-28 font-weight-600 p-3">
+                        <u>UPLOAD DOCUMENT</u>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 p-1 border">
+                            <div class="row">
+                                <div class="col-12 text-center p-1">
+                                    <h4>PAN CARD</h4>
+                                </div>
+                                <div class="col-12">
+                                    <img src="{{endpoint}}/docs/{{selectedMember.id+'_'}}/{{selectedMember.panCard}}"
+                                        class="img-fluid border" alt="Project image">
+                                </div>
+                                <div class="col-12" *ngIf="selectedMember.status == 'Applied'">
+                                    <div class="form-row p-1">
+                                        <div class="form-group col-6">
+                                            <label class="custom-file-label" for="file">{{pan}}</label>
+                                            <input type="file"
+                                                accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                class="custom-file-input"
+                                                aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                (change)="onFileSelect($event)">
+                                        </div>
+                                        <div class="form-group col-2">
+                                            <button mat-raised-button color="primary" (click)="uploadPan()"><i
+                                                    class="fas fa-upload"></i></button>
+                                        </div>
+                                        <div class="form-group col-4" *ngIf="!showPanSc">
+                                            <p class="text-success">Upload Successful!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-1 border">
+                            <div class="row">
+                                <div class="col-12 text-center p-1">
+                                    <h4>ADHAR CARD</h4>
+                                </div>
+                                <div class="col-12">
+                                    <img src="../../../assets/image/login/lakhimi-img.png"
+                                        class="img-fluid border" alt="Project image">
+                                </div>
+                                <div class="col-12"  *ngIf="selectedMember.status == 'Applied'">
+                                    <div class="form-row p-1">
+                                        <div class="form-group col-6">
+                                            <label class="custom-file-label" for="file">{{adhar}}</label>
+                                            <input type="file"
+                                                accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                class="custom-file-input"
+                                                aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                (change)="onFileSelected($event)">
+                                        </div>
+                                        <div class="form-group col-2">
+                                            <button mat-raised-button color="primary" (click)="uploadAdhar()"><i
+                                                    class="fas fa-upload"></i></button>
+                                        </div>
+                                        <div class="form-group col-3" *ngIf="!showAdharSc">
+                                            <p class="text-success">Upload Successful!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-1 border">
+                            <div class="row">
+                                <div class="col-12 text-center p-1">
+                                    <h4>PHOTO</h4>
+                                </div>
+                                <div class="col-12">
+                                    <img src="../../../assets/image/login/lakhimi-img.png"
+                                        class="img-fluid border" alt="Project image">
+                                </div>
+                                <div class="col-12"  *ngIf="selectedMember.status == 'Applied'">
+                                    <div class="form-row p-1">
+                                        <div class="form-group col-6">
+                                            <label class="custom-file-label" for="file">{{photo}}</label>
+                                            <input type="file"
+                                                accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                class="custom-file-input"
+                                                aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                (change)="onFileSelectedPhoto($event)">
+                                        </div>
+                                        <div class="form-group col-2">
+                                            <button mat-raised-button color="primary" (click)="uploadPhoto()"><i
+                                                    class="fas fa-upload"></i></button>
+                                        </div>
+                                        <div class="form-group col-3" *ngIf="!showPhotoSc">
+                                            <p class="text-success">Upload Successful!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-1 border">
+                            <div class="row">
+                                <div class="col-12 text-center p-1">
+                                    <h4>SIGNATURE</h4>
+                                </div>
+                                <div class="col-12">
+                                    <img src="../../../assets/image/login/lakhimi-img.png"
+                                        class="img-fluid border" alt="Project image">
+                                </div>
+                                <div class="col-12"  *ngIf="selectedMember.status == 'Applied'">
+                                    <div class="form-row p-1">
+                                        <div class="form-group col-6">
+                                            <label class="custom-file-label" for="file">{{sign}}</label>
+                                            <input type="file"
+                                                accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                class="custom-file-input"
+                                                aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                (change)="onFileSelectedsign($event)">
+                                        </div>
+                                        <div class="form-group col-2">
+                                            <button mat-raised-button color="primary" (click)="uploadSign()"><i
+                                                    class="fas fa-upload"></i></button>
+                                        </div>
+                                        <div class="form-group col-3" *ngIf="!showSignSc">
+                                            <p class="text-success">Upload Successful!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end model -->
+
+
+
+
+
+
+
+
+
+    <!-- closing Modal -->
+    <div class="modal fade" id="closingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ACCOUNT CLOSING FORM</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="card-body">
+                        <div class="col-sm-12 text-center">
+                            <h3>ACCOUNT CLOSING REQUEST</h3>
+                            <h3>CLOSING TYPE</h3>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4"> Closing Type:</label>
+                                <select id="inputState" class="form-control">
+                                    <option selected>Please Select</option>
+                                    <option>Maturity</option>
+                                    <option>Prematurit</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Claim Type :</label>
+                                <select id="inputState" class="form-control">
+                                    <option selected>Please Select</option>
+                                    <option>Same Day Settlement (T+1) </option>
+                                    <option>Emergency Settlement (T+3)</option>
+                                    <option>Urgent Settlement (T+7) </option>
+                                    <option>General Settlement (T+30)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-sm-12 text-center">
+                            <h3>ACCOUNT DETAILS</h3>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4"> Account Type:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="Account Type ">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Customer ID:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="Customer ID">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4"> Start Date :</label>
+                                <!-- <input type="date" class="form-control" id="inputEmail4" placeholder=" " [(ngModel)]="formDetails.AppointmentDate"> -->
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Closing Date:</label>
+                                <!-- <input type="date" class="form-control" id="inputEmail4" placeholder=" " [(ngModel)]="formDetails.AppointmentDate"> -->
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">A/c Number:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="A/c Number ">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">MSP/ CSP Code:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="MSP/ CSP Code">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">A/c holder name:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="A/c holder name ">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4"> Branch Name:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="Branch Name ">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="inputEmail4">Fit back/ Experience with us:</label>
+                                <input type="text" class="form-control" id="inputEmail4"
+                                    placeholder="Fit back/ Experience with us">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4"> Alternative Mobile number :</label>
+                                <input type="text" class="form-control" id="inputEmail4"
+                                    placeholder="Alternative Mobile number ">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Email ID:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="Email ID">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-sm-12 text-center">
+                            <h3>MSS APPLICATION</h3>
+                            <h3>Member Suraksha Scheme</h3>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">MSS-499:</label>
+                                    <input type="text" class="form-control" id="inputEmail4">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">Price Rs:</label>
+                                    <input type="text" class="form-control" id="inputEmail4">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">Admin Fee:</label>
+                                    <input type="text" class="form-control" id="inputEmail4">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4"> MSS-999:</label>
+                                    <input type="text" class="form-control" id="inputEmail4">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">Price Rs:</label>
+                                    <input type="text" class="form-control" id="inputEmail4">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">Admin Fee:</label>
+                                    <input type="text" class="form-control" id="inputEmail4">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Start Date :</label>
+                                    <!-- <input type="date" class="form-control" id="inputEmail4" placeholder=" " [(ngModel)]="formDetails.AppointmentDate"> -->
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Expired Date:</label>
+                                    <!-- <input type="date" class="form-control" id="inputEmail4" placeholder=" " [(ngModel)]="formDetails.AppointmentDate"> -->
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr>
+                        <div class="col-sm-12 text-center">
+                            <h3>NOMINATION</h3>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Nominee Name:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        placeholder=" Nominee Name">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Date of Birth:</label>
+                                    <!-- <input type="date" class="form-control" id="inputEmail4" placeholder=" " [(ngModel)]="formDetails.AppointmentDate"> -->
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Gender:</label>
+                                    <select id="inputState" class="form-control">
+                                        <option selected>Please Select</option>
+                                        <option>...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Mobile Number:</label>
+                                    <input type="number" class="form-control" id="inputEmail4"
+                                        placeholder="Mobile Number">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 text-center">
+                                <h3>ACCOUNT APPLICATION</h3>
+                                <h3>New Account for Existing Member</h3>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Account Type:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        placeholder="Account Type ">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Customer ID:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Customer ID">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Deposit Period:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        placeholder="Account Type ">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Frequency:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Customer ID">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Start Date :</label>
+                                    <!-- <input type="date" class="form-control" id="inputEmail4" placeholder=" " [(ngModel)]="formDetails.AppointmentDate"> -->
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">End Date:</label>
+                                    <!-- <input type="date" class="form-control" id="inputEmail4" placeholder=" " [(ngModel)]="formDetails.AppointmentDate"> -->
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">First Instalment Amount:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        placeholder="First Instalment Amount">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Opening Fee:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Opening Fee">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Alternative Mobile No.:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        placeholder="Alternative Mobile No.">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Email Address :</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        placeholder="Email Address ">
+                                </div>
+                            </div>
+                            <hr>
+
+                        </div>
+
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12 text-center">
+                            <button mat-raised-button color="primary">Sumbit</button>
+                        </div>
+                        <!-- <div class="col-sm-12 text-center">
+                         <button type="button" id="modalClose" class="btn btn-danger"
+                             data-dismiss="modal">Cancel</button>
+                     </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,425 @@
+<!-- Loading starts -->
+<div id="loading-wrapper" *ngIf="isLodaing">
+    <ngx-spinner bdColor="rgba(0,0,0,0.9)" type="ball-clip-rotate"></ngx-spinner>
+</div>
+
+<!-- Loading ends -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="card px-2">
+                <div class="row mb-2">
+                    <div class="col-sm-6 pt-1">
+                        <h1 class="m-0">Account Close Application</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6 pt-2">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Account Close Application</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card p-2">
+                <!-- Small boxes (Stat box) -->
+                <div class="row justify-content-end p-3">
+                    <button mat-raised-button color="primary" data-toggle="modal" data-target="#loneClosing">+
+                        New Request Apply</button>
+                </div>
+            </div>
+            <!-- Main row -->
+            <div class="row">
+
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card p-2">
+                <div class="mat-elevation-z8">
+                    <form class="example-form">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Search Here</mat-label>
+                            <input matInput (keyup)="FilterChange($event)" placeholder="Search">
+                        </mat-form-field>
+                    </form>
+                    <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+
+                        <!-- Serial number Column -->
+                        <ng-container matColumnDef="Sl">
+                            <th mat-header-cell *matHeaderCellDef class="text-center"> Sl. No. </th>
+                            <td mat-cell *matCellDef="let element let i = index;" class="text-center">
+                                {{ paginator.pageIndex*paginator.pageSize + (i + 1) }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="claiming_ac_holder_name">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef>Ac Holder Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.claiming_ac_holder_name}}</td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="closing_type">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Closing Type</th>
+                            <td mat-cell *matCellDef="let element"> {{element.closing_type}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="reference_no">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef> Reference Number </th>
+                            <td mat-cell *matCellDef="let element"> {{element.reference_no}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="fwd_status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Office </th>
+                            <td mat-cell *matCellDef="let element"> {{element.fwd_status}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="closing_status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                            <td mat-cell *matCellDef="let element">
+                                <div class="text-warning" *ngIf="element.closing_status == 'Applied'">
+                                    {{element.closing_status}}</div>
+                                <div class="text-success" *ngIf="element.closing_status == 'Completed'">
+                                    {{element.closing_status}}</div>
+                                <div class="text-purple" *ngIf="element.closing_status == 'Approved'">
+                                    {{element.closing_status}} </div>
+                                <div class="text-danger" *ngIf="element.closing_status == 'Rejected'">
+                                    {{element.closing_status}} </div>
+                                <div class="text-info" *ngIf="element.closing_status == 'Documents not Uploaded'">
+                                    {{element.closing_status}} </div>
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="apply_date">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Apply Date </th>
+                            <td mat-cell *matCellDef="let element"> {{element.apply_date | date:"dd/MM/yyyy"}} </td>
+                        </ng-container>
+
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+                            <td mat-cell *matCellDef="let element" class="text-center">
+                                <a *ngIf="element.closing_status == 'Applied' || element.closing_status == 'Completed' || element.closing_status == 'Approved' || element.closing_status == 'Rejected'"
+                                    target="_blank" routerLink="/close-account-details/{{element.id}}" mat-raised-button
+                                    color="primary"><i class="fas fa-arrow-circle-right"></i></a>
+                                <a *ngIf="element.closing_status == 'Documents not Uploaded' || element.bm_status == 'Rejected'" target="_blank" routerLink="/account-close-request-details-update/{{element.id}}" mat-raised-button
+                                    color="purple"><i class="fas fa-arrow-circle-right"></i></a>
+
+                            </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                    <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons
+                        aria-label="Select page of periodic elements">
+                    </mat-paginator>
+                </div>
+
+            </div>
+            <!-- Main row -->
+            <div class="row">
+
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+    <!-- Loan Account Opening Modal -->
+    <div class="modal fade" id="loneClosing" tabindex="-1" role="dialog" aria-labelledby="accountOpeningLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accountOpeningLabel">ACCOUNT CLOSING</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="modalClose" (click)="resetForm()">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="card-body">
+
+                        <div class="col-12">
+
+                            <div class="col-sm-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>closing type:<span class="required">*</span></label>
+                                        <select class="form-control" [(ngModel)]="inputForm.closing_type">
+                                            <option label="Please Select"></option>
+                                            <option value="General">General (30 Days)</option>
+                                            <option value="Urgent">Urgent (7 Days)</option>
+                                            <option value="Emergency">Emergency (3 Days)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Claim for:<span class="required">*</span></label>
+                                        <select class="form-control" [(ngModel)]="inputForm.claim_for">
+                                            <option label="Please Select"></option>
+                                            <option value="Maturity">Maturity</option>
+                                            <option value="Pre-Maturity">Pre-Maturity</option>
+                                            <option value="Death Claim">Death Claim</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Type of Account:<span class="required">*</span></label>
+                                        <select class="form-control" [(ngModel)]="inputForm.type_of_ac">
+                                            <option label="Please Select"></option>
+                                            <option value="Daily Deposit">Daily Deposit</option>
+                                            <option value="Monthly Savings">Monthly Savings</option>
+                                            <option value="Fixed Deposit">Fixed Deposit</option>
+                                            <option value="Others">Others</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4" *ngIf="inputForm.type_of_ac == 'Others'">
+                                        <label>Specify:<span class="required">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Specify"
+                                            [(ngModel)]="inputForm.specify">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>New AC No.:<span class="required">*</span></label>
+                                        <input type="number" class="form-control" placeholder="New AC No."
+                                            [(ngModel)]="inputForm.new_ac_no">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Open Date:<span class="required">*</span></label>
+                                        <input type="date" class="form-control" placeholder="Model"
+                                            [(ngModel)]="inputForm.open_date">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>End:<span class="required">*</span></label>
+                                        <input type="date" class="form-control" placeholder="Model"
+                                            [(ngModel)]="inputForm.end_date">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Cause of pre-maturity:</label>
+                                        <input type="text" class="form-control" placeholder="Cause of pre-maturity"
+                                            [(ngModel)]="inputForm.cause">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 text-center head-color h6">
+                                <h3><b>CLAIMING ACCOUNT DETAILS</b></h3>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>Ac Holder Name:<span class="required">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Ac Holder Name"
+                                            [(ngModel)]="inputForm.claiming_ac_holder_name">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Account No.:<span class="required">*</span></label>
+                                        <input type="number" class="form-control" placeholder="Account No."
+                                            [(ngModel)]="inputForm.claiming_ac_no">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>C. ID:<span class="required">*</span></label>
+                                        <input type="text" class="form-control" placeholder="C. ID"
+                                            [(ngModel)]="inputForm.claiming_c_id">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Opening Date:<span class="required">*</span></label>
+                                        <input type="date" class="form-control" placeholder="Serial No."
+                                            [(ngModel)]="inputForm.claiming_opening_date">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Closing Date:<span class="required">*</span></label>
+                                        <input type="date" class="form-control" placeholder="Serial No."
+                                            [(ngModel)]="inputForm.claiming_closing_date">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Agent Name:<span class="required">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Agent Name"
+                                            [(ngModel)]="inputForm.claiming_agent_name">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Code:<span class="required">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Code"
+                                            [(ngModel)]="inputForm.claiming_code">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Branch Name:<span class="required">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Branch Name"
+                                            [(ngModel)]="inputForm.claiming_branch_name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 text-center head-color h6">
+                                <h3><b>NOMINEE DETAILS</b></h3>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Nominee Name:<span class="required">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Nominee Name"
+                                            [(ngModel)]="inputForm.nominee_name">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Address:<span class="required">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Address"
+                                            [(ngModel)]="inputForm.address">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 text-center head-color h6">
+                                <h3><b>BANK ACCOUNT DETAILS FOR PAYMENT</b></h3>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>Bank Name:<span class="required">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Bank Name"
+                                            [(ngModel)]="inputForm.bank_name">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Branch Name:<span class="required">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Branch Name"
+                                            [(ngModel)]="inputForm.br_name">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Name in Account:<span class="required">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Name in Account"
+                                            [(ngModel)]="inputForm.name_ac">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Account number:<span class="required">*</span></label>
+                                        <input type="number" class="form-control" placeholder="Account number"
+                                            [(ngModel)]="inputForm.ac_no">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>IFSC Code No.:<span class="required">*</span></label>
+                                        <input type="text" class="form-control" placeholder="IFSC Code No."
+                                            [(ngModel)]="inputForm.ifsc">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row" *ngIf="inputFormBtn">
+                                <div class="col-sm-12 text-center">
+                                    <button mat-raised-button color="primary" (click)="saveData()">Submit</button>
+                                </div>
+                            </div>
+
+                            <div *ngIf="uploadForm">
+                                <div class="col-sm-12 text-center upload head-color h6">
+                                    <h3><b>UPLOAD DOCUMENTS</b></h3>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-12">
+                                            <label for="inputEmail4">Lakhimi Passbook (Max size 200KB, jpg/jpeg/png):</label>
+                                            <!-- <label for="inputEmail4">
+                                                                    <small>3 months bank statement / ITR / Other Income Proof</small>
+                                                                </label> -->
+                                            <div class="form-row">
+                                                <div class="form-group col-12">
+                                                    <label class="custom-file-label" for="file">{{Lakhimi_pass}}</label>
+                                                    <input type="file" accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                        class="custom-file-input"
+                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                        (change)="onFileSelectedLakhimi($event)">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-4">
+                                                    <button class="btn"
+                                                        [ngClass]="{'btn-success': successLakhimi==false, 'btn-warning': successLakhimi}"
+                                                        (click)="uploadLakhimiPass()"><i class="fas fa-upload"></i>
+                                                        Upload</button>
+                                                </div>
+
+                                                <div class="form-group col-8" *ngIf="successLakhimi">
+                                                    <p class="text-success">Upload Successful!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12" *ngIf="passbook_bank">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-12">
+                                            <label for="inputEmail4">Bank Passbook (Max size 200KB,
+                                                jpg/jpeg/png):</label>
+                                            <div class="form-row">
+                                                <div class="form-group col-12">
+                                                    <label class="custom-file-label" for="file">{{bankPass}}</label>
+                                                    <input type="file"
+                                                        accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                        class="custom-file-input"
+                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                        (change)="onFileSelectedBank($event)">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-4">
+                                                    <button class="btn"
+                                                        [ngClass]="{'btn-success': successBank==false, 'btn-warning': successBank}"
+                                                        (click)="uploadBankPass()"><i class="fas fa-upload"></i>
+                                                        Upload</button>
+                                                </div>
+
+                                                <div class="form-group col-8" *ngIf="successBank">
+                                                    <p class="text-success">Upload Successful!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- end model -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>

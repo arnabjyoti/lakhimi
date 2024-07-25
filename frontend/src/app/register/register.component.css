@@ -1,0 +1,19 @@
+.bg-style {
+    background-color: #fdf9dd;
+}
+.form-bg {
+    background: -webkit-linear-gradient(#8CA6DB, #B993D6);
+    background: linear-gradient(#8CA6DB, #B993D6);
+    opacity: 0.85;
+    filter: alpha(opacity=85);
+    background-size: cover;
+    background-position: center;
+}
+
+.form-bg a {
+    color: #ff0000;
+}
+.form-bg a:hover {
+    color: #fff200;
+    text-decoration: none;
+}

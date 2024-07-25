@@ -1,0 +1,7 @@
+.head-color{
+    background-color: #99c5ec;
+}
+.form-group label .required {
+    color: red;
+    margin-left: 5px; /* Adjust the spacing as needed */
+}

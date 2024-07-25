@@ -1,0 +1,376 @@
+<!-- Loading starts -->
+<div id="loading-wrapper" *ngIf="isLodaing">
+  <ngx-spinner bdColor="rgba(0,0,0,0.9)" type="ball-clip-rotate"></ngx-spinner>
+</div>
+
+<!-- Loading ends -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item active"><a href="#">Home</a></li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row" *ngIf="user.role == 'head_office'">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{membershipAppliedCount}}</h3>
+
+                <p>New Membership Applications</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-document"></i>
+              </div>
+              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-orange">
+              <div class="inner">
+                <h3>{{membershipApproveCount}}</h3>
+
+                <p>Approved Membership</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-checkmark-round"></i>
+              </div>
+              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-fuchsia">
+              <div class="inner">
+                <h3>{{accountAppliedCount}}</h3>
+
+                <p>New Account Application</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-document"></i>
+              </div>
+              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-purple">
+              <div class="inner">
+                <h3>{{accountApproveCount}}</h3>
+
+                <p>Approved Account</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-checkmark-round"></i>
+              </div>
+              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{branchCount}}<sup style="font-size: 20px"></sup></h3>
+
+                <p>Branch</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-fork-repo"></i>
+              </div>
+              <a routerLink="/branch-list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{branchManagerCount}}</h3>
+
+                <p>Branch Manager</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-android-contact"></i>
+              </div>
+              <a routerLink="/branch-details" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{fieldAgentCount}}</h3>
+
+                <p>Field agent</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-stalker"></i>
+              </div>
+              <a routerLink="/field-agent" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-lightblue">
+              <div class="inner">
+                <h3>{{adminloanAppliedCount}}</h3>
+
+                <p>Loan Applied</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-document"></i>
+              </div>
+              <a routerLink="/loan-request-list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-lime">
+              <div class="inner">
+                <h3>{{adminloanApprovedCount}}</h3>
+
+                <p>Loan Approved</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-checkmark-round"></i>
+              </div>
+              <a routerLink="/loan-request-list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <!-- Main row -->
+
+        <!-- Small boxes (Stat box) -->
+        <div class="row" *ngIf="user.role == 'branch_manager'">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{membershipAppliedCount}}</h3>
+
+                <p>New Membership Applications</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-document"></i>
+              </div>
+              <a routerLink="/membership-request" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-orange">
+              <div class="inner">
+                <h3>{{membershipApproveCount}}</h3>
+
+                <p>Approved Membership</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-checkmark-round"></i>
+              </div>
+              <a routerLink="/membership-request" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-fuchsia">
+              <div class="inner">
+                <h3>{{accountAppliedCount}}</h3>
+
+                <p>New Account Application</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-document"></i>
+              </div>
+              <a routerLink="/account-request" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-purple">
+              <div class="inner">
+                <h3>{{accountApproveCount}}</h3>
+
+                <p>Approved Account</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-checkmark-round"></i>
+              </div>
+              <a routerLink="/account-request" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{fieldAgentCount}}</h3>
+
+                <p>Field agent</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-stalker"></i>
+              </div>
+              <a routerLink="/loan-apply-request" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-lightblue">
+              <div class="inner">
+                <h3>{{branchLoanAppliedCount}}</h3>
+
+                <p>Loan Applied</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-document"></i>
+              </div>
+              <a routerLink="/loan-apply-request" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-lime">
+              <div class="inner">
+                <h3>{{branchLoanApprovedCount}}</h3>
+
+                <p>Loan Approved</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-checkmark-round"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Small boxes (Stat box) -->
+        <div class="row" *ngIf="user.role == 'field_agent'">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{membershipAppliedCount}}</h3>
+
+                <p>New Membership Applications</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-document"></i>
+              </div>
+              <a routerLink="/new-membership-opening" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-orange">
+              <div class="inner">
+                <h3>{{membershipApproveCount}}</h3>
+
+                <p>Approved Membership</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-checkmark-round"></i>
+              </div>
+              <a routerLink="/new-membership-opening" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-fuchsia">
+              <div class="inner">
+                <h3>{{accountAppliedCount}}</h3>
+
+                <p>New Account Application</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-document"></i>
+              </div>
+              <a routerLink="/new-account-opening" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-purple">
+              <div class="inner">
+                <h3>{{accountApproveCount}}</h3>
+
+                <p>Approved Account</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-checkmark-round"></i>
+              </div>
+              <a routerLink="/new-account-opening" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-pink">
+              <div class="inner">
+                <h3>{{loanAppliedCount}}</h3>
+
+                <p>New Loan Application</p>
+              </div>
+              <div class="icon">
+                <i class="ion-ios-infinite"></i>
+              </div>
+              <a routerLink="/loan-apply" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-teal">
+              <div class="inner">
+                <h3>{{loanApproveCount}}</h3>
+
+                <p>Approved Loan</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-checkmark-round"></i>
+              </div>
+              <a routerLink="/loan-apply" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+         
+        </div>
+        <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  

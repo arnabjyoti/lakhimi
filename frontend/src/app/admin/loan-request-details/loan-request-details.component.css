@@ -1,0 +1,154 @@
+table {
+    width: 100%;
+}
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+}
+th, td{
+}
+.row{
+    margin: 0;
+}
+
+.form-group label .required {
+    color: red;
+    margin-left: 5px; /* Adjust the spacing as needed */
+  }
+
+.btn-link {
+    color: black;
+}
+
+.btn-link:hover{
+    
+    color:rgb(250, 76, 33);
+}
+
+.btn:not(:disabled):not(.disabled) {
+    text-decoration: none;
+}
+
+.btn.focus, .btn:focus {
+    box-shadow: none;
+}
+
+.head-text-logo{
+    font-size: 22px;
+    font-weight: 700;
+}
+.list-style ul{
+    list-style: lower-alpha;
+    text-align: justify;
+}
+.list-style ul li{
+    padding: 5px 0px 5px 0px ;
+}
+.list-style ul li ul{
+    list-style: lower-roman;
+}
+
+.list-style-none ul{
+    list-style: none;
+    text-align: justify;
+    padding: 5px 0px 5px 0px ;
+}
+.list-style-none ul li{
+    padding: 5px 0px 5px 0px ;
+}
+.list-style-none ul li ul{
+    list-style: lower-alpha;
+}
+
+
+.list-style-num ul{
+    list-style: auto;
+}
+.list-style-num ul li{
+    padding: 5px 0px 5px 0px ;
+}
+.list-style-num ul li ul{
+    list-style: lower-alpha;
+}
+.list-style-num ul li ul li ul{
+    list-style: lower-roman;
+}
+.agrmnt-padding{
+  padding: 0px 90px 0px 90px;
+}
+
+
+
+.progress-step {
+    text-align: center;
+  }
+
+  .step-number-one {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background-color: #be7bf8;
+    border: 2px solid #ddd;
+    color: #6c757d;
+    font-weight: bold;
+  }
+  .step-number-two {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background-color: #f6ba67;
+    border: 2px solid #ddd;
+    color: #6c757d;
+    font-weight: bold;
+  }
+  .step-number-three {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background-color: #b6f376;
+    border: 2px solid #ddd;
+    color: #6c757d;
+    font-weight: bold;
+  }
+  .step-number-four {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background-color: #79fbe3;
+    border: 2px solid #ddd;
+    color: #6c757d;
+    font-weight: bold;
+  }
+  .step-number-five {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background-color: #93daf9;
+    border: 2px solid #ddd;
+    color: #6c757d;
+    font-weight: bold;
+  }
+
+  .step-title {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  .progress-bar {
+    background-color: #007bff;
+    /* height: 5px; */
+  }
+  .sm-txt{
+    font-size: 65%;
+  }
+  

@@ -1,0 +1,1148 @@
+<!-- Loading starts -->
+<div id="loading-wrapper" *ngIf="isLodaing">
+    <ngx-spinner bdColor="rgba(0,0,0,0.9)" type="ball-clip-rotate"></ngx-spinner>
+</div>
+
+<!-- Loading ends -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="card px-2">
+                <div class="row mb-2">
+                    <div class="col-sm-6 pt-1">
+                        <h1 class="m-0">New Account Opening</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6 pt-2">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">New Account Opening</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card p-2">
+                <!-- Small boxes (Stat box) -->
+                <div class="row justify-content-end p-3">
+                    <button mat-raised-button color="primary" data-toggle="modal" data-target="#accountOpening">+
+                        Account
+                        opening</button>
+                </div>
+                <div class="mat-elevation-z8">
+                    <form class="example-form">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Search Here</mat-label>
+                            <input matInput (keyup)="FilterChange($event)" placeholder="Search">
+                        </mat-form-field>
+                    </form>
+                    <table mat-table [dataSource]="dataSource">
+
+
+                        <!-- Serial number Column -->
+                        <ng-container matColumnDef="Sl">
+                            <th mat-header-cell *matHeaderCellDef class="text-center"> Sl. No. </th>
+                            <td mat-cell *matCellDef="let element let i = index;" class="text-center">
+                                {{ paginator.pageIndex*paginator.pageSize + (i + 1) }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.f_name}} {{element.l_name}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="account_no">
+                            <th mat-header-cell *matHeaderCellDef> Account Number </th>
+                            <td mat-cell *matCellDef="let element"> {{element.account_no}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="type">
+                            <th mat-header-cell *matHeaderCellDef> Type </th>
+                            <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="membershipId">
+                            <th mat-header-cell *matHeaderCellDef> Membership ID</th>
+                            <td mat-cell *matCellDef="let element"> {{element.membership_No}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="referenceNo">
+                            <th mat-header-cell *matHeaderCellDef> Reference Number </th>
+                            <td mat-cell *matCellDef="let element"> {{element.reference_no}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="phoneNo">
+                            <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+                            <td mat-cell *matCellDef="let element"> {{element.phone_no}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef> Status </th>
+                            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="apply_date">
+                            <th mat-header-cell *matHeaderCellDef> Apply Date </th>
+                            <td mat-cell *matCellDef="let element"> {{element.createdAt | date:"dd/MM/yyyy"}} </td>
+                        </ng-container>
+
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+                            <td mat-cell *matCellDef="let row" class="text-center">
+                                <button (click)="showRequestUpdateModal(row)" data-toggle="modal"
+                                    data-target="#requestUpdate" mat-raised-button color="primary"><i
+                                        class="fas fa-arrow-circle-right"></i></button>
+                                <!-- <a target="_blank" routerLink="/account-request-details/{{element.id}}"><i class="fas fa-arrow-circle-right"></i></a> -->
+                            </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                    <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons
+                        aria-label="Select page of periodic elements">
+                    </mat-paginator>
+                </div>
+            </div>
+            <!-- Main row -->
+            <div class="row">
+
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+    <!-- Account Opening Modal -->
+    <div class="modal fade" id="accountOpening" tabindex="-1" role="dialog" aria-labelledby="accountOpeningLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accountOpeningLabel">NEW ACCOUNT OPEN</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="modalClose" (click)="resetForm()">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="card-body">
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="number" min="0" class="form-control" id="inputEmail4"
+                                        placeholder="Membership ID " [(ngModel)]="ckInput.membershipId">
+                                </div>
+                                <div class="form-group col-2">
+                                    <button mat-raised-button color="primary" (click)="checkMember()">Search</button>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="col-md-12 text-center text-danger" *ngIf="notFound">
+                            <h2>No data found!</h2>
+                        </div>
+                        <div *ngIf="found">
+                            <div class="col-sm-12 text-center">
+                                <h3>MEMBERSHIP DETAILS</h3>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">First Name:</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            placeholder="First Name" disabled [(ngModel)]="memberData.f_name">
+                                    </div>
+                                    <!-- <div class="form-group col-md-4">
+                                <label for="inputEmail4">Middle Name:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="Middle Name">
+                            </div> -->
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Last Name:</label>
+                                        <input type="text" class="form-control" id="inputEmail4" placeholder="Last Name"
+                                            disabled [(ngModel)]="memberData.l_name">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4"> Fathers Name:</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            placeholder=" Fathers Name" disabled [(ngModel)]="memberData.fathers_name">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Address:</label>
+                                        <textarea class="form-control" id="inputEmail4" placeholder="Address" disabled
+                                            [(ngModel)]="memberData.address"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Date of Birth:</label>
+                                        <input type="date" class="form-control" id="inputEmail4" placeholder=" "
+                                            disabled [(ngModel)]="memberData.dob">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Gender:</label>
+                                        <input type="text" class="form-control" id="inputEmail4" placeholder=" "
+                                            disabled [(ngModel)]="memberData.gender">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4"> Purpose of Membership:</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            placeholder="Purpose of Membership" disabled
+                                            [(ngModel)]="memberData.purpose">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Occupation:</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            placeholder="Occupation" disabled [(ngModel)]="memberData.occupation">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4"> Introducer Member Name:</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            placeholder="Introducer Member Name" disabled
+                                            [(ngModel)]="memberData.introducer">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Membership ID:</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            placeholder="Membership ID" disabled [(ngModel)]="memberData.introducer_id">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="col-sm-12 text-center">
+                                <h3>SHARE APPLICATION</h3>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputEmail4">Class:</label>
+                                        <select id="inputState" class="form-control" [(ngModel)]="memberData.class">
+                                            <option label="Please Select"></option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputEmail4">Price Rs:</label>
+                                        <select id="inputState" class="form-control" *ngIf="memberData.class == 'A'"
+                                            [(ngModel)]="memberData.classPrice">
+                                            <option value="100">100</option>
+                                        </select>
+                                        <select id="inputState" class="form-control" *ngIf="memberData.class == 'B'"
+                                            [(ngModel)]="memberData.classPrice">
+                                            <option value="20000">20000</option>
+                                        </select>
+                                        <select id="inputState" class="form-control" *ngIf="memberData.class == 'C'"
+                                            [(ngModel)]="memberData.classPrice">
+                                            <option value="10000">10000</option>
+                                        </select>
+                                        <select id="inputState" class="form-control" *ngIf="memberData.class == 'D'"
+                                            [(ngModel)]="memberData.classPrice">
+                                            <option value="110">110</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputEmail4">Admin Fee:</label>
+                                        <input type="number" min="0" class="form-control" id="inputEmail4" disabled=""
+                                            [(ngModel)]="memberData.classAdminFee">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">PAN:</label>
+                                        <input type="text" class="form-control" id="inputEmail4" disabled
+                                            [(ngModel)]="memberData.panNo">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">AADHAAR:</label>
+                                        <input type="number" min="0" class="form-control" id="inputEmail4" disabled
+                                            [(ngModel)]="memberData.adharNo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 text-center">
+                                <h3>NOMINATION</h3>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4"> Nominee Name:</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            placeholder=" Nominee Name" [(ngModel)]="memberData.nomineeName">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Date of Birth:</label>
+                                        <input type="date" class="form-control" id="inputEmail4" placeholder=" "
+                                            [(ngModel)]="memberData.nomineeDOB">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Gender:</label>
+                                        <select id="inputState" class="form-control"
+                                            [(ngModel)]="memberData.nomineeGender">
+                                            <option label="Please Select"></option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Mobile Number:</label>
+                                        <input type="number" min="0" class="form-control" id="inputEmail4"
+                                            placeholder="Mobile Number" [(ngModel)]="memberData.nomineePhnoe">
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                            <hr>
+                            <div class="col-sm-12 text-center">
+                                <h3>ACCOUNT APPLICATION</h3>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Account Type:</label>
+                                        <select id="inputState" class="form-control" [(ngModel)]="memberData.type">
+                                            <option label="Please Select"></option>
+                                            <option value="Savings Bank Account">Savings Bank Account</option>
+                                            <option value="Daily Deposit Account">Daily Deposit Account</option>
+                                            <option value="Recurring Deposit Account">Recurring Deposit Account</option>
+                                            <option value="Term Deposit/FD Account">Term Deposit/FD Account</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Deposit Scheme:</label>
+                                        <select id="inputState" class="form-control"
+                                            *ngIf="memberData.type == 'Savings Bank Account'"
+                                            [(ngModel)]="memberData.scheme">
+                                            <option label="--Please Select --"></option>
+                                            <option value="Coop: Savings Deposit (CDS)">Coop: Savings Deposit (CDS)
+                                            </option>
+                                        </select>
+                                        <select id="inputState" class="form-control"
+                                            *ngIf="memberData.type == 'Daily Deposit Account'"
+                                            [(ngModel)]="memberData.scheme">
+                                            <option label="--Please Select --"></option>
+                                            <option value="Home Savings Deposit Ac (HSD)">Home Savings Deposit Ac (HSD)
+                                            </option>
+                                            <option value="Daily Savings Deposit Ac (DSD)">Daily Savings Deposit Ac
+                                                (DSD)</option>
+                                        </select>
+                                        <select id="inputState" class="form-control"
+                                            *ngIf="memberData.type == 'Recurring Deposit Account'"
+                                            [(ngModel)]="memberData.scheme">
+                                            <option label="--Please Select --"></option>
+                                            <option value="Monthly Savings Deposit (MSD)">Monthly Savings Deposit (MSD)
+                                            </option>
+                                            <option value="Super Savings Deposit (SSD)">Super Savings Deposit (SSD)
+                                            </option>
+                                        </select>
+                                        <select id="inputState" class="form-control"
+                                            *ngIf="memberData.type == 'Term Deposit/FD Account'"
+                                            [(ngModel)]="memberData.scheme">
+                                            <option label="--Please Select --"></option>
+                                            <option value="Dhanlaxmi Time Deposit (DTD)">Dhanlaxmi Time Deposit (DTD)
+                                            </option>
+                                            <option value="Pragati Fixed Deposit (PFD)">Pragati Fixed Deposit (PFD)
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Deposit Period:</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            [(ngModel)]="memberData.dep_period">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Frequency:</label>
+                                        <select class="form-control" [(ngModel)]="memberData.dep_frequency">
+                                            <option label="Please Select"></option>
+                                            <option value="Weekly">Weekly</option>
+                                            <option value="Daily">Daily</option>
+                                            <option value="Fortnight">Fortnight</option>
+                                            <option value="Monthly">Monthly</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Start Date:</label>
+                                        <input type="date" class="form-control" id="inputEmail4" placeholder=" "
+                                            [(ngModel)]="memberData.startDate">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">End Date:</label>
+                                        <input type="date" class="form-control" id="inputEmail4" placeholder=" "
+                                            [(ngModel)]="memberData.endDate">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">First Instalment Amount:</label>
+                                        <input type="number" min="0" class="form-control" id="inputEmail4"
+                                            [(ngModel)]="memberData.first_instlmnt">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Opening Fee:</label>
+                                        <input type="number" min="0" class="form-control" id="inputEmail4"
+                                            [(ngModel)]="memberData.openingFee">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">A/c with opening balance:</label>
+                                        <input type="number" min="0" class="form-control" id="inputEmail4"
+                                            [(ngModel)]="memberData.opening_balance">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">CSP/ MSP Code:</label>
+                                        <input type="text" class="form-control" id="inputEmail4" disabled
+                                            value="{{user.f_name}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="col-sm-12 text-center">
+                                <h3>BANK ACCOUNT DETAILS</h3>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Name in Account:</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            [(ngModel)]="memberData.ac_name">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Account Type:</label>
+                                        <select class="form-control" [(ngModel)]="memberData.ac_type">
+                                            <option label="Please Select"></option>
+                                            <option value="Savings">Savings</option>
+                                            <option value="Current">Current</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Account Number:</label>
+                                        <input type="number" min="0" class="form-control" id="inputEmail4"
+                                            [(ngModel)]="memberData.ac_no">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">IFSC:</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            [(ngModel)]="memberData.ac_ifsc">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Bank Name:</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            [(ngModel)]="memberData.ac_bankName">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Branch:</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            [(ngModel)]="memberData.ac_brName">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <label for="inputEmail4">Declaration</label>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1"
+                                            [(ngModel)]="check">
+                                        <label class="form-check-label text-justify" for="exampleCheck1">
+                                            I hereby agree to be a member of the Lakhimi Sanchay and Rindan S.S. Limited
+                                            subject to the rules and regulations of the approved Share of the Society
+                                            and future amendments to the same. I shall
+                                            maintain my duties and responsibilities as member of the society and follow
+                                            up rules & regulations lay down by the society time to time.
+                                            <br>
+                                            (Approval is subject to consideration of BOD. If not, money will
+                                            returned as
+                                            same).
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group row">
+                                <div class="col-sm-12 text-center">
+                                    <button mat-raised-button color="primary" (click)="saveData()">Sumbit</button>
+                                </div>
+                                <!-- <div class="col-sm-12 text-center">
+                                <button type="button" id="modalClose" class="btn btn-danger"
+                                    data-dismiss="modal">Cancel</button>
+                            </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end model -->
+
+
+
+
+    <!-- update Modal -->
+
+    <div class="modal fade" id="requestUpdate" tabindex="-1" role="dialog" aria-labelledby="accountOpeningLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accountOpeningLabel">NEW ACCOUNT OPEN</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="updateModalClose">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="card-body">
+
+                        <div class="col-sm-12 text-center">
+                            <h3>MEMBERSHIP DETAILS</h3>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">First Name:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="First Name"
+                                        disabled [(ngModel)]="accountData.f_name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Last Name:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Last Name"
+                                        disabled [(ngModel)]="accountData.l_name">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Fathers Name:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder=" Fathers Name"
+                                        disabled [(ngModel)]="accountData.fathers_name">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Address:</label>
+                                    <textarea class="form-control" id="inputEmail4" placeholder="Address" disabled
+                                        [(ngModel)]="accountData.address"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Date of Birth:</label>
+                                    <input type="date" class="form-control" id="inputEmail4" placeholder=" " disabled
+                                        [(ngModel)]="accountData.dob">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Gender:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder=" " disabled
+                                        [(ngModel)]="accountData.gender">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Purpose of Membership:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        placeholder="Purpose of Membership" disabled [(ngModel)]="accountData.purpose">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Occupation:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Occupation"
+                                        disabled [(ngModel)]="accountData.occupation">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Introducer Member Name:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        placeholder="Introducer Member Name" disabled
+                                        [(ngModel)]="accountData.introducer">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Membership ID:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Membership ID"
+                                        disabled [(ngModel)]="accountData.introducer_id">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-sm-12 text-center">
+                            <h3>SHARE APPLICATION</h3>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">Class:</label>
+                                    <select id="inputState" class="form-control" [(ngModel)]="accountData.class">
+                                        <option label="Please Select"></option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">Price Rs:</label>
+                                    <select id="inputState" class="form-control" *ngIf="accountData.class == 'A'"
+                                        [(ngModel)]="accountData.classPrice">
+                                        <option value="100">100</option>
+                                    </select>
+                                    <select id="inputState" class="form-control" *ngIf="accountData.class == 'B'"
+                                        [(ngModel)]="accountData.classPrice">
+                                        <option value="20000">20000</option>
+                                    </select>
+                                    <select id="inputState" class="form-control" *ngIf="memberData.class == 'C'"
+                                        [(ngModel)]="accountData.classPrice">
+                                        <option value="10000">10000</option>
+                                    </select>
+                                    <select id="inputState" class="form-control" *ngIf="accountData.class == 'D'"
+                                        [(ngModel)]="accountData.classPrice">
+                                        <option value="110">110</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">Admin Fee:</label>
+                                    <input type="number" min="0" class="form-control" id="inputEmail4" disabled=""
+                                        [(ngModel)]="accountData.classAdminFee">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">PAN:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" disabled
+                                        [(ngModel)]="memberData.panNo">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">AADHAAR:</label>
+                                    <input type="number" min="0" class="form-control" id="inputEmail4" disabled
+                                        [(ngModel)]="memberData.adharNo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <h3>NOMINATION</h3>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Nominee Name:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder=" Nominee Name"
+                                        [(ngModel)]="accountData.nomineeName">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Date of Birth:</label>
+                                    <input type="date" class="form-control" id="inputEmail4" placeholder=" "
+                                        [(ngModel)]="accountData.nomineeDOB">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Gender:</label>
+                                    <select id="inputState" class="form-control"
+                                        [(ngModel)]="accountData.nomineeGender">
+                                        <option label="Please Select"></option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Mobile Number:</label>
+                                    <input type="number" min="0" class="form-control" id="inputEmail4"
+                                        placeholder="Mobile Number" [(ngModel)]="accountData.nomineePhnoe">
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                        <hr>
+                        <div class="col-sm-12 text-center">
+                            <h3>ACCOUNT APPLICATION</h3>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Account Type:</label>
+                                    <select id="inputState" class="form-control" [(ngModel)]="accountData.type">
+                                        <option label="Please Select"></option>
+                                        <option value="Savings Bank Account">Savings Bank Account</option>
+                                        <option value="Daily Deposit Account">Daily Deposit Account</option>
+                                        <option value="Recurring Deposit Account">Recurring Deposit Account</option>
+                                        <option value="Term Deposit/FD Account">Term Deposit/FD Account</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Deposit Scheme:</label>
+                                    <select id="inputState" class="form-control"
+                                        *ngIf="accountData.type == 'Savings Bank Account'"
+                                        [(ngModel)]="accountData.scheme">
+                                        <option label="--Please Select --"></option>
+                                        <option value="Coop: Savings Deposit (CDS)">Coop: Savings Deposit (CDS)</option>
+                                    </select>
+                                    <select id="inputState" class="form-control"
+                                        *ngIf="accountData.type == 'Daily Deposit Account'"
+                                        [(ngModel)]="accountData.scheme">
+                                        <option label="--Please Select --"></option>
+                                        <option value="Home Savings Deposit Ac (HSD)">Home Savings Deposit Ac (HSD)
+                                        </option>
+                                        <option value="Daily Savings Deposit Ac (DSD)">Daily Savings Deposit Ac (DSD)
+                                        </option>
+                                    </select>
+                                    <select id="inputState" class="form-control"
+                                        *ngIf="accountData.type == 'Recurring Deposit Account'"
+                                        [(ngModel)]="accountData.scheme">
+                                        <option label="--Please Select --"></option>
+                                        <option value="Monthly Savings Deposit (MSD)">Monthly Savings Deposit (MSD)
+                                        </option>
+                                        <option value="Super Savings Deposit (SSD)">Super Savings Deposit (SSD)</option>
+                                    </select>
+                                    <select id="inputState" class="form-control"
+                                        *ngIf="accountData.type == 'Term Deposit/FD Account'"
+                                        [(ngModel)]="accountData.scheme">
+                                        <option label="--Please Select --"></option>
+                                        <option value="Dhanlaxmi Time Deposit (DTD)">Dhanlaxmi Time Deposit (DTD)
+                                        </option>
+                                        <option value="Pragati Fixed Deposit (PFD)">Pragati Fixed Deposit (PFD)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Deposit Period:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="accountData.dep_period">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Frequency:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="accountData.dep_frequency">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Start Date:</label>
+                                    <input type="date" class="form-control" id="inputEmail4" placeholder=" "
+                                        [(ngModel)]="accountData.startDate">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">End Date:</label>
+                                    <input type="date" class="form-control" id="inputEmail4" placeholder=" "
+                                        [(ngModel)]="accountData.endDate">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">First Instalment Amount:</label>
+                                    <input type="number" min="0" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="accountData.first_instlmnt">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Opening Fee:</label>
+                                    <input type="number" min="0" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="accountData.openingFee">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">A/c with opening balance:</label>
+                                    <input type="number" min="0" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="accountData.opening_balance">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">CSP/ MSP Code:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" disabled=""
+                                        [(ngModel)]="accountData.csp_msp">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-sm-12 text-center">
+                            <h3>BANK ACCOUNT DETAILS</h3>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Name in Account:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="accountData.ac_name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Account Type:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="accountData.ac_type">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Account Number:</label>
+                                    <input type="number" min="0" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="accountData.ac_no">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">IFSC:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="accountData.ac_ifsc">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Bank Name:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="accountData.ac_bankName">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Branch:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        [(ngModel)]="accountData.ac_brName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" *ngIf="accountData.status == 'Applied'">
+                            <div class="col-md-12">
+                                <label for="inputEmail4">Declaration</label>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1"
+                                        [(ngModel)]="checkUpdate">
+                                    <label class="form-check-label text-justify" for="exampleCheck1">
+                                        I hereby agree to be a member of the Lakhimi Sanchay and Rindan S.S. Limited
+                                        subject to the rules and regulations of the approved Share of the Society and
+                                        future amendments to the same. I shall
+                                        maintain my duties and responsibilities as member of the society and follow up
+                                        rules & regulations lay down by the society time to time.
+                                        <br>
+                                        (Approval is subject to consideration of BOD. If not, money will
+                                        returned as
+                                        same).
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row" *ngIf="accountData.status == 'Applied'">
+                            <div class="col-sm-12 text-center">
+                                <button mat-raised-button color="primary" (click)="updateData()">Update
+                                    form</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- end model -->
+
+
+
+
+
+
+    <!-- closing Modal -->
+    <div class="modal fade" id="closingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ACCOUNT CLOSING FORM</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="card-body">
+                        <div class="col-sm-12 text-center">
+                            <h3>ACCOUNT CLOSING REQUEST</h3>
+                            <h3>CLOSING TYPE</h3>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4"> Closing Type:</label>
+                                <select id="inputState" class="form-control">
+                                    <option selected>Please Select</option>
+                                    <option>Maturity</option>
+                                    <option>Prematurit</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Claim Type :</label>
+                                <select id="inputState" class="form-control">
+                                    <option selected>Please Select</option>
+                                    <option>Same Day Settlement (T+1) </option>
+                                    <option>Emergency Settlement (T+3)</option>
+                                    <option>Urgent Settlement (T+7) </option>
+                                    <option>General Settlement (T+30)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-sm-12 text-center">
+                            <h3>ACCOUNT DETAILS</h3>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4"> Account Type:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="Account Type ">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Customer ID:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="Customer ID">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4"> Start Date :</label>
+                                <!-- <input type="date" class="form-control" id="inputEmail4" placeholder=" " [(ngModel)]="formDetails.AppointmentDate"> -->
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Closing Date:</label>
+                                <!-- <input type="date" class="form-control" id="inputEmail4" placeholder=" " [(ngModel)]="formDetails.AppointmentDate"> -->
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">A/c Number:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="A/c Number ">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">MSP/ CSP Code:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="MSP/ CSP Code">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">A/c holder name:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="A/c holder name ">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4"> Branch Name:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="Branch Name ">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="inputEmail4">Fit back/ Experience with us:</label>
+                                <input type="text" class="form-control" id="inputEmail4"
+                                    placeholder="Fit back/ Experience with us">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4"> Alternative Mobile number :</label>
+                                <input type="text" class="form-control" id="inputEmail4"
+                                    placeholder="Alternative Mobile number ">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Email ID:</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="Email ID">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-sm-12 text-center">
+                            <h3>MSS APPLICATION</h3>
+                            <h3>Member Suraksha Scheme</h3>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">MSS-499:</label>
+                                    <input type="text" class="form-control" id="inputEmail4">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">Price Rs:</label>
+                                    <input type="text" class="form-control" id="inputEmail4">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">Admin Fee:</label>
+                                    <input type="text" class="form-control" id="inputEmail4">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4"> MSS-999:</label>
+                                    <input type="text" class="form-control" id="inputEmail4">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">Price Rs:</label>
+                                    <input type="text" class="form-control" id="inputEmail4">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">Admin Fee:</label>
+                                    <input type="text" class="form-control" id="inputEmail4">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Start Date :</label>
+                                    <!-- <input type="date" class="form-control" id="inputEmail4" placeholder=" " [(ngModel)]="formDetails.AppointmentDate"> -->
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Expired Date:</label>
+                                    <!-- <input type="date" class="form-control" id="inputEmail4" placeholder=" " [(ngModel)]="formDetails.AppointmentDate"> -->
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr>
+                        <div class="col-sm-12 text-center">
+                            <h3>NOMINATION</h3>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Nominee Name:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        placeholder=" Nominee Name">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Date of Birth:</label>
+                                    <!-- <input type="date" class="form-control" id="inputEmail4" placeholder=" " [(ngModel)]="formDetails.AppointmentDate"> -->
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Gender:</label>
+                                    <select id="inputState" class="form-control">
+                                        <option selected>Please Select</option>
+                                        <option>...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Mobile Number:</label>
+                                    <input type="number" min="0" class="form-control" id="inputEmail4"
+                                        placeholder="Mobile Number">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 text-center">
+                                <h3>ACCOUNT APPLICATION</h3>
+                                <h3>New Account for Existing Member</h3>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Account Type:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        placeholder="Account Type ">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Customer ID:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Customer ID">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Deposit Period:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        placeholder="Account Type ">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Frequency:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Customer ID">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Start Date :</label>
+                                    <!-- <input type="date" class="form-control" id="inputEmail4" placeholder=" " [(ngModel)]="formDetails.AppointmentDate"> -->
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">End Date:</label>
+                                    <!-- <input type="date" class="form-control" id="inputEmail4" placeholder=" " [(ngModel)]="formDetails.AppointmentDate"> -->
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">First Instalment Amount:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        placeholder="First Instalment Amount">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Opening Fee:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Opening Fee">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Alternative Mobile No.:</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        placeholder="Alternative Mobile No.">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"> Email Address :</label>
+                                    <input type="text" class="form-control" id="inputEmail4"
+                                        placeholder="Email Address ">
+                                </div>
+                            </div>
+                            <hr>
+
+                        </div>
+
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12 text-center">
+                            <button mat-raised-button color="primary">Sumbit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

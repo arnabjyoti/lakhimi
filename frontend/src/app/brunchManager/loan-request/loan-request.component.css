@@ -1,0 +1,14 @@
+.head-color{
+    background-color: #99c5ec;
+}
+h3{
+    margin: 0;
+}
+.form-group label .required {
+    color: red;
+    margin-left: 5px; /* Adjust the spacing as needed */
+}
+.rqrd .required {
+    color: red;
+    margin-left: 5px; /* Adjust the spacing as needed */
+}

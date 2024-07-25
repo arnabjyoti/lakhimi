@@ -1,0 +1,113 @@
+<div class="container-fluid pt-2">
+    <div class="row pt-3">
+        <div class="col-md-4 offset-md-4 border rounded py-5 form-bg text-white">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3>REGISTRATION</h3>
+                </div>
+            </div>
+            <!-- <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Full Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="userCredentials.f_name" placeholder="Full Name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Mobile Number</label>
+                    <input type="number" class="form-control" [(ngModel)]="userCredentials.email" placeholder="Mobile Number">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">OTP</label>
+                    <input type="number" class="form-control" [(ngModel)]="userCredentials.email" placeholder="Mobile Number OTP">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email ID</label>
+                    <input type="email" class="form-control" [(ngModel)]="userCredentials.email" placeholder="Email ID">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">OTP</label>
+                    <input type="number" class="form-control" [(ngModel)]="userCredentials.email" placeholder="Email ID OTP">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Department</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                      <option>Select Department</option>
+                      <option *ngFor="let data of departmentName" [value]="data.id">{{data.dept_name}}</option>
+                    </select>
+                  </div>
+                <button type="submit" class="btn btn-block btn-primary">Sign Up</button>
+                <div class="form-check pt-2 p-0">
+                    <label class="form-check-label" for="exampleCheck1">Already have an account? <a href="#">Login</a></label>
+                  </div>
+                </form> -->
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <input type="email" class="form-control" [ngClass]="showVerify ? 'is-valid' : ''" placeholder="Email address" id=" validationServer01" [(ngModel)]="userCredentials.email">
+                        <!-- <div class="valid-feedback" *ngIf="showVerify">
+                            Verified!
+                          </div> -->
+                    </div>
+                    <div class="form-group col-md-12" *ngIf="!showOTPInput">
+                        <button class="btn btn-success btn-block" (click)="sendOtp()"  [disabled]="isRegister" placeholder="OTP">Send OTP</button>
+                    </div>
+                    <!-- <div class="form-group col-md-4 text-success" *ngIf="showVerify">
+                        <i class="fa-solid fa-check"></i>Varified
+                    </div> -->
+                </div>
+                <div class="form-row" *ngIf="showVerify">
+                    <div class="form-group col-md-12">
+                        <input type="text" class="form-control" [(ngModel)]="userCredentials.f_name" placeholder="Full Name">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <input type="text" class="form-control" [(ngModel)]="userCredentials.m_name" placeholder="Middle Name">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <input type="text" class="form-control" [(ngModel)]="userCredentials.l_name" placeholder="Last Name">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>Select Department</option>
+                            <option *ngFor="let data of departmentName" [value]="data.id">{{data.dept_name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <button (click)="register()" *ngIf="showOTPInput" class="btn btn-block btn-danger" [disabled]="isRegister">Register</button>
+                    </div>
+                    </div>
+                    <div class="form-row" *ngIf="showOTPInput && !showVerify">
+                        <div class="form-row text-center p-3">
+                            <div class="form-group col-2">
+                              <input type="text" class="form-control otp-input" [(ngModel)]="OTP.otp11" maxlength="1" #otp1 (input)="focusNext(otp2)" />
+                            </div>
+                            <div class="form-group col-2">
+                              <input type="text" class="form-control otp-input" [(ngModel)]="OTP.otp22" maxlength="1" #otp2 (input)="focusNext(otp3)" />
+                            </div>
+                            <div class="form-group col-2">
+                              <input type="text" class="form-control otp-input" [(ngModel)]="OTP.otp33" maxlength="1" #otp3 (input)="focusNext(otp4)" />
+                            </div>
+                            <div class="form-group col-2">
+                              <input type="text" class="form-control otp-input" [(ngModel)]="OTP.otp44" maxlength="1" #otp4 (input)="focusNext(otp5)" />
+                            </div>
+                            <div class="form-group col-2">
+                              <input type="text" class="form-control otp-input" [(ngModel)]="OTP.otp55" maxlength="1" #otp5 (input)="focusNext(otp6)" />
+                            </div>
+                            <div class="form-group col-2">
+                              <input type="text" class="form-control otp-input" [(ngModel)]="OTP.otp66" maxlength="1" #otp6 />
+                            </div>
+                          </div>
+                        <!-- <div class="form-group col-md-12">
+                            <input type="number" [(ngModel)]="OTP.otp1" class="form-control" maxlength="1" />
+                        </div> -->
+                        <div class="form-group col-md-6">
+                            <button (click)="verifyOtpData()" *ngIf="showOTPInput" class="btn btn-block btn-danger" [disabled]="isRegister">Verify OTP</button>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <button (click)="verifyOtpData()" *ngIf="showOTPInput" class="btn btn-block btn-warning" [disabled]="isRegister">Resend OTP</button>
+                        </div>
+                    </div>
+                    <div class="form-check pt-2 p-0">
+                        <label class="form-check-label" for="exampleCheck1">Already have an account? <a href="">Login</a></label>
+                      </div>
+               
+        </div>
+    </div>
+</div>
