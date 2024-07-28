@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { brunchData } from '../brunch/brunch.component';
 import { NgxPrintModule } from 'ngx-print';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-cash-counter-payment-list',
@@ -46,6 +47,12 @@ export class CashCounterPaymentListComponent implements OnInit{
     branch_name: "",
     entry_date: "",
   }
+  
+  public brunch_name: any;
+
+  public brunchList: any;
+  public selectedBrunchId: number = 0;
+  
   
   public isLodaing = true;
   public endpoint: any;
@@ -87,6 +94,7 @@ export class CashCounterPaymentListComponent implements OnInit{
 
   ngOnInit(): void {
     this.loanApplyList();
+    this.getBrunch();
   }
 
   spiner() {
@@ -96,6 +104,15 @@ export class CashCounterPaymentListComponent implements OnInit{
     }, 5000);
   }
   
+
+  getBrunch=()=>{
+    let requestObject = {};
+    
+    this.CashCounterPaymentListService.getBrunch(requestObject, (callback:any)=>{
+      console.log(callback);
+      this.brunchList = callback;
+    });  
+  }
 
   loanApplyList() {
     let requestObject = {};
@@ -115,6 +132,17 @@ export class CashCounterPaymentListComponent implements OnInit{
   }
 
   applyFilter() {
+    console.log("brnchhhhhhhhhhhhhhh",this.selectedBrunchId);
+    console.log('Filtering from', this.startDate, 'to', this.endDate);
+
+    // if (this.selectedBrunchId == 0) {
+    //   console.log("ifff");
+      
+    // }else if(this.selectedBrunchId > 0){
+    //   console.log("else");
+    // }
+
+
     let isValid = this.validateFilter();
     if (isValid) {
     if (this.startDate && this.endDate) {
@@ -122,25 +150,72 @@ export class CashCounterPaymentListComponent implements OnInit{
             ele.click();
       // Your filter logic here
       // For example, filtering an array of data based on the date range
-      console.log('Filtering from', this.startDate, 'to', this.endDate);
+      
+      if (this.selectedBrunchId == 0) {
+        let requestObject = {
+          startDate: this.startDate,
+          endDate: this.endDate,
+        };
+        this.CashCounterPaymentListService.filterDataByCashier(requestObject, (callback: any) => {
+          console.log("filter data", callback);
+  
+  
+            this.items = callback;
+            this.openModal();
+        })        
+      }else if(this.selectedBrunchId > 0){
+        // this.brunch_name = this.brunchList.some((user: User:any) => this.brunchList.id === this.selectedBrunchId);
+// console.log("11111");
+
+        for (const item of this.brunchList) {
+          // console.log("22222",item);
+          if (item.id == this.selectedBrunchId) {
+            // console.log("33333");
+            this.brunch_name = item.brunch_name;
+            // console.log("vvvvvvvvvvvvvvvvv",this.brunch_name);
+            
+            break;
+          }
+        }
+
+        let requestObject = {
+          brunchId: this.selectedBrunchId,
+          startDate: this.startDate,
+          endDate: this.endDate,
+        };
+        this.CashCounterPaymentListService.filterDataCondition(requestObject, (callback: any) => {
+          console.log("filter data", callback);
+  
+  
+            this.items = callback;
+            this.openModal();
+        })
+      }
 
 
-      let requestObject = {
-        brunchId: this.brunchId,
-        startDate: this.startDate,
-        endDate: this.endDate,
-      };
-      this.CashCounterPaymentListService.filterDataByCashier(requestObject, (callback: any) => {
-        console.log("filter data", callback);
+      // let requestObject = {
+      //   brunchId: this.selectedBrunchId,
+      //   startDate: this.startDate,
+      //   endDate: this.endDate,
+      // };
+      // this.CashCounterPaymentListService.filterDataByCashier(requestObject, (callback: any) => {
+      //   console.log("filter data", callback);
 
 
-          this.items = callback;
-          // this.downloadPdf();
-      })
+      //     this.items = callback;
+      // })
     }
   } 
   }
   
+
+  openModal() {
+    const modalElement = document.getElementById('loanAccountOpeningPdf');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
 
   validateFilter(){
     if (this.startDate === null || this.startDate === undefined) {

@@ -443,6 +443,7 @@ stopCamera() {
 
   save() {
     console.log("Uploading image", this.file);
+    console.log("input data", this.inputForm);
     let isValid = this.validateIncm();
     if (isValid) {
       this.isAllowedFile(this.file, (res: any) => {

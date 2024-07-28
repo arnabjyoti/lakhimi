@@ -397,4 +397,29 @@ getFreeCashier(req, res){
   .catch(error => res.status(400).send(error));
   
   },
+
+
+filterDataCondition(req, res) {
+  console.log("xxxxxxxxxxxxxxxxxxxxxxxxx",req.body.requestObject);
+  return cashCounterPaymentModel
+  .findAll({
+    where: {
+      brunchId: req.body.requestObject.brunchId,
+      status: "Active",
+      entry_date: {
+        [Op.between]: [req.body.requestObject.startDate, req.body.requestObject.endDate],
+      },
+    },
+    order: [
+      ['createdAt', 'ASC']
+    ],
+    raw: true,
+  })
+  .then(data => {
+    console.log("hhhhhhhhhhhhhhh",data);
+    return res.status(200).send(data);
+})
+.catch(error => res.status(400).send(error));
+
+},
 }

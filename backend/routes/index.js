@@ -89,6 +89,8 @@ module.exports = (app) => {
 	app.post('/api/filterDataByCashierBranch', CashierController.filterDataByCashierBranch);
 
 	app.post('/api/filterDataAll', CashierController.filterDataAll);
+
+	app.post('/api/filterDataCondition', CashierController.filterDataCondition);
 	
 
 	//Field Agent 

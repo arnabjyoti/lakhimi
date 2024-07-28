@@ -36,6 +36,14 @@
                             <input class="form-control" (keyup)="FilterChange($event)" placeholder="Search here">
                         </div>
                         <div class="col-md-2 p-1">
+                            <select id="inputState" class="form-control" [(ngModel)]="selectedBrunchId">
+                                <!-- <option label="All Branch"></option> -->
+                                 <option value="0">All Branch</option>
+                                <option *ngFor="let list of brunchList;" value="{{list.id}}">
+                                    {{list.brunch_name}}  -  ({{list.brunch_code}})
+                            </select>
+                        </div>
+                        <div class="col-md-2 p-1">
                             <input type="date" class="form-control" id="inputEmail4" placeholder=" "
                                 [(ngModel)]="startDate">
                         </div>
@@ -44,7 +52,7 @@
                                 [(ngModel)]="endDate">
                         </div>
                         <div class="col-md-1 p-1">
-                            <button mat-raised-button color="primary" data-toggle="modal" data-target="#loanAccountOpeningPdf" (click)="applyFilter()"><i class="fas fa-filter"></i></button>
+                            <button mat-raised-button color="primary" (click)="applyFilter()"><i class="fas fa-filter"></i></button>
 
                         </div>
                     </div>
@@ -188,6 +196,8 @@
                                             </div>
                                             <div class="col-sm-12 pdf-download" id="print-first-form">
                                                 <p>Data showing from<b> Start Date: </b>{{startDate}} - to <b>End Date: </b>{{endDate}}</p>
+                                                <p *ngIf="selectedBrunchId == 0">Branch: All Branch</p>
+                                                <p *ngIf="selectedBrunchId > 0">Branch: {{brunch_name | uppercase}}</p>
                                                 <p>Total Number of transactions: {{items.length}}</p>
                                                 <br>
                                                 <table class="table-one">
