@@ -15,6 +15,25 @@ export class LoanService {
     private toastr: ToastrService
   ) { }
 
+  getBrunch(req:any, callback:any) {
+    const ENDPOINT = `${environment.BASE_URL}/api/getBrunch`;
+    const requestOptions = {
+      headers: this.headers,
+      method: 'post'
+    };
+    this.http.get(ENDPOINT, requestOptions).subscribe(
+      (response) => {
+        console.log('Success');
+        return callback && callback(response);
+      },
+      (error) => {
+        return callback && callback(error);
+      },
+      () => {
+        console.log('Observable is now completed.');
+      }
+    );
+  }
 
   getLoanApplyListLO(req:any, callback:any){
     const ENDPOINT = `${environment.BASE_URL}/api/getLoanApplyListHOByLO`;

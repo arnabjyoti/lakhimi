@@ -40,6 +40,9 @@ import { CashierListComponent } from './brunchManager/cashier-list/cashier-list.
 import { CashCounterPaymentComponent } from './cashier/cash-counter-payment/cash-counter-payment.component';
 import { CashCounterPaymentListComponent } from './admin/cash-counter-payment-list/cash-counter-payment-list.component';
 import { CashCounterPaymentRequestComponent } from './brunchManager/cash-counter-payment-request/cash-counter-payment-request.component';
+import { SalaryComponent } from './admin/salary/salary.component';
+import { AdminMembershipComponent } from './admin/admin-membership/admin-membership.component';
+import { AdminAccountApplicationComponent } from './admin/admin-account-application/admin-account-application.component';
 
 const routes: Routes = [
   {
@@ -66,6 +69,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: "salary",
+    component: SalaryComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: "branch-list",
     component: BrunchComponent,
     canActivate: [AuthGuard]
@@ -78,6 +86,16 @@ const routes: Routes = [
   {
     path: "field-agent",
     component: FieldAgentComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "membership-application",
+    component: AdminMembershipComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "account-application",
+    component: AdminAccountApplicationComponent,
     canActivate: [AuthGuard]
   },
   {

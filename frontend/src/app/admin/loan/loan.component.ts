@@ -14,6 +14,7 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { brunchData } from '../brunch/brunch.component';
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-loan',
@@ -44,6 +45,15 @@ export class LoanComponent implements OnInit {
   public loanData: any = {};
   public tokenData: any;
 
+
+
+  public branchData:any;
+
+  public filter: any = {
+    branch_id: '',
+  }
+  public apiResponse: any = [];
+
   constructor(
     private spinner: NgxSpinnerService,
     private LoanService: LoanService,
@@ -72,7 +82,18 @@ export class LoanComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserDetails();
-    
+    this.branch();
+  }
+  
+
+  branch=()=>{
+    let requestObject = {};
+    this.LoanService.getBrunch(requestObject, (callback:any)=>{
+      console.log("bbbbbbbbbb",callback);
+      this.branchData = callback;
+      console.log("location details",this.branchData);
+      
+    });  
   }
 
   getUserDetails = () => {
@@ -109,6 +130,7 @@ export class LoanComponent implements OnInit {
     this.LoanService.getLoanApplyListLO(requestObject, (callback:any)=>{
       console.log("getLoanApplyList", callback);
       
+      this.apiResponse = callback;
       this.dataSource = new MatTableDataSource(callback);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -121,6 +143,7 @@ export class LoanComponent implements OnInit {
     this.LoanService.getLoanApplyListMD(requestObject, (callback:any)=>{
       console.log("getLoanApplyList", callback);
       
+      this.apiResponse = callback;
       this.dataSource = new MatTableDataSource(callback);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -133,6 +156,7 @@ export class LoanComponent implements OnInit {
     this.LoanService.getLoanApplyListCM(requestObject, (callback:any)=>{
       console.log("getLoanApplyList", callback);
       
+      this.apiResponse = callback;
       this.dataSource = new MatTableDataSource(callback);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -144,6 +168,24 @@ export class LoanComponent implements OnInit {
   FilterChange(data:Event){
     const value=(data.target as HTMLInputElement).value;
     this.dataSource.filter=value;
+  }
+
+
+  FilterChangeBranch($event:any){
+    console.log("fffffffff",_.filter(this.apiResponse));
+    let filteredData = _.filter(this.apiResponse,(item)=>{
+      
+      
+      return item.brunchId == this.filter.branch_id;
+    })
+    console.log("ssssss",filteredData);
+    this.dataSource = new MatTableDataSource(filteredData);
+  }
+
+  resetFilter(){
+    this.filter.branch_id = '';
+    
+    this.getUserDetails();
   }
 
 }

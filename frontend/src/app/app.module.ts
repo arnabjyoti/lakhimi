@@ -42,6 +42,9 @@ import { CashCounterPaymentComponent } from './cashier/cash-counter-payment/cash
 import { CameraCaptureComponent } from './camera-capture/camera-capture.component';
 import { CashCounterPaymentListComponent } from './admin/cash-counter-payment-list/cash-counter-payment-list.component';
 import { CashCounterPaymentRequestComponent } from './brunchManager/cash-counter-payment-request/cash-counter-payment-request.component';
+import { SalaryComponent } from './admin/salary/salary.component';
+import { AdminMembershipComponent } from './admin/admin-membership/admin-membership.component';
+import { AdminAccountApplicationComponent } from './admin/admin-account-application/admin-account-application.component';
 
 @NgModule({
   declarations: [

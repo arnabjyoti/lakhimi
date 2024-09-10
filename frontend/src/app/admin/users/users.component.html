@@ -36,7 +36,7 @@
                                 <input matInput (keyup)="FilterChange($event)" placeholder="Search">
                             </mat-form-field>
                         </form>
-                        <table mat-table [dataSource]="dataSource">
+                        <table matSort mat-table [dataSource]="dataSource">
 
 
                             <!-- Serial number Column -->
@@ -48,32 +48,38 @@
                             </ng-container>
 
                             <!-- Name Column -->
-                            <ng-container matColumnDef="brunch_code">
-                                <th mat-header-cell *matHeaderCellDef> Name </th>
+                            <ng-container matColumnDef="user_name">
+                                <th mat-sort-header mat-header-cell *matHeaderCellDef> Name </th>
                                 <td mat-cell *matCellDef="let element"> {{element.f_name}} {{element.l_name}} </td>
                             </ng-container>
 
                             <!-- Name Column -->
-                            <ng-container matColumnDef="brunch_name">
-                                <th mat-header-cell *matHeaderCellDef> Position </th>
+                            <ng-container matColumnDef="position">
+                                <th mat-sort-header mat-header-cell *matHeaderCellDef> Position </th>
                                 <td mat-cell *matCellDef="let element"> {{element.position}} </td>
                             </ng-container>
 
                             <!-- Name Column -->
-                            <ng-container matColumnDef="brunch_location">
-                                <th mat-header-cell *matHeaderCellDef> Email </th>
+                            <ng-container matColumnDef="category">
+                                <th mat-sort-header mat-header-cell *matHeaderCellDef> Category </th>
+                                <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="email">
+                                <th mat-sort-header mat-header-cell *matHeaderCellDef> Email </th>
                                 <td mat-cell *matCellDef="let element"> {{element.email}} </td>
                             </ng-container>
 
                             <!-- Name Column -->
-                            <ng-container matColumnDef="brunch_adrs">
-                                <th mat-header-cell *matHeaderCellDef> Phone </th>
+                            <ng-container matColumnDef="phone_no">
+                                <th mat-sort-header mat-header-cell *matHeaderCellDef> Phone </th>
                                 <td mat-cell *matCellDef="let element"> {{element.phone_no}} </td>
                             </ng-container>
 
                             <!-- Name Column -->
-                            <ng-container matColumnDef="brunch_cntct_no">
-                                <th mat-header-cell *matHeaderCellDef> Status </th>
+                            <ng-container matColumnDef="active">
+                                <th mat-sort-header mat-header-cell *matHeaderCellDef> Status </th>
                                 <td mat-cell *matCellDef="let element"> {{element.active}} </td>
                             </ng-container>
 
@@ -135,7 +141,7 @@
                                         id="inputEmail4" placeholder="phone">
                                 </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="inputEmail4">Position:</label>
                                     <select id="inputState" class="form-control" [(ngModel)]="userInputData.position">
                                         <option label="Please Select"></option>
@@ -144,10 +150,21 @@
                                         <option value="Cashier">Cashier</option>
                                     </select>
                                 </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="inputEmail4">Category:</label>
+                                    <select id="inputState" class="form-control" [(ngModel)]="userInputData.category">
+                                        <option label="Please Select"></option>
+                                        <option value="NON MANAGERIAL STAFF">NON MANAGERIAL STAFF</option>
+                                        <option value="MANAGERIAL STAFF">MANAGERIAL STAFF</option>
+                                        <option value="OFFICE ASSISTANT STAFF">OFFICE ASSISTANT STAFF</option>
+                                        <option value="FIELD EXECUTIVE STAFF">FIELD EXECUTIVE STAFF</option>
+                                    </select>
+                                </div>
                                 <div class="form-group col-md-5">
                                     <label for="inputEmail4">Address:</label>
-                                    <input type="textarea" class="form-control" placeholder="Address"
-                                        [(ngModel)]="userInputData.address">
+                                    <textarea class="form-control" placeholder="Address"
+                                        [(ngModel)]="userInputData.address"></textarea>
                                 </div>
                             </div>
 

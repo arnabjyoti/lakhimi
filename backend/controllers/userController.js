@@ -7,6 +7,7 @@ const brunchMasterModel = require("../models").brunchMaster;
 const bcrypt = require("bcrypt");
 var request = require('request');
 const Op = require('sequelize').Op;
+var Sequelize = require('sequelize');
 
 module.exports = {
   getUserList(req, res){
@@ -33,6 +34,36 @@ module.exports = {
 
   },
 
+  employeeList(req, res){
+    let query={
+        raw: true,
+        order: [
+          [Sequelize.literal(`CASE 
+            WHEN position = 'Head office' THEN 1 
+            WHEN position = 'Branch Manager' THEN 2 
+            WHEN position = 'Cashier' THEN 3 
+            WHEN position = 'Field Agent' THEN 4
+            ELSE 5
+          END`), 'ASC']
+        ],
+        where: {
+          salaried: "Yes"
+        },
+    }
+
+console.log("Query is==========> ",query);
+return usersModel
+  .findAll(query)
+  .then(user => {
+    return res.status(200).send(user);
+  })
+  .catch(error => {
+    console.log(error);
+    return res.status(400).send(error);
+  });
+
+},
+
   createUser(req, res) {
     console.log("data recieved from frontend",req.body.requestObject);
     return usersModel
@@ -42,6 +73,7 @@ module.exports = {
         email: req.body.requestObject.email,
         role: req.body.requestObject.role,
         position: req.body.requestObject.position,
+        category: req.body.requestObject.category,
         phone_no: req.body.requestObject.phone_no,
         address: req.body.requestObject.address,
         createdBy: req.body.requestObject.createdBy,

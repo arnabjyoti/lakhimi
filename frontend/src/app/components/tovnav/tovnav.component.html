@@ -204,6 +204,24 @@
             </a>
           </li>
           <li class="nav-item" *ngIf="permission.addBrunchPrivilage">
+            <a routerLink="/membership-application" class="nav-link" routerLinkActive="active">
+              <i class="nav-icon fas fa-user-clock"></i>
+              <p>
+                Membership Application
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="permission.addBrunchPrivilage">
+            <a routerLink="/account-application" class="nav-link" routerLinkActive="active">
+              <i class="nav-icon fas fa-address-card"></i>
+              <p>
+                Account Application
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="permission.addBrunchPrivilage">
             <a routerLink="/cashier" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-user-secret"></i>
               <p>
@@ -245,6 +263,14 @@
               <p>
                 Cash Counter Payment
                 <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="permission.addBrunchPrivilage">
+            <a routerLink="/salary" class="nav-link" routerLinkActive="active">
+              <i class="nav-icon fas fa-money-check-alt"></i>
+              <p>
+                Salary
               </p>
             </a>
           </li>

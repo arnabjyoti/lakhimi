@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { brunchData } from '../brunch/brunch.component';
 import { ExpressLoanService } from './express-loan.service';
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-express-loan',
@@ -43,6 +44,14 @@ export class ExpressLoanComponent {
   public loanData: any = {};
   public tokenData: any;
 
+
+  public branchData:any;
+
+  public filter: any = {
+    branch_id: '',
+  }
+  public apiResponse: any = [];
+
   constructor(
     private spinner: NgxSpinnerService,
     private ExpressLoanService: ExpressLoanService,
@@ -71,7 +80,17 @@ export class ExpressLoanComponent {
 
   ngOnInit(): void {
     this.getUserDetails();
-    
+    this.branch();
+  }
+
+  branch=()=>{
+    let requestObject = {};
+    this.ExpressLoanService.getBrunch(requestObject, (callback:any)=>{
+      console.log("bbbbbbbbbb",callback);
+      this.branchData = callback;
+      console.log("location details",this.branchData);
+      
+    });  
   }
 
   getUserDetails = () => {
@@ -108,6 +127,7 @@ export class ExpressLoanComponent {
     this.ExpressLoanService.getExpressLoanApplyListLO(requestObject, (callback:any)=>{
       console.log("getLoanApplyList", callback);
       
+      this.apiResponse = callback;
       this.dataSource = new MatTableDataSource(callback);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -120,6 +140,7 @@ export class ExpressLoanComponent {
     this.ExpressLoanService.getExpressLoanApplyListMD(requestObject, (callback:any)=>{
       console.log("getLoanApplyList", callback);
       
+      this.apiResponse = callback;
       this.dataSource = new MatTableDataSource(callback);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -132,6 +153,7 @@ export class ExpressLoanComponent {
     this.ExpressLoanService.getExpressLoanApplyListCM(requestObject, (callback:any)=>{
       console.log("getLoanApplyList", callback);
       
+      this.apiResponse = callback;
       this.dataSource = new MatTableDataSource(callback);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -143,6 +165,23 @@ export class ExpressLoanComponent {
   FilterChange(data:Event){
     const value=(data.target as HTMLInputElement).value;
     this.dataSource.filter=value;
+  }
+
+  FilterChangeBranch($event:any){
+    console.log("fffffffff",_.filter(this.apiResponse));
+    let filteredData = _.filter(this.apiResponse,(item)=>{
+      
+      
+      return item.brunchId == this.filter.branch_id;
+    })
+    console.log("ssssss",filteredData);
+    this.dataSource = new MatTableDataSource(filteredData);
+  }
+
+  resetFilter(){
+    this.filter.branch_id = '';
+    
+    this.getUserDetails();
   }
 
 }

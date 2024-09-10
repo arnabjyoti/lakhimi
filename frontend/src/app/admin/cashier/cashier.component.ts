@@ -10,6 +10,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { MatSort } from '@angular/material/sort';
+import * as _ from 'lodash'
 
 
 export interface brunchDetailsData {
@@ -52,6 +53,14 @@ export class CashierComponent implements OnInit{
   public isSaving: boolean = false;
   public returnMsg:any;
 
+
+  public branchData:any;
+
+  public filter: any = {
+    branch_id: '',
+  }
+  public apiResponse: any = [];
+
   constructor(
     private CashierService: CashierService,
     private toastr:ToastrService,
@@ -85,6 +94,7 @@ export class CashierComponent implements OnInit{
     this.CashierService.getBrunch(requestObject, (callback:any)=>{
       console.log(callback);
       this.brunchFormData = callback;      
+      this.branchData = callback;
     });  
   }
 
@@ -121,9 +131,11 @@ export class CashierComponent implements OnInit{
           email: item["user.email"],
           status: item.status,
           doj: item.doj,
+          brunchId: item.brunchId,
 
         })
         this.data = temp;
+        this.apiResponse = this.data;
         console.log("data",this.data);
       });
 
@@ -140,6 +152,24 @@ export class CashierComponent implements OnInit{
   FilterChange(data:Event){
     const value=(data.target as HTMLInputElement).value;
     this.dataSource.filter=value;
+  }
+
+
+  FilterChangeBranch($event:any){
+    console.log("fffffffff",_.filter(this.apiResponse));
+    let filteredData = _.filter(this.apiResponse,(item)=>{
+      
+      
+      return item.brunchId == this.filter.branch_id;
+    })
+    console.log("ssssss",filteredData);
+    this.dataSource = new MatTableDataSource(filteredData);
+  }
+
+  resetFilter(){
+    this.filter.branch_id = '';
+    
+    this.getCashierData();
   }
 
 

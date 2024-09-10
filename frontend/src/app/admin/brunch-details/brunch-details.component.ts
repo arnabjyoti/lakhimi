@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { MatSort } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import * as _ from 'lodash'
 
 
 export interface brunchDetailsData {
@@ -59,6 +60,14 @@ export class BrunchDetailsComponent implements OnInit{
   public data: any;
   returnMsg:any;
 
+
+  public branchData:any;
+
+  public filter: any = {
+    branch_id: '',
+  }
+  public apiResponse: any = [];
+
   constructor(
     private BrunchDetailsService: BrunchDetailsService,
     private toastr:ToastrService,
@@ -82,6 +91,7 @@ export class BrunchDetailsComponent implements OnInit{
     this.getBrunchData();
     this.getUserList();
     this.getBrunchManager()
+    this.branch();
   }
 
   getBrunchManager=()=>{
@@ -92,6 +102,16 @@ export class BrunchDetailsComponent implements OnInit{
       console.log(callback);
       
       console.log("bbbbbbbbbb",this.allBrunchManager);
+      
+    });  
+  }
+
+  branch=()=>{
+    let requestObject = {};
+    this.BrunchDetailsService.getBrunch(requestObject, (callback:any)=>{
+      console.log("bbbbbbbbbb",callback);
+      this.branchData = callback;
+      console.log("location details",this.branchData);
       
     });  
   }
@@ -121,7 +141,7 @@ export class BrunchDetailsComponent implements OnInit{
     let requestObject = {};
     
     this.BrunchDetailsService.getBrunchDetails(requestObject, (callback:any)=>{
-      console.log(callback);
+      console.log("callback",callback);
 
       let temp:any = [];
       callback.map((item: any) => {
@@ -133,9 +153,11 @@ export class BrunchDetailsComponent implements OnInit{
           l_name: item["user.l_name"],
           status: item.status,
           doj: item.doj,
+          brunchId: item.brunchId,
 
         })
         this.data = temp;
+        this.apiResponse = this.data;
       });
 
       // this.departmentName = new MatTableDataSource(callback);
@@ -150,6 +172,23 @@ export class BrunchDetailsComponent implements OnInit{
   FilterChange(data:Event){
     const value=(data.target as HTMLInputElement).value;
     this.dataSource.filter=value;
+  }
+
+  FilterChangeBranch($event:any){
+    console.log("fffffffff",_.filter(this.apiResponse));
+    let filteredData = _.filter(this.apiResponse,(item)=>{
+      
+      
+      return item.brunchId == this.filter.branch_id;
+    })
+    console.log("ssssss",filteredData);
+    this.dataSource = new MatTableDataSource(filteredData);
+  }
+
+  resetFilter(){
+    this.filter.branch_id = '';
+    
+    this.getBrunchDetailsData();
   }
 
   save() {

@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ExpressLoanService {
+export class SalaryService {
   public headers: any;
   constructor(
     private appService: AppService,
@@ -16,8 +16,9 @@ export class ExpressLoanService {
   ) { }
 
 
-  getBrunch(req:any, callback:any) {
-    const ENDPOINT = `${environment.BASE_URL}/api/getBrunch`;
+
+  employeeList(req:any, callback:any) {
+    const ENDPOINT = `${environment.BASE_URL}/api/employeeList`;
     const requestOptions = {
       headers: this.headers,
       method: 'post'
@@ -35,70 +36,52 @@ export class ExpressLoanService {
       }
     );
   }
+
+
+
+  saveSalaries = (req: any, callback: any) =>{
+    const ENDPOINT = `${environment.BASE_URL}/api/saveSalaries`;
+    const requestOptions = {
+      headers: this.appService.headers,
+      requestObject: req
+    };
+    console.log("ssssssssssss",req);
+    
+    this.http.post(ENDPOINT, requestOptions)
+      .subscribe(
+        (response) => {            
+          return callback && callback(response);
+        },
+        error => {
+          
+          return callback && callback(error);
+          
+        },
+        () => {
+        });
+  }
+
+
+  checkSalary(req:any, callback:any) {
+    const ENDPOINT = `${environment.BASE_URL}/api/checkSalary`;
+    const requestOptions = {
+      headers: this.appService.headers,
+      requestObject: req
+    };
+    console.log("ssssssssssss",req);
+    
+    this.http.post(ENDPOINT, requestOptions)
+      .subscribe(
+        (response) => {            
+          return callback && callback(response);
+        },
+        error => {
+          
+          return callback && callback(error);
+          
+        },
+        () => {
+        });
+  }
   
-  getExpressLoanApplyListLO(req:any, callback:any){
-    const ENDPOINT = `${environment.BASE_URL}/api/getExpressLoanApplyListHOByLO`;
-    const requestOptions = {
-      headers: this.appService.headers,
-      method: "post",
-      requestObject: req
-      
-      
-    };console.log("mmmmmmmmmmm",requestOptions);
-    this.http.post(ENDPOINT, requestOptions)
-      .subscribe(
-        (response) => {
-          return callback && callback(response);
-        },
-        error => {
-          return callback && callback(error);
-        },
-        () => {
-          console.log("Observable is now completed.");
-        });
-  }
-
-  getExpressLoanApplyListMD(req:any, callback:any){
-    const ENDPOINT = `${environment.BASE_URL}/api/getExpressLoanApplyListHOByMD`;
-    const requestOptions = {
-      headers: this.appService.headers,
-      method: "post",
-      requestObject: req
-      
-      
-    };console.log("mmmmmmmmmmm",requestOptions);
-    this.http.post(ENDPOINT, requestOptions)
-      .subscribe(
-        (response) => {
-          return callback && callback(response);
-        },
-        error => {
-          return callback && callback(error);
-        },
-        () => {
-          console.log("Observable is now completed.");
-        });
-  }
-
-  getExpressLoanApplyListCM(req:any, callback:any){
-    const ENDPOINT = `${environment.BASE_URL}/api/getExpressLoanApplyListHOByCM`;
-    const requestOptions = {
-      headers: this.appService.headers,
-      method: "post",
-      requestObject: req
-      
-      
-    };console.log("mmmmmmmmmmm",requestOptions);
-    this.http.post(ENDPOINT, requestOptions)
-      .subscribe(
-        (response) => {
-          return callback && callback(response);
-        },
-        error => {
-          return callback && callback(error);
-        },
-        () => {
-          console.log("Observable is now completed.");
-        });
-  }
 }

@@ -1,0 +1,149 @@
+<!-- Loading starts -->
+<div id="loading-wrapper" *ngIf="isLodaing">
+    <ngx-spinner bdColor="rgba(0,0,0,0.9)" type="ball-clip-rotate"></ngx-spinner>
+</div>
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="card px-2">
+                <div class="row mb-2">
+                    <div class="col-sm-6 pt-1">
+                        <h1 class="m-0">New Membership Applications</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6 pt-2">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">New Membership Applications</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="card p-2">
+
+                    <div class="mat-elevation-z8">
+                        <div class="row justify-content-start p-3">
+                            <div class="col-md-2 p-1">
+                                <input class="form-control" (keyup)="FilterChange($event)" placeholder="Search here">
+                            </div>
+                            <div class="col-md-2 p-1">
+                                <select class="form-control" (change)="FilterChangeBranch($event)" [(ngModel)]="filter.branch_id">
+                                    <option label="Select Branch"></option>
+                                    <option *ngFor="let branch of branchData;" value="{{branch.id}}">
+                                        {{branch.brunch_name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-1 p-1">
+                                <button mat-raised-button color="primary"
+                                    data-target="#exampleModal" (click)="resetFilter()"><i class="fas fa-recycle"></i>
+                                    reset</button>
+        
+                            </div>
+                        </div>  
+                        <table matSort mat-table [dataSource]="dataSource">
+
+
+                            <!-- Serial number Column -->
+                            <ng-container matColumnDef="Sl">
+                                <th mat-header-cell *matHeaderCellDef class="text-center"> Sl. No. </th>
+                                <td mat-cell *matCellDef="let element let i = index;" class="text-center">
+                                    {{ paginator.pageIndex*paginator.pageSize + (i + 1) }}
+                                </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="brunch_name">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                                <td mat-cell *matCellDef="let element"> {{element.f_name}} {{element.l_name}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="membership_id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Membership ID </th>
+                                <td mat-cell *matCellDef="let element"> {{element.membership_id}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="phone_no">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
+                                <td mat-cell *matCellDef="let element"> {{element.phone_no}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="panNo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> PAN </th>
+                                <td mat-cell *matCellDef="let element"> {{element.panNo}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="adharNo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> ADHAR </th>
+                                <td mat-cell *matCellDef="let element"> {{element.adharNo}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="reference_no">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Reference Number </th>
+                                <td mat-cell *matCellDef="let element"> {{element.reference_no}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <div class="text-warning" *ngIf="element.status == 'Applied'">{{element.status}}
+                                    </div>
+                                    <div class="text-success" *ngIf="element.status == 'Approved'">{{element.status}}
+                                    </div>
+                                    <div class="text-danger" *ngIf="element.status == 'Reject'">{{element.status}}
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="apply_date">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Apply Date </th>
+                                <td mat-cell *matCellDef="let element"> {{element.createdAt | date:"dd/MM/yyyy"}} </td>
+                            </ng-container>
+
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+                                <td mat-cell *matCellDef="let row" class="text-center">
+                                    <!-- <button (click)="showRequestUpdateModal(row)" data-toggle="modal" data-target="#requestUpdate" mat-raised-button color="primary"><i class="fas fa-arrow-circle-right"></i></button> -->
+                                    <a target="_blank" routerLink="/membership-request-details/{{row.id}}" mat-raised-button color="primary"><i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </td>
+                            </ng-container>
+
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+
+                        <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons
+                            aria-label="Select page of periodic elements">
+                        </mat-paginator>
+                    </div>
+                </div>
+        </div>
+        <!-- Main row -->
+        <div class="row">
+
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+    <!-- Add Modal -->
+    <!-- end model -->
+</div>

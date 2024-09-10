@@ -10,6 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import * as _ from 'lodash'
 
 export interface brunchDetailsData {
   id: string,
@@ -49,6 +50,15 @@ export class FieldAgentComponent implements OnInit{
   public data: any;
   returnMsg:any;
 
+
+
+  public branchData:any;
+
+  public filter: any = {
+    branch_id: '',
+  }
+  public apiResponse: any = [];
+
   constructor(
     private FieldAgentService: FieldAgentService,
     private toastr:ToastrService,
@@ -80,7 +90,8 @@ export class FieldAgentComponent implements OnInit{
     
     this.FieldAgentService.getBrunch(requestObject, (callback:any)=>{
       console.log(callback);
-      this.brunchFormData = callback;      
+      this.brunchFormData = callback; 
+      this.branchData = callback;     
     });  
   }
 
@@ -113,9 +124,10 @@ export class FieldAgentComponent implements OnInit{
           address: item["user.address"],
           status: item.status,
           doj: item.doj,
-
+          brunchId: item.brunchId,
         })
         this.data = temp;
+        this.apiResponse = this.data;
       });
 
       // this.departmentName = new MatTableDataSource(callback);
@@ -132,6 +144,24 @@ export class FieldAgentComponent implements OnInit{
     const value=(data.target as HTMLInputElement).value;
     this.dataSource.filter=value;
   }
+
+  FilterChangeBranch($event:any){
+    console.log("fffffffff",_.filter(this.apiResponse));
+    let filteredData = _.filter(this.apiResponse,(item)=>{
+      
+      
+      return item.brunchId == this.filter.branch_id;
+    })
+    console.log("ssssss",filteredData);
+    this.dataSource = new MatTableDataSource(filteredData);
+  }
+
+  resetFilter(){
+    this.filter.branch_id = '';
+    this.getFieldAgentsData();
+  }
+    
+    
 
   save() {
     this.isSaving = true;

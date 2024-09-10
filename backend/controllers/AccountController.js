@@ -292,6 +292,36 @@ module.exports = {
             return res.status(200).send({message: project});
         })
         .catch(error => res.status(400).send(error));
-      }
+      },
+
+
+
+    getAppliedAcOpenDataForAdmin(req, res){
+      console.log("++++++++++++++++++++++++++++++++",req.body.requestObject);
+        let query={
+            raw: true,
+            order: [
+                ['status', 'ASC']
+              ],
+              raw: true,
+          include: [
+            {
+                model: membershipModel,
+                required: false
+            }
+          ]
+        }
+  
+    console.log("Query is==========> ",query);
+    return accountModel
+      .findAll(query)
+      .then(user => {
+        return res.status(200).send(user);
+      })
+      .catch(error => {
+        console.log(error);
+        return res.status(400).send(error);
+      });
+    },
 
 }

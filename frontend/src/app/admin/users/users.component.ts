@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { environment } from 'src/environments/environment';
 import { brunchDetailsData } from '../brunch-details/brunch-details.component';
@@ -27,11 +27,11 @@ export interface usersData {
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatInputModule,FormsModule, MatFormFieldModule,],
+  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatInputModule,FormsModule, MatFormFieldModule, MatSortModule],
 })
 export class UsersComponent implements OnInit{
 
-  public displayedColumns: string[] = ['Sl','brunch_code','brunch_name','brunch_location','brunch_adrs','brunch_cntct_no'];
+  public displayedColumns: string[] = ['Sl','user_name','position', 'category', 'email','phone_no','active'];
   dataSource !: MatTableDataSource<brunchDetailsData>
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
@@ -41,6 +41,7 @@ export class UsersComponent implements OnInit{
     l_name: "",
     address: "",
     position: "",
+    category: "",
     email: "",
     phone_no: "",
     role: "",
@@ -157,6 +158,12 @@ export class UsersComponent implements OnInit{
     }
     else if (this.userInputData.position === "Cashier") {
       this.userInputData.role = "Cashier"
+    }
+    if(this.userInputData.category==='' || this.userInputData.category===null || this.userInputData.category===undefined){
+      this.toastr.warning('Please enter category.','Warning',{
+        disableTimeOut:false
+      });
+      return false;
     }
     if(this.userInputData.address==='' || this.userInputData.address===null || this.userInputData.address===undefined){
       this.toastr.warning('Please enter address.','Warning',{

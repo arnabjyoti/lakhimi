@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, type) => {
     const users = sequelize.define('users', {
         id: {
@@ -11,7 +12,9 @@ module.exports = (sequelize, type) => {
         m_name: type.STRING,
         l_name: type.STRING,
         position: type.STRING,
+        category: type.STRING,
         designation: type.STRING,
+        employeeId: type.STRING,
         email: type.STRING,
         phone_no: type.STRING,
         address: type.STRING,
@@ -22,6 +25,7 @@ module.exports = (sequelize, type) => {
         password: type.STRING,
         temp_password: type.STRING,
         role: type.STRING,
+        salaried: type.STRING,
         active: type.STRING,
         rememberToken: type.STRING,
         accessKeyword: type.STRING,
@@ -37,6 +41,7 @@ module.exports = (sequelize, type) => {
         users.hasMany(models.expressloans);
         users.hasMany(models.accountClosingEO);
         users.hasMany(models.cashCounterPayment); 
+        users.hasMany(models.salary);
     };
     return users;
 };

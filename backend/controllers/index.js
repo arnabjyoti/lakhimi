@@ -11,7 +11,8 @@ const loanController = require('./loanController');
 const vendorController = require('./vendorController');
 const expressLoanController = require('./expressLoanController');
 const accountClosingEOController = require('./accountClosingEOController');
-const CashierController = require('./CashierController')
+const CashierController = require('./CashierController');
+const salaryController = require('./salaryController');
 
 module.exports = {
 	AuthController,
@@ -28,4 +29,5 @@ module.exports = {
 	expressLoanController,
 	accountClosingEOController,
 	CashierController,
+	salaryController,
 };

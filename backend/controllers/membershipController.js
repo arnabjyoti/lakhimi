@@ -406,7 +406,30 @@ module.exports = {
         return res.status(200).send({message: project});
     })
     .catch(error => res.status(400).send(error));
-  }
+  },
+
+
+
+  getMemberDataForAdmin(req, res){
+    console.log("++++++++++++++++++++++++++++++++",req.body.requestObject);
+      let query={
+          raw: true,
+          order: [
+              ['createdAt', 'DESC']
+            ],
+      }
+
+  console.log("Query is==========> ",query);
+  return membershipModel
+    .findAll(query)
+    .then(user => {
+      return res.status(200).send(user);
+    })
+    .catch(error => {
+      console.log(error);
+      return res.status(400).send(error);
+    });
+  },
 
 
 

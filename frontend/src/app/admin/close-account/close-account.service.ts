@@ -16,6 +16,26 @@ export class CloseAccountService {
   ) { }
 
 
+  getBrunch(req:any, callback:any) {
+    const ENDPOINT = `${environment.BASE_URL}/api/getBrunch`;
+    const requestOptions = {
+      headers: this.headers,
+      method: 'post'
+    };
+    this.http.get(ENDPOINT, requestOptions).subscribe(
+      (response) => {
+        console.log('Success');
+        return callback && callback(response);
+      },
+      (error) => {
+        return callback && callback(error);
+      },
+      () => {
+        console.log('Observable is now completed.');
+      }
+    );
+  }
+
   getExpressLoanApplyListLO(req:any, callback:any){
     const ENDPOINT = `${environment.BASE_URL}/api/getCloseAcApplyListHOByLO`;
     const requestOptions = {

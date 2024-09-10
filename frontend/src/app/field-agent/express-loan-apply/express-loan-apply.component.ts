@@ -182,7 +182,7 @@ export class ExpressLoanApplyComponent implements OnInit{
   Calculate(){
 
     if (this.memberData.l_product_cost < 100001) {
-      this.memberData.l_processing_fee = Math.round(this.memberData.l_product_cost*0.01);
+      this.memberData.l_processing_fee = Math.round(this.memberData.l_product_cost*0.015);
     // console.log("this.memberData.l_processing_fee",this.memberData.l_processing_fee);    
     this.memberData.l_total_return_amnt = Math.round((this.memberData.share_fee + this.memberData.share_admsn_fee + this.memberData.ac_admsn_fee + this.memberData.insrnc + this.memberData.nach + this.memberData.l_processing_fee + this.memberData.l_product_cost)*this.memberData.l_roi);
     // console.log("this.memberData.l_total_return_amnt",this.memberData.l_total_return_amnt);

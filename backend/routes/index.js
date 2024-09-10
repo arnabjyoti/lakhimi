@@ -4,6 +4,7 @@ const departmentController = require('../controllers/departmentController');
 const homeController = require('../controllers/homeController');
 const accountClosingEOController = require('../controllers/accountClosingEOController');
 const CashierController = require('../controllers/CashierController');
+const salaryController = require('../controllers/salaryController');
 const AuthController = require('../controllers').AuthController;
 
 //Api's
@@ -29,6 +30,8 @@ module.exports = (app) => {
 
 	//user
 	app.get('/api/getUserList', userController.getUserList);
+
+	app.get('/api/employeeList', userController.employeeList);
 
 	app.post('/api/createUser', userController.createUser);
 
@@ -119,6 +122,11 @@ module.exports = (app) => {
 	app.post('/api/updateApprovel', membershipController.updateApprovel);
 
 	app.post('/api/updateReject', membershipController.updateReject);
+
+		// for admin
+	app.post('/api/getMemberDataForAdmin', membershipController.getMemberDataForAdmin);
+	
+	
 	
 	//account
 	app.post('/api/checkMemberData', AccountController.checkMemberData);
@@ -137,7 +145,8 @@ module.exports = (app) => {
 
 	app.post('/api/updateAccountReject', AccountController.updateAccountReject);
 
-	
+		// for admin
+	app.post('/api/getAppliedAcOpenDataForAdmin', AccountController.getAppliedAcOpenDataForAdmin);
 
 	//count
 	app.get('/api/headCount', homeController.headCount);
@@ -326,5 +335,11 @@ module.exports = (app) => {
 
 	app.post('/api/CloseAcUpdateCMstatus', accountClosingEOController.CloseAcUpdateCMstatus);
 
-	app.post('/api/CloseAcRejectCMstatus', accountClosingEOController.CloseAcRejectCMstatus)
+	app.post('/api/CloseAcRejectCMstatus', accountClosingEOController.CloseAcRejectCMstatus);
+
+
+	// salary 
+	app.post('/api/saveSalaries', salaryController.saveSalaries);
+
+	app.post('/api/checkSalary', salaryController.checkSalary);
 	};

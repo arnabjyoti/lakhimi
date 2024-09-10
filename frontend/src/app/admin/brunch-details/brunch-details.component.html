@@ -30,12 +30,25 @@
                             branch details</button>
                     </div>
                     <div class="mat-elevation-z8">
-                        <form class="example-form">
-                            <mat-form-field class="example-full-width">
-                                <mat-label>Search Here</mat-label>
-                                <input matInput (keyup)="FilterChange($event)" placeholder="Search">
-                            </mat-form-field>
-                        </form>
+                        <div class="row justify-content-start p-3">
+                            <div class="col-md-2 p-1">
+                                <input class="form-control" (keyup)="FilterChange($event)" placeholder="Search here">
+                            </div>
+                            <div class="col-md-2 p-1">
+                                <select class="form-control" (change)="FilterChangeBranch($event)" [(ngModel)]="filter.branch_id">
+                                    <option label="Select Branch"></option>
+                                    <option *ngFor="let branch of branchData;" value="{{branch.id}}">
+                                        {{branch.brunch_name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-1 p-1">
+                                <button mat-raised-button color="primary"
+                                    data-target="#exampleModal" (click)="resetFilter()"><i class="fas fa-recycle"></i>
+                                    reset</button>
+        
+                            </div>
+                        </div>  
                         <table mat-table [dataSource]="dataSource">
 
 

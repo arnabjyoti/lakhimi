@@ -25,238 +25,11 @@
             <!-- Main row -->
             <div class="card">
                 <div class="card-body">
-                    <div class="row" *ngIf="permission.addMembershipApprovalPrivilage">
+                    <div class="row">
                         <div class="col-sm-12 text-danger h4" *ngIf="regInput.status == 'Reject'">
                             Reason: {{regInput.remark}}
                         </div>
                         <div class="col-sm-12 pt-3">
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label for="inputEmail4">First Name:</label>
-                                    <input type="text" class="form-control" [(ngModel)]="regInput.f_name"
-                                        id="inputEmail4" placeholder="First Name">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="inputEmail4">Last Name:</label>
-                                    <input type="text" class="form-control" id="inputEmail4"
-                                        [(ngModel)]="regInput.l_name" placeholder="Last Name">
-                                </div>
-
-                                <div class="form-group col-md-3">
-                                    <label for="inputEmail4"> Fathers Name:</label>
-                                    <input type="text" class="form-control" [(ngModel)]="regInput.fathers_name"
-                                        id="inputEmail4" placeholder=" Fathers Name">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="inputEmail4"> Phone Number:</label>
-                                    <input type="text" class="form-control" [(ngModel)]="regInput.phone_no"
-                                        id="inputEmail4" placeholder=" +91 " disabled>
-                                </div>
-
-                                <div class="form-group col-md-2">
-                                    <label for="inputEmail4">Date of Birth:</label>
-                                    <input type="date" class="form-control" id="inputEmail4" placeholder=" "
-                                        [(ngModel)]="regInput.dob">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="inputEmail4">Gender:</label>
-                                    <select id="inputState" class="form-control" [(ngModel)]="regInput.gender">
-                                        <option label="--Please Select --"></option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label for="inputEmail4">Address:</label>
-                                    <input type="text" class="form-control" id="inputEmail4"
-                                        [(ngModel)]="regInput.address" placeholder="Address">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="inputEmail4"> Email:</label>
-                                    <input type="email" class="form-control" id="inputEmail4"
-                                        [(ngModel)]="regInput.email" placeholder="Youremail@gmail.com">
-                                </div>
-
-
-                                <div class="form-group col-md-3">
-                                    <label for="inputEmail4"> PAN Number:</label>
-                                    <input type="text" class="form-control" id="inputEmail4"
-                                        [(ngModel)]="regInput.panNo" placeholder="PAN Number">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="inputEmail4">ADHAR Number:</label>
-                                    <input type="number" class="form-control" id="inputEmail4"
-                                        [(ngModel)]="regInput.adharNo" placeholder="xxxx-xxxx-xxxx">
-                                </div>
-
-                                <div class="form-group col-md-3">
-                                    <label for="inputEmail4"> Purpose of Membership:</label>
-                                    <input type="text" class="form-control" id="inputEmail4"
-                                        [(ngModel)]="regInput.purpose" placeholder="Purpose of Membership">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="inputEmail4">Occupation:</label>
-                                    <input type="text" class="form-control" id="inputEmail4"
-                                        [(ngModel)]="regInput.occupation" placeholder="Occupation">
-                                </div>
-
-                                <div class="form-group col-md-3">
-                                    <label for="inputEmail4"> Introducer Member Name:</label>
-                                    <input type="text" class="form-control" id="inputEmail4"
-                                        [(ngModel)]="regInput.introducer" placeholder="Introducer Member Name">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="inputEmail4">Introducer Membership ID:</label>
-                                    <input type="text" class="form-control" id="inputEmail4"
-                                        [(ngModel)]="regInput.introducer_id" placeholder="Introducer Membership ID">
-                                </div>
-                            </div>
-                            <div class="form-group row" *ngIf="regInput.status == 'Applied' || regInput.status == 'Reject'">
-                                <div class="col-sm-12 text-center">
-                                    <button mat-raised-button color="primary" (click)="updateData()">Update
-                                        form</button>
-                                </div>
-                                <!-- <div class="col-sm-12 text-center">
-                            <button type="button" id="modalClose" class="btn btn-danger"
-                                data-dismiss="modal">Cancel</button>
-                        </div> -->
-                            </div>
-                            <div class="col-sm-12 text-center display-28 font-weight-600 p-3">
-                                <u>UPLOAD DOCUMENT</u>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 p-1 border">
-                                    <div class="row">
-                                        <div class="col-12 text-center p-1">
-                                            <h4>PAN CARD</h4>
-                                        </div>
-                                        <div class="col-12">
-                                            <img src="{{endpoint}}/docs/customer/{{regInput.id+'_'}}/{{regInput.panCard}}"
-                                                class="img-fluid border" alt="Project image">
-                                        </div>
-                                        <div class="col-12" *ngIf="regInput.status == 'Applied' || regInput.status == 'Reject'">
-                                            <div class="form-row p-1">
-                                                <div class="form-group col-6">
-                                                    <label class="custom-file-label" for="file">{{pan}}</label>
-                                                    <input type="file"
-                                                        accept="image/png, image/gif, image/jpg, image/jpeg"
-                                                        class="custom-file-input"
-                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
-                                                        (change)="onFileSelect($event)">
-                                                </div>
-                                                <div class="form-group col-2">
-                                                    <button mat-raised-button color="primary" (click)="uploadPan()"><i
-                                                            class="fas fa-upload"></i></button>
-                                                </div>
-                                                <div class="form-group col-4" *ngIf="!showPanSc">
-                                                    <p class="text-success">Upload Successful!</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 p-1 border">
-                                    <div class="row">
-                                        <div class="col-12 text-center p-1">
-                                            <h4>ADHAR CARD</h4>
-                                        </div>
-                                        <div class="col-12">
-                                            <img src="{{endpoint}}/docs/customer/{{regInput.id+'_'}}/{{regInput.adharCard}}"
-                                                class="img-fluid border" alt="Project image">
-                                        </div>
-                                        <div class="col-12" *ngIf="regInput.status == 'Applied' || regInput.status == 'Reject'">
-                                            <div class="form-row p-1">
-                                                <div class="form-group col-6">
-                                                    <label class="custom-file-label" for="file">{{adhar}}</label>
-                                                    <input type="file"
-                                                        accept="image/png, image/gif, image/jpg, image/jpeg"
-                                                        class="custom-file-input"
-                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
-                                                        (change)="onFileSelected($event)">
-                                                </div>
-                                                <div class="form-group col-2">
-                                                    <button mat-raised-button color="primary" (click)="uploadAdhar()"><i
-                                                            class="fas fa-upload"></i></button>
-                                                </div>
-                                                <div class="form-group col-3" *ngIf="!showAdharSc">
-                                                    <p class="text-success">Upload Successful!</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 p-1 border">
-                                    <div class="row">
-                                        <div class="col-12 text-center p-1">
-                                            <h4>PHOTO</h4>
-                                        </div>
-                                        <div class="col-12">
-                                            <img src="{{endpoint}}/docs/customer/{{regInput.id+'_'}}/{{regInput.photo}}"
-                                                class="img-fluid border" alt="Project image">
-                                        </div>
-                                        <div class="col-12" *ngIf="regInput.status == 'Applied' || regInput.status == 'Reject'">
-                                            <div class="form-row p-1">
-                                                <div class="form-group col-6">
-                                                    <label class="custom-file-label" for="file">{{photo}}</label>
-                                                    <input type="file"
-                                                        accept="image/png, image/gif, image/jpg, image/jpeg"
-                                                        class="custom-file-input"
-                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
-                                                        (change)="onFileSelectedPhoto($event)">
-                                                </div>
-                                                <div class="form-group col-2">
-                                                    <button mat-raised-button color="primary" (click)="uploadPhoto()"><i
-                                                            class="fas fa-upload"></i></button>
-                                                </div>
-                                                <div class="form-group col-3" *ngIf="!showPhotoSc">
-                                                    <p class="text-success">Upload Successful!</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 p-1 border">
-                                    <div class="row">
-                                        <div class="col-12 text-center p-1">
-                                            <h4>SIGNATURE</h4>
-                                        </div>
-                                        <div class="col-12">
-                                            <img src="{{endpoint}}/docs/customer/{{regInput.id+'_'}}/{{regInput.sign}}"
-                                                class="img-fluid border" alt="Project image">
-                                        </div>
-                                        <div class="col-12" *ngIf="regInput.status == 'Applied' || regInput.status == 'Reject'">
-                                            <div class="form-row p-1">
-                                                <div class="form-group col-6">
-                                                    <label class="custom-file-label" for="file">{{sign}}</label>
-                                                    <input type="file"
-                                                        accept="image/png, image/gif, image/jpg, image/jpeg"
-                                                        class="custom-file-input"
-                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
-                                                        (change)="onFileSelectedsign($event)">
-                                                </div>
-                                                <div class="form-group col-2">
-                                                    <button mat-raised-button color="primary" (click)="uploadSign()"><i
-                                                            class="fas fa-upload"></i></button>
-                                                </div>
-                                                <div class="form-group col-3" *ngIf="!showSignSc">
-                                                    <p class="text-success">Upload Successful!</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.row (main row) -->
-
-                    <!-- Main row -->
-                    <!-- <div class="row" *ngIf="!permission.addMembershipApprovalPrivilage">
-                        <div class="col-sm-12">
                             <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <label for="inputEmail4">First Name:</label>
@@ -313,7 +86,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="inputEmail4">ADHAR Number:</label>
-                                    <input type="text" class="form-control" disabled id="inputEmail4"
+                                    <input type="number" class="form-control" disabled id="inputEmail4"
                                         [(ngModel)]="regInput.adharNo" placeholder="xxxx-xxxx-xxxx">
                                 </div>
 
@@ -336,6 +109,229 @@
                                 <div class="form-group col-md-3">
                                     <label for="inputEmail4">Introducer Membership ID:</label>
                                     <input type="text" class="form-control" disabled id="inputEmail4"
+                                        [(ngModel)]="regInput.introducer_id" placeholder="Introducer Membership ID">
+                                </div>
+                            </div>
+                            <!-- <div class="form-group row" *ngIf="regInput.status == 'Applied' || regInput.status == 'Reject'">
+                                <div class="col-sm-12 text-center">
+                                    <button mat-raised-button color="primary" (click)="updateData()">Update
+                                        form</button>
+                                </div>
+                            </div> -->
+                            <div class="col-sm-12 text-center display-28 font-weight-600 p-3">
+                                <u>UPLOAD DOCUMENT</u>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 p-1 border">
+                                    <div class="row">
+                                        <div class="col-12 text-center p-1">
+                                            <h4>PAN CARD</h4>
+                                        </div>
+                                        <div class="col-12 text-center pt-2">
+                                            <img src="{{endpoint}}/docs/customer/{{regInput.id+'_'}}/{{regInput.panCard}}"
+                                                class="img-fluid border" alt="Project image">
+                                        </div>
+                                        <!-- <div class="col-12" *ngIf="regInput.status == 'Applied' || regInput.status == 'Reject'">
+                                            <div class="form-row p-1">
+                                                <div class="form-group col-6">
+                                                    <label class="custom-file-label" for="file">{{pan}}</label>
+                                                    <input type="file"
+                                                        accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                        class="custom-file-input"
+                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                        (change)="onFileSelect($event)">
+                                                </div>
+                                                <div class="form-group col-2">
+                                                    <button mat-raised-button color="primary" (click)="uploadPan()"><i
+                                                            class="fas fa-upload"></i></button>
+                                                </div>
+                                                <div class="form-group col-4" *ngIf="!showPanSc">
+                                                    <p class="text-success">Upload Successful!</p>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-3 p-1 border">
+                                    <div class="row">
+                                        <div class="col-12 text-center p-1">
+                                            <h4>ADHAR CARD</h4>
+                                        </div>
+                                        <div class="col-12 text-center pt-2">
+                                            <img src="{{endpoint}}/docs/customer/{{regInput.id+'_'}}/{{regInput.adharCard}}"
+                                                class="img-fluid border" alt="Project image">
+                                        </div>
+                                        <!-- <div class="col-12" *ngIf="regInput.status == 'Applied' || regInput.status == 'Reject'">
+                                            <div class="form-row p-1">
+                                                <div class="form-group col-6">
+                                                    <label class="custom-file-label" for="file">{{adhar}}</label>
+                                                    <input type="file"
+                                                        accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                        class="custom-file-input"
+                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                        (change)="onFileSelected($event)">
+                                                </div>
+                                                <div class="form-group col-2">
+                                                    <button mat-raised-button color="primary" (click)="uploadAdhar()"><i
+                                                            class="fas fa-upload"></i></button>
+                                                </div>
+                                                <div class="form-group col-3" *ngIf="!showAdharSc">
+                                                    <p class="text-success">Upload Successful!</p>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-3 p-1 border">
+                                    <div class="row">
+                                        <div class="col-12 text-center p-1">
+                                            <h4>PHOTO</h4>
+                                        </div>
+                                        <div class="col-12 text-center pt-2">
+                                            <img src="{{endpoint}}/docs/customer/{{regInput.id+'_'}}/{{regInput.photo}}"
+                                                class="img-fluid border" alt="Project image">
+                                        </div>
+                                        <!-- <div class="col-12" *ngIf="regInput.status == 'Applied' || regInput.status == 'Reject'">
+                                            <div class="form-row p-1">
+                                                <div class="form-group col-6">
+                                                    <label class="custom-file-label" for="file">{{photo}}</label>
+                                                    <input type="file"
+                                                        accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                        class="custom-file-input"
+                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                        (change)="onFileSelectedPhoto($event)">
+                                                </div>
+                                                <div class="form-group col-2">
+                                                    <button mat-raised-button color="primary" (click)="uploadPhoto()"><i
+                                                            class="fas fa-upload"></i></button>
+                                                </div>
+                                                <div class="form-group col-3" *ngIf="!showPhotoSc">
+                                                    <p class="text-success">Upload Successful!</p>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-3 p-1 border">
+                                    <div class="row">
+                                        <div class="col-12 text-center p-1">
+                                            <h4>SIGNATURE</h4>
+                                        </div>
+                                        <div class="col-12 text-center pt-2">
+                                            <img src="{{endpoint}}/docs/customer/{{regInput.id+'_'}}/{{regInput.sign}}"
+                                                class="img-fluid border" alt="Project image">
+                                        </div>
+                                        <!-- <div class="col-12" *ngIf="regInput.status == 'Applied' || regInput.status == 'Reject'">
+                                            <div class="form-row p-1">
+                                                <div class="form-group col-6">
+                                                    <label class="custom-file-label" for="file">{{sign}}</label>
+                                                    <input type="file"
+                                                        accept="image/png, image/gif, image/jpg, image/jpeg"
+                                                        class="custom-file-input"
+                                                        aria-describedby="inputGroupFileAddon01" name="file" id="file"
+                                                        (change)="onFileSelectedsign($event)">
+                                                </div>
+                                                <div class="form-group col-2">
+                                                    <button mat-raised-button color="primary" (click)="uploadSign()"><i
+                                                            class="fas fa-upload"></i></button>
+                                                </div>
+                                                <div class="form-group col-3" *ngIf="!showSignSc">
+                                                    <p class="text-success">Upload Successful!</p>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (main row) -->
+
+                    <!-- Main row -->
+                    <!-- <div class="row" *ngIf="!permission.addMembershipApprovalPrivilage">
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">First Name:</label>
+                                    <input type="text" class="form-control" disabled disabled disabled [(ngModel)]="regInput.f_name"
+                                        id="inputEmail4" placeholder="First Name">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">Last Name:</label>
+                                    <input type="text" class="form-control" disabled disabled disabled id="inputEmail4"
+                                        [(ngModel)]="regInput.l_name" placeholder="Last Name">
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4"> Fathers Name:</label>
+                                    <input type="text" class="form-control" disabled disabled disabled [(ngModel)]="regInput.fathers_name"
+                                        id="inputEmail4" placeholder=" Fathers Name">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4"> Phone Number:</label>
+                                    <input type="text" class="form-control" disabled disabled disabled [(ngModel)]="regInput.phone_no"
+                                        id="inputEmail4" placeholder=" +91 ">
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="inputEmail4">Date of Birth:</label>
+                                    <input type="date" class="form-control" disabled disabled disabled id="inputEmail4" placeholder=" "
+                                        [(ngModel)]="regInput.dob">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputEmail4">Gender:</label>
+                                    <select id="inputState" class="form-control" disabled disabled disabled [(ngModel)]="regInput.gender">
+                                        <option label="--Please Select --"></option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label for="inputEmail4">Address:</label>
+                                    <input type="text" class="form-control" disabled disabled disabled id="inputEmail4"
+                                        [(ngModel)]="regInput.address" placeholder="Address">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4"> Email:</label>
+                                    <input type="email" class="form-control" disabled disabled disabled id="inputEmail4"
+                                        [(ngModel)]="regInput.email" placeholder="Youremail@gmail.com">
+                                </div>
+
+
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4"> PAN Number:</label>
+                                    <input type="text" class="form-control" disabled disabled disabled id="inputEmail4"
+                                        [(ngModel)]="regInput.panNo" placeholder="PAN Number">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">ADHAR Number:</label>
+                                    <input type="text" class="form-control" disabled disabled disabled id="inputEmail4"
+                                        [(ngModel)]="regInput.adharNo" placeholder="xxxx-xxxx-xxxx">
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4"> Purpose of Membership:</label>
+                                    <input type="text" class="form-control" disabled disabled disabled id="inputEmail4"
+                                        [(ngModel)]="regInput.purpose" placeholder="Purpose of Membership">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">Occupation:</label>
+                                    <input type="text" class="form-control" disabled disabled disabled id="inputEmail4"
+                                        [(ngModel)]="regInput.occupation" placeholder="Occupation">
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4"> Introducer Member Name:</label>
+                                    <input type="text" class="form-control" disabled disabled disabled id="inputEmail4"
+                                        [(ngModel)]="regInput.introducer" placeholder="Introducer Member Name">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">Introducer Membership ID:</label>
+                                    <input type="text" class="form-control" disabled disabled disabled id="inputEmail4"
                                         [(ngModel)]="regInput.introducer_id" placeholder="Introducer Membership ID">
                                 </div>
                             </div>
@@ -366,7 +362,7 @@
                                 <div class="form-group col-md-4">
                                     <label class="text-danger" for="inputEmail4">Action (Approve/Reject):</label>
                                     <div class="">
-                                        <select class="form-control" id="sourceOfFund" [(ngModel)]="brAction.action">
+                                        <select class="form-control" disabled disabled id="sourceOfFund" [(ngModel)]="brAction.action">
                                             <option label="--Please Select --"></option>
                                             <option value="Approve">
                                                 Approve
@@ -381,7 +377,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="inputEmail4"> E-Office Account Number:</label>
-                                            <input type="text" class="form-control" [(ngModel)]="approvel.acNo"
+                                            <input type="text" class="form-control" disabled disabled [(ngModel)]="approvel.acNo"
                                                 id="inputEmail4" placeholder=" E-Office Account Number">
                                         </div>
                                     </div>
@@ -391,7 +387,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="inputEmail4">Reason:</label>
-                                            <textarea type="text" class="form-control" id="inputEmail4"
+                                            <textarea type="text" class="form-control" disabled disabled id="inputEmail4"
                                                 [(ngModel)]="reject.reason" placeholder="Reason"></textarea>
                                         </div>
                                     </div>
