@@ -10,6 +10,8 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { environment } from 'src/environments/environment';
 import { brunchDetailsData } from '../brunch-details/brunch-details.component';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { CommonModule } from '@angular/common';
 
 
 export interface usersData {
@@ -27,11 +29,11 @@ export interface usersData {
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatInputModule,FormsModule, MatFormFieldModule, MatSortModule],
+  imports: [NgxSpinnerModule, MatTableModule, MatPaginatorModule, MatButtonModule, MatInputModule,FormsModule, MatFormFieldModule, MatSortModule, CommonModule],
 })
 export class UsersComponent implements OnInit{
 
-  public displayedColumns: string[] = ['Sl','user_name','position', 'category', 'email','phone_no','active'];
+  public displayedColumns: string[] = ['Sl','user_name','position', 'category', 'designation', 'salaried', 'email','phone_no','active'];
   dataSource !: MatTableDataSource<brunchDetailsData>
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
@@ -54,7 +56,10 @@ export class UsersComponent implements OnInit{
   public userId:any;
   returnMsg:any;
 
+  public isLodaing = true;
+
   constructor(
+    private spinner: NgxSpinnerService,
     private UsersService: UsersService,
     private toastr:ToastrService,
   ){
@@ -79,6 +84,14 @@ export class UsersComponent implements OnInit{
     this.getUserList();
   }
 
+
+  spiner() {
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 5000);
+  }
+
   getUserList=()=>{
     let requestObject = {};
     
@@ -101,10 +114,13 @@ export class UsersComponent implements OnInit{
     this.isSaving = true;
     let isValid = this.validateInputs();
     if(isValid){
+      this.isLodaing = true;
+    this.spiner();
     console.log("input data",this.userInputData);
     this.userInputData.createdBy = this.userId;
     this.UsersService.createUser(this.userInputData, (res: any) =>{
       this.returnMsg = res.message;
+      this.isLodaing = false;
       console.log("lllllllllll",this.returnMsg);
       // this.location();
       let ele:any = document.getElementById('modalClose');

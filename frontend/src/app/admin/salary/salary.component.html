@@ -1,7 +1,7 @@
 <!-- Loading starts -->
-<!-- <div id="loading-wrapper" *ngIf="isLodaing">
+<div id="loading-wrapper" *ngIf="isLodaing">
     <ngx-spinner bdColor="rgba(0,0,0,0.9)" type="ball-clip-rotate"></ngx-spinner>
-  </div> -->
+  </div>
 
 <!-- Loading ends -->
 <div class="content-wrapper">
@@ -80,26 +80,26 @@
                                 Salary form for the <b>{{inputData.monthName}} - {{inputData.year}}</b>
                             </div>
                             <div class="col-12 scroll-container">
-                                <table>
+                                <table class="table table-hover table-striped">
                                     <thead>
                                         <tr>
-                                            <th>STAFF CATEGORY</th>
-                                            <th>STAFF NAME</th>
-                                            <th>DESIGNATIONS</th>
-                                            <th>EMPLOYEE CODE</th>
-                                            <th>BASIC PAY</th>
-                                            <th>PERFORMANCE ALLOWANCE</th>
-                                            <th>TRAVELLING ALLOWANCE</th>
-                                            <th>GROSS SALARY</th>
-                                            <th>PROFESSIONAL FEE</th>
-                                            <th>INSURANCE FEE</th>
-                                            <th>EWF DEPOSIT</th>
-                                            <th>CANTEEN FEE</th>
-                                            <th>ABSENT CHARGES</th>
-                                            <th>EWF REFUND</th>
-                                            <th>LOCAL EMI</th>
-                                            <th>OTHERS</th>
-                                            <th>NET SALARY</th>
+                                            <th class="bg-success text-center">STAFF CATEGORY</th>
+                                            <th class="bg-success text-center">STAFF NAME</th>
+                                            <th class="bg-success text-center">DESIGNATIONS</th>
+                                            <th class="bg-success text-center">EMPLOYEE CODE</th>
+                                            <th class="bg-success text-center">BASIC PAY</th>
+                                            <th class="bg-success text-center">PERFORMANCE ALLOWANCE</th>
+                                            <th class="bg-success text-center">TRAVELLING ALLOWANCE</th>
+                                            <th class="bg-success text-center">GROSS SALARY</th>
+                                            <th class="bg-success text-center">PROFESSIONAL FEE</th>
+                                            <th class="bg-success text-center">INSURANCE FEE</th>
+                                            <th class="bg-success text-center">EWF DEPOSIT</th>
+                                            <th class="bg-success text-center">CANTEEN FEE</th>
+                                            <th class="bg-success text-center">ABSENT CHARGES</th>
+                                            <th class="bg-success text-center">EWF REFUND</th>
+                                            <th class="bg-success text-center">LOAN EMI</th>
+                                            <th class="bg-success text-center">OTHERS</th>
+                                            <th class="bg-success text-center">NET SALARY</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -114,7 +114,7 @@
                                                 {{employee.designation}}
                                             </td>
                                             <td>
-
+                                                {{employee.employeeId}}
                                             </td>
                                             <td>
                                                 <input type="number" class="form-control"
@@ -221,6 +221,7 @@
                                 <table class="table table-hover table-striped">
                                     <thead>
                                         <tr>
+                                            <th class="bg-success text-center">Sl No.</th>
                                             <th class="bg-success text-center">STAFF CATEGORY</th>
                                             <th class="bg-success text-center">STAFF NAME</th>
                                             <th class="bg-success text-center">DESIGNATIONS</th>
@@ -231,7 +232,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let empData of data">
+                                        <tr *ngFor="let empData of data; let i = index">
+                                            <td>{{i+1}}</td>
                                             <td>
                                                 {{empData.category}}
                                             </td>

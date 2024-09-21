@@ -33,6 +33,7 @@ export class SalaryComponent implements OnInit {
     monthName: "",
     year: "",
   }
+  public isLodaing = true;
 
   public data: any;
   
@@ -69,6 +70,14 @@ export class SalaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeList();
+  }
+
+
+  spiner() {
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 5000);
   }
 
   checkSalaries(){
@@ -112,8 +121,11 @@ export class SalaryComponent implements OnInit {
     console.log("inputData", this.inputData);
     let isValid = this.validateInputs();
     if(isValid){
+    this.isLodaing = true;
+    this.spiner();
     this.SalaryService.checkSalary(this.inputData, (callback:any)=>{
       console.log(callback);
+      this.isLodaing = false;
       if (callback.length == 0) {
         this.salaryDown = true;
         this.salaryshow = false;
@@ -135,7 +147,7 @@ export class SalaryComponent implements OnInit {
         
         
       });
-      this.data = temp;
+     this.data = temp;
         console.log("data",this.data);
       }
     })
@@ -144,9 +156,11 @@ export class SalaryComponent implements OnInit {
 
   employeeList=()=>{
     let requestObject = {};
-    
+    this.isLodaing = true;
+    this.spiner();
     this.SalaryService.employeeList(requestObject, (callback:any)=>{
       console.log(callback);
+      this.isLodaing = false;
 
       this.employees = callback;
       console.log("eeeeeeeeeeeee",this.employees);
@@ -221,18 +235,17 @@ export class SalaryComponent implements OnInit {
 
 
 
-
+    this.isLodaing = true;
+    this.spiner();
     // Perform the save operation here, e.g., send to backend
     this.SalaryService.saveSalaries(salaryDataArray, (res: any) => {
-      // this.createMsg = res.message
-      // if (this.createMsg === "success") {
-      //   this.toastr.success("User created successfull", "success");
-      //   this.cancelRegistration();
-      // }
-      // else{
-      //   this.toastr.error("Oops! Something went wrong. Please try again",
-      //   "Warning");
-      // }
+      this.isLodaing = false;
+
+      this.salaryDown = false;
+      this.salaryshow = true;
+
+      this.checkSalaries();
+      
     })
   }
 

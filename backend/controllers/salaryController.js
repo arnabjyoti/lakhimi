@@ -83,10 +83,10 @@ module.exports = {
         ],
         order: [
           [Sequelize.literal(`CASE 
-            WHEN position = 'Head office' THEN 1 
-            WHEN position = 'Branch Manager' THEN 2 
-            WHEN position = 'Cashier' THEN 3 
-            WHEN position = 'Field Agent' THEN 4
+            WHEN category = 'NON MANAGERIAL STAFF' THEN 1 
+            WHEN category = 'BRANCH MANAGER' THEN 2 
+            WHEN category = 'OFFICE ASSISTANT STAFF' THEN 3 
+            WHEN category = 'FIELD EXECUTIVE STAFF' THEN 4
             ELSE 5
           END`), 'ASC']
         ]

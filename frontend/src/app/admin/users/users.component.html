@@ -1,4 +1,9 @@
-<div class="content-wrapper">
+<!-- Loading starts -->
+<div id="loading-wrapper" *ngIf="isLodaing">
+    <ngx-spinner bdColor="rgba(0,0,0,0.9)" type="ball-clip-rotate"></ngx-spinner>
+  </div>
+  
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -63,6 +68,18 @@
                             <ng-container matColumnDef="category">
                                 <th mat-sort-header mat-header-cell *matHeaderCellDef> Category </th>
                                 <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="designation">
+                                <th mat-sort-header mat-header-cell *matHeaderCellDef> Designation </th>
+                                <td mat-cell *matCellDef="let element"> {{element.designation}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="salaried">
+                                <th mat-sort-header mat-header-cell *matHeaderCellDef> Salaried </th>
+                                <td mat-cell *matCellDef="let element"> {{element.salaried}} </td>
                             </ng-container>
 
                             <!-- Name Column -->

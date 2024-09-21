@@ -49,15 +49,20 @@ export class SalaryService {
     
     this.http.post(ENDPOINT, requestOptions)
       .subscribe(
-        (response) => {            
+        (response) => {
+          this.toastr.success("Salary generated", "Success!", {
+            disableTimeOut: false
+          });
           return callback && callback(response);
         },
         error => {
-          
+          this.toastr.error("Salary not generated", "warning!", {
+            disableTimeOut: false
+          });
           return callback && callback(error);
-          
         },
         () => {
+          console.log("Observable is now completed.");
         });
   }
 
