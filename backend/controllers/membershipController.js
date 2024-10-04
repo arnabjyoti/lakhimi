@@ -257,7 +257,7 @@ module.exports = {
               ['createdAt', 'DESC']
             ],
             where: {
-              userId: req.body.requestObject,
+              brunchId: req.body.requestObject,
             },
             raw: true,
           })

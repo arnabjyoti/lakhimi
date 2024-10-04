@@ -55,7 +55,7 @@ export class ExpressLoanApplyComponent implements OnInit{
     l_product_cost: 0,
     l_down_payment_amount: 0,
     l_processing_fee: "",
-    l_tenure: 12,
+    l_tenure: 3,
     l_roi: 1.135, //13.5
     l_EMI_amount: "",
 
@@ -188,7 +188,7 @@ export class ExpressLoanApplyComponent implements OnInit{
     // console.log("this.memberData.l_total_return_amnt",this.memberData.l_total_return_amnt);
     this.memberData.emi_amnt = Math.round(this.memberData.l_total_return_amnt/12);
     // console.log("this.memberData.emi_amnt",this.memberData.emi_amnt);
-    this.memberData.adv_emi = Math.round(3*this.memberData.emi_amnt);
+    this.memberData.adv_emi = Math.round(this.memberData.l_tenure*this.memberData.emi_amnt);
     // console.log("this.memberData.adv_emi",this.memberData.adv_emi);
     }else{
       this.toastr.error("Product cost maximum limit 1,00,0000", "warning!", {

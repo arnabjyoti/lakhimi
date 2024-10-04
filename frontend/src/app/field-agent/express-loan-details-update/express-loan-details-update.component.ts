@@ -65,6 +65,7 @@ export class ExpressLoanDetailsUpdateComponent implements OnInit{
   public l_processing_fee_new: any = 0;
   public emi_amnt_new: any = 0;
   public adv_emi_new: any = 0;
+  public l_tenure: any = 3;
 
   public l_roi: any = 1.135;
   public share_fee: any =  110;
@@ -220,6 +221,15 @@ export class ExpressLoanDetailsUpdateComponent implements OnInit{
       
       this.memberData.shop_name = res["vendor.shop_name"];
       this.memberData.vendorId = res["vendor.vendorId"];
+
+
+
+      this.l_product_cost_new = res.l_product_cost;
+      this.l_total_return_amnt_new = res.l_total_return_amnt;
+      this.l_processing_fee_new = res.l_processing_fee;
+      this.emi_amnt_new = res.emi_amnt;
+      this.adv_emi_new = res.adv_emi;
+      this.l_tenure = res.l_tenure;
 
 
 }
@@ -414,13 +424,13 @@ isAllowedFilePdf = (file: any, callback: any) => {
 Calculate(){
 
   if (this.l_product_cost_new < 100001) {
-    this.l_processing_fee_new = Math.round(this.l_product_cost_new*0.01);
+    this.l_processing_fee_new = Math.round(this.l_product_cost_new*0.015);
   // console.log("this.l_processing_fee",this.l_processing_fee_new);    
   this.l_total_return_amnt_new = Math.round((this.share_fee + this.share_admsn_fee + this.ac_admsn_fee + this.insrnc + this.nach + this.l_processing_fee_new + this.l_product_cost_new)*this.l_roi);
   // console.log("this.l_total_return_amnt",this.l_total_return_amnt_new);
   this.emi_amnt_new = Math.round(this.l_total_return_amnt_new/12);
   // console.log("this.emi_amnt",this.emi_amnt_new);
-  this.adv_emi_new = Math.round(3*this.emi_amnt_new);
+  this.adv_emi_new = Math.round(this.l_tenure*this.emi_amnt_new);
   // console.log("this.adv_emi",this.adv_emi_new);
   }else{
     this.toastr.error("Product cost maximum limit 1,00,0000", "warning!", {
@@ -482,6 +492,7 @@ updateData(){
     l_processing_fee_new: this.l_processing_fee_new,
     emi_amnt_new: this.emi_amnt_new,
     adv_emi_new: this.adv_emi_new,
+    l_tenure: this.l_tenure,
     
     reference_no: this.reference_number,
 

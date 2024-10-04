@@ -666,6 +666,7 @@ module.exports = {
             l_processing_fee: req.body.requestObject.l_processing_fee_new,
             emi_amnt: req.body.requestObject.emi_amnt_new,
             adv_emi: req.body.requestObject.adv_emi_new,
+            l_tenure: req.body.requestObject.l_tenure,
             bm_status: null,
             bm_reason: null,
             bm_fwd_date: null,

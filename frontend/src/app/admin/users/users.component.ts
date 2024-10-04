@@ -44,6 +44,8 @@ export class UsersComponent implements OnInit{
     address: "",
     position: "",
     category: "",
+    salaried: "",
+    employeeId: "",
     email: "",
     phone_no: "",
     role: "",
@@ -169,7 +171,7 @@ export class UsersComponent implements OnInit{
     if (this.userInputData.position === "Branch Manager") {
       this.userInputData.role = "branch_manager"
     }
-    else if (this.userInputData.position === "Field Agent") {
+    else if (this.userInputData.position === "Field Agent" || this.userInputData.position === "Field Assistant") {
       this.userInputData.role = "field_agent"
     }
     else if (this.userInputData.position === "Cashier") {
@@ -177,6 +179,18 @@ export class UsersComponent implements OnInit{
     }
     if(this.userInputData.category==='' || this.userInputData.category===null || this.userInputData.category===undefined){
       this.toastr.warning('Please enter category.','Warning',{
+        disableTimeOut:false
+      });
+      return false;
+    }
+    if(this.userInputData.salaried==='' || this.userInputData.salaried===null || this.userInputData.salaried===undefined){
+      this.toastr.warning('Please enter salaried.','Warning',{
+        disableTimeOut:false
+      });
+      return false;
+    }
+    if(this.userInputData.employeeId==='' || this.userInputData.employeeId===null || this.userInputData.employeeId===undefined){
+      this.toastr.warning('Please enter Employee ID.','Warning',{
         disableTimeOut:false
       });
       return false;
@@ -198,6 +212,9 @@ export class UsersComponent implements OnInit{
     this.userInputData.email = "";
     this.userInputData.phone_no = "";
     this.userInputData.role = "";
+    this.userInputData.category = "";
+    this.userInputData.salaried = "";
+    this.userInputData.employeeId = "";
   }
 
 }

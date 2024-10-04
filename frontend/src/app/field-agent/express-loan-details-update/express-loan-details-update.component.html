@@ -223,6 +223,17 @@
                                                                         [(ngModel)]="l_product_cost_new"
                                                                         (keyup)="Calculate()">
                                                                 </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label>Select Advance EMI Tenure:<span class="required">*</span></label>
+                                                                    <select class="form-control"
+                                                                        [(ngModel)]="l_tenure"
+                                                                        (change)="Calculate()">
+                                                                        <option value="3">3 Months</option>
+                                                                        <option value="4">4 Months</option>
+                                                                        <option value="5">5 Months</option>
+                                                                        <option value="6">6 Months</option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
@@ -237,12 +248,12 @@
                                                                 currency:'INR':'symbol':'1.2-2'}}
                                                             </div> -->
                                                             <div class="form-group col-md-12">
-                                                                <b>Adv. EMI (Total of 3 Months): </b>{{adv_emi_new |
+                                                                <b>Adv. EMI (Total of {{l_tenure}} Months): </b>{{adv_emi_new |
                                                                 currency:'INR':'symbol':'1.2-2'}} <i>to be paid at the time of purchase.</i>
                                                             </div>
                                                             <div class="form-group col-md-12">
                                                                 <b>EMI: </b> {{emi_amnt_new |
-                                                                currency:'INR':'symbol':'1.2-2'}} <i>to be paid for subseqent 9 months.</i>
+                                                                currency:'INR':'symbol':'1.2-2'}} <i>to be paid for subseqent {{12-l_tenure}} months.</i>
                                                             </div>
                                                         </div>
                                                     </div>

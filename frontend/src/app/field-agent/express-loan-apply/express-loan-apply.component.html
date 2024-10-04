@@ -333,19 +333,17 @@
                                                                 [(ngModel)]="memberData.l_product_cost"
                                                                 (keyup)="Calculate()">
                                                         </div>
-                                                        <!-- <div class="form-group col-md-6">
-                                                            <label>Select Tenure:<span class="required">*</span></label>
+                                                        <div class="form-group col-md-6">
+                                                            <label>Select Advance EMI Tenure:<span class="required">*</span></label>
                                                             <select class="form-control"
                                                                 [(ngModel)]="memberData.l_tenure"
                                                                 (change)="Calculate()">
-                                                                <option label="Please Select"></option>
                                                                 <option value="3">3 Months</option>
+                                                                <option value="4">4 Months</option>
+                                                                <option value="5">5 Months</option>
                                                                 <option value="6">6 Months</option>
-                                                                <option value="9">9 Months</option>
-                                                                <option value="12">12 Months</option>
-                                                                <option value="18">18 Months</option>
                                                             </select>
-                                                        </div> -->
+                                                        </div>
                                                         <!-- <div class="form-group col-md-6">
                                                             <label>Select Tenure:<span class="required">*</span></label>
                                                                 <input type="range" [(ngModel)]="memberData.l_tenure" (change)="Calculate()" class="custom-range" id="customRange" [min]="0" [max]="steps.length - 1" [(ngModel)]="currentStepIndex" (input)="updateValue()">
@@ -378,12 +376,12 @@
                                                         <b>Net Finance Amt.: </b> {{memberData.net_finance_amnt | currency:'INR':'symbol':'1.2-2'}}
                                                     </div> -->
                                                     <div class="form-group col-md-12">
-                                                        <b>Adv. EMI (Total of 3 Months): </b>{{memberData.adv_emi |
+                                                        <b>Adv. EMI (Total of {{memberData.l_tenure}} Months): </b>{{memberData.adv_emi |
                                                         currency:'INR':'symbol':'1.2-2'}} <i>to be paid at the time of purchase.</i>
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <b>EMI: </b> {{memberData.emi_amnt |
-                                                        currency:'INR':'symbol':'1.2-2'}} <i>to be paid for subseqent 9 months.</i>
+                                                        currency:'INR':'symbol':'1.2-2'}} <i>to be paid for subseqent {{12-memberData.l_tenure}} months.</i>
                                                     </div>
 
 

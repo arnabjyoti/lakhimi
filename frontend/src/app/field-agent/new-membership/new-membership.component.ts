@@ -598,7 +598,7 @@ export class NewMembershipComponent implements OnInit {
 
   getAppliedMembershipById() {
     let requestObject = {};
-    this.NewMembershipService.getAppliedMemberDataById(this.userId, (callback: any) => {
+    this.NewMembershipService.getAppliedMemberDataById(this.brunchId, (callback: any) => {
       this.isLodaing = false;
       console.log("bbbbbbbbbbbbbbbbbbbb", callback);
       console.log(callback);
