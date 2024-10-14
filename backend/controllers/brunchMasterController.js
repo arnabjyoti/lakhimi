@@ -239,7 +239,9 @@ module.exports = {
         })
         .then(bm => {
           ss = _.map(bm, function(bm) { return bm.userId; })
+          // bm is all branchmaster data
           console.log("hhhhhhhhhhh",ss);
+          // ss is branch master userId(foreign key) who is assigned to branch
           if (!bm) {
             res.status(200).send({});
             // return fn(proj);
@@ -252,7 +254,8 @@ module.exports = {
                 raw: true
               })
               .then(brunch => {
-                console.log("vvvvvvvvvvv",brunch);
+                // here we compare user model Id with branch master userId and whose role is "field_agent" in user model
+                console.log("free agent",brunch);
                 return res.status(200).send(brunch);
               })
               .catch(error => {

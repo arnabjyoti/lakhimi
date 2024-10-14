@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ProfileService } from './profile.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class ProfileComponent implements OnInit{
   public user:any;
   public age:any;
   public userId:any;
-  public data:any;
+  // public data:any;
   public brunchData:any = {};
   public userList: any;
 
@@ -24,20 +25,27 @@ export class ProfileComponent implements OnInit{
   public br_email:any;
   public br_addr:any;
 
+  public isLodaing = true;
 
-  public fund = {
+  public data:any = {
     f_name: "",
-    m_name: ""
+    m_name: "",
+    phone_no: "",
+    address: ""
   };
+
+  public userData:any;
 
   constructor(
     private route: ActivatedRoute,
     private ProfileService: ProfileService,
+    private toastr: ToastrService,
   ) {}
   ngOnInit(): void {
     // this.getUserList();
     this.getUserDetails();
     this.getUserDetailsById();
+    this.getuserDataById();
   }
 
   getUserDetails = () =>{
@@ -60,6 +68,16 @@ export class ProfileComponent implements OnInit{
       console.log("Token not");
     }
     // console.log("I AM CITIZEN",this.user);
+  }
+
+
+  getuserDataById = () =>{
+    this.ProfileService.getuserDataById(this.userId, (callback: any) =>{
+      console.log("user data",callback);
+      this.data = callback;
+      console.log("data", this.data);
+      
+    })
   }
 
   getUserDetailsById = () =>{
@@ -90,4 +108,45 @@ export class ProfileComponent implements OnInit{
     });
   }
   };
+
+
+  updateProfile(){
+    let formValidate = this.validateInputs();
+    if (formValidate) {
+    this.ProfileService.updateProfileData(this.data, (res: any) => {
+      let ele:any = document.getElementById('modalClose');
+    ele.click();
+      this.isLodaing = false;
+    })
+  }
+  }
+
+  validateInputs(){
+    console.log("Saving project before validate", this.data);
+  if (this.data.f_name === '' || this.data.f_name === null || this.data.f_name === undefined) {
+    this.toastr.warning('Please type first name', 'Warning', {
+      disableTimeOut: false
+    });
+    return false;
+  }
+  if (this.data.l_name === '' || this.data.l_name === null || this.data.l_name === undefined) {
+    this.toastr.warning('Please type last name', 'Warning', {
+      disableTimeOut: false
+    });
+    return false;
+  }
+  if (this.data.phone_no < 1000000000 || this.data.phone_no  > 9999999999) {
+    this.toastr.warning('Please type phone number', 'Warning', {
+      disableTimeOut: false
+    });
+    return false;
+  }
+  if (this.data.address === '' || this.data.address === null || this.data.address === undefined) {
+    this.toastr.warning('Please type address', 'Warning', {
+      disableTimeOut: false
+    });
+    return false;
+  }
+  return true;
+  }
 }

@@ -10,6 +10,51 @@ const Op = require('sequelize').Op;
 var Sequelize = require('sequelize');
 
 module.exports = {
+
+
+  getuserDataById(req, res){
+    console.log("reqqqqqqqqqqqqq ",req.body.requestObject);
+    let query={
+      raw: true,
+        where: {
+          id: req.body.requestObject
+        },
+  }
+
+console.log("Query is==========> ",query);
+return usersModel
+.findOne(query)
+.then(user => {
+  return res.status(200).send(user);
+})
+.catch(error => {
+  console.log(error);
+  return res.status(400).send(error);
+});
+},
+
+
+updateProfileData(req, res){
+  console.log("++++++++++++++++++++++++++++++++",req.body.requestObject);
+    const newData = {
+      f_name: req.body.requestObject.f_name.toUpperCase(),
+      l_name: req.body.requestObject.l_name.toUpperCase(),
+      address: req.body.requestObject.address,
+      phone_no: req.body.requestObject.phone_no,
+    };
+    usersModel
+      .update(newData, {
+        where: {
+          id: req.body.requestObject.id
+        }
+      })
+      .then(project => {
+        console.log("hhhhhhhhhhhhhhh",project);
+        return res.status(200).send({message: project});
+    })
+    .catch(error => res.status(400).send(error));
+},
+
   getUserList(req, res){
       let query={
           raw: true,
@@ -85,6 +130,7 @@ return usersModel
         createdBy: req.body.requestObject.createdBy,
         employeeId: req.body.requestObject.employeeId,
         salaried: req.body.requestObject.salaried,
+        designation: req.body.requestObject.designation,
         // brunch_location: req.body.requestObject.brunch_location,
         // brunch_adrs: req.body.requestObject.brunch_adrs,
         // brunch_cntct_no: req.body.requestObject.brunch_cntct_no,

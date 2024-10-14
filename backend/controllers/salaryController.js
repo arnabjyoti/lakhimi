@@ -30,6 +30,7 @@ module.exports = {
               basicPay: data.basicPay,
               pA: data.pA,
               tA: data.tA,
+              oA: data.oA,
               GrossSalary: data.GrossSalary,
               PTax: data.PTax,
               insurance: data.insurance,

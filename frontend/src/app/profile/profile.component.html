@@ -42,7 +42,7 @@
         <div class="container">
           <div class="row">
             <div class="col-12 text-right pt-2">
-              <!-- <i class="nav-icon fas fa-pen" data-toggle="modal" data-target="#editProfile" style="cursor: pointer;"></i> -->
+              <i class="nav-icon fas fa-pen" data-toggle="modal" data-target="#editProfile" style="cursor: pointer;"></i>
             </div>
             <div class="col-lg-12 mb-4 mb-sm-5 pt-2">
               <div class="row align-items-center">
@@ -51,20 +51,20 @@
                 </div>
                 <div class="col-lg-6 px-xl-10">
                   <div class="bg-secondary d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded">
-                    <h3 class="h2 text-white mb-0">{{user.f_name}} {{user.m_name}} {{user.l_name}}</h3>
+                    <h3 class="h2 text-white mb-0">{{data.f_name}} {{data.l_name}}</h3>
                     <span class="text-primary">{{user.position}}</span>
                   </div>
                   <ul class="list-unstyled mb-1-9">
                     <li class="mb-2 mb-xl-3 display-28"><span
-                        class="display-26 text-secondary me-2 font-weight-600">Position:</span> {{user.position}}</li>
+                        class="display-26 text-secondary me-2 font-weight-600">Position:</span> {{data.position}}</li>
                     <li class="mb-2 mb-xl-3 display-28"><span
                         class="display-26 text-secondary me-2 font-weight-600">Experience:</span> {{age}} Years</li>
                     <li class="mb-2 mb-xl-3 display-28"><span
-                        class="display-26 text-secondary me-2 font-weight-600">Email:</span> {{user.email}}</li>
+                        class="display-26 text-secondary me-2 font-weight-600">Email:</span> {{data.email}}</li>
                     <li class="mb-2 mb-xl-3 display-28"><span
-                        class="display-26 text-secondary me-2 font-weight-600">Website:</span> </li>
+                        class="display-26 text-secondary me-2 font-weight-600">Address:</span> {{data.address}}</li>
                     <li class="display-28"><span class="display-26 text-secondary me-2 font-weight-600">Phone:</span>
-                        {{user.phone_no}}</li>
+                        {{data.phone_no}}</li>
                   </ul>
                   <ul class="social-icon-style1 list-unstyled mb-0 ps-0">
                     <li><a href="#!"><i class="ti-twitter-alt"></i></a></li>
@@ -118,7 +118,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="editProfileLabel">Update Profile details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modalClose">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -129,312 +129,45 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">First Name:</label>
-                                <input type="text" class="form-control" [(ngModel)]="fund.f_name" id="inputEmail4" placeholder="First Name">
+                                <input type="text" class="form-control" [(ngModel)]="data.f_name" id="inputEmail4" placeholder="First Name">
                             </div>
-                            <div class="form-group col-md-6">
+                            <!-- <div class="form-group col-md-6">
                               <label for="inputEmail4">Middle Name:</label>
                               <input type="text" class="form-control" id="inputEmail4" placeholder="Middle Name">
-                          </div>
+                          </div> -->
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Last Name:</label>
-                                <input type="text" class="form-control" id="inputEmail4" placeholder="Last Name">
+                                <input type="text" class="form-control" [(ngModel)]="data.l_name" id="inputEmail4" placeholder="Last Name">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4"> Fathers Name:</label>
-                                <input type="text" class="form-control" id="inputEmail4"
-                                    placeholder=" Fathers Name">
+                                <label for="inputEmail4">Phone:</label>
+                                <input type="number" class="form-control" [(ngModel)]="data.phone_no" id="inputEmail4"
+                                    placeholder="phone">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Address:</label>
-                                <input type="text" class="form-control" id="inputEmail4" placeholder="Address">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Gender:</label>
-                                <select id="inputState" class="form-control">
-                                    <option selected>Please Select</option>
-                                    <option>...</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4"> Purpose of Membership:</label>
-                                <input type="text" class="form-control" id="inputEmail4"
-                                    placeholder="Purpose of Membership">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Occupation:</label>
-                                <input type="text" class="form-control" id="inputEmail4" placeholder="Occupation">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4"> Introducer Member Name:</label>
-                                <input type="text" class="form-control" id="inputEmail4"
-                                    placeholder="Introducer Member Name">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Membership ID:</label>
-                                <input type="text" class="form-control" id="inputEmail4"
-                                    placeholder="Membership ID">
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="col-sm-12 text-center">
-                        <h3>Existing Member</h3>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4"> Membership ID :</label>
-                                <input type="text" class="form-control" id="inputEmail4"
-                                    placeholder="Membership ID ">
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <div class="col-sm-12 text-center">
-                        <h3>SHARE APPLICATION</h3>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">A Class:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Price Rs:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Admin Fee:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">B Class:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Price Rs:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Admin Fee:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">C Class:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Price Rs:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Admin Fee:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">D Class:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Price Rs:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Admin Fee:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">PAN:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">AADHAAR:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 text-center">
-                        <h3>NOMINATION</h3>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4"> Nominee Name:</label>
-                                <input type="text" class="form-control" id="inputEmail4"
-                                    placeholder=" Nominee Name">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Gender:</label>
-                                <select id="inputState" class="form-control">
-                                    <option selected>Please Select</option>
-                                    <option>...</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Mobile Number:</label>
-                                <input type="number" class="form-control" id="inputEmail4"
-                                    placeholder="Mobile Number">
+                                <textarea class="form-control" id="inputEmail4" [(ngModel)]="data.address" placeholder="Address"></textarea>
                             </div>
                         </div>
                         <!-- <div class="form-row">
-                            <div class="col-md-6">
-                                <label for="inputEmail4"> Upload Annexure-A (Certificate of Controlling Authority)
-                                </label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="inputGroupFile04">
-                                        <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
-                                    </div>
-                                </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Gender:</label>
+                                <select id="inputState" class="form-control">
+                                    <option selected>Please Select</option>
+                                    <option>...</option>
+                                </select>
                             </div>
                         </div> -->
-                        <br>
-
-                        <div class="form-row">
-                            <div class="col-md-12">
-                                <label for="inputEmail4">Declaration</label>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label text-justify" for="exampleCheck1">
-                                        I hereby agree to be a member of the Lakhimi Sanchay and Rindan S.S. Limited
-                                        subject to the rules and regulations of the
-                                        approved Share of the Society and future amendments to the same. I shall
-                                        maintain my duties and responsibilities as member of
-                                        the society and follow up rules & regulations lay down by the society time
-                                        to time.
-                                        <br>
-                                        (Approval is subject to consideration of BOD. If not, money will returned as same).
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
-                    <hr>
-                    <div class="col-sm-12 text-center">
-                        <h3>ACCOUNT APPLICATION</h3>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Account Type:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Deposit Period:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Frequency:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">First Instalment Amount:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Opening Fee:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">PAN:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Email Address:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">AADHAAR NO.:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Mobile Number:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Branch Name:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">CSP/ MSP Code:</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="col-sm-12 text-center">
-                            <h3>BANK ACCOUNT DETAILS</h3>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Name in Account:</label>
-                                    <input type="text" class="form-control" id="inputEmail4">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Account Type:</label>
-                                    <input type="text" class="form-control" id="inputEmail4">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Account Number:</label>
-                                    <input type="text" class="form-control" id="inputEmail4">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">IFSC:</label>
-                                    <input type="text" class="form-control" id="inputEmail4">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Bank Name:</label>
-                                    <input type="text" class="form-control" id="inputEmail4">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Branch:</label>
-                                    <input type="text" class="form-control" id="inputEmail4">
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-12 text-center">
-                        <button mat-raised-button color="primary">Sumbit</button>
+                        <button class="btn btn-success" color="primary" (click)="updateProfile()">Sumbit</button>
                     </div>
                     <!-- <div class="col-sm-12 text-center">
                         <button type="button" id="modalClose" class="btn btn-danger"

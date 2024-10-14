@@ -15,6 +15,27 @@ export class ProfileService {
     private toastr: ToastrService
   ) { }
 
+  getuserDataById(req:any, callback:any){
+    const ENDPOINT = `${environment.BASE_URL}/api/getuserDataById`;
+    const requestOptions = {
+      headers: this.appService.headers,
+      method: "post",
+      requestObject: req
+      
+      
+    };console.log("getuserDataById",requestOptions);
+    this.http.post(ENDPOINT, requestOptions)
+      .subscribe(
+        (response) => {
+          return callback && callback(response);
+        },
+        error => {
+          return callback && callback(error);
+        },
+        () => {
+          console.log("Observable is now completed.");
+        });
+  }
 
   getUserBrunchById(req:any, callback:any){
     const ENDPOINT = `${environment.BASE_URL}/api/brDetails`;
@@ -24,7 +45,7 @@ export class ProfileService {
       requestObject: req
       
       
-    };console.log("mmmmmmmmmmm",requestOptions);
+    };console.log("getUserBrunchById",requestOptions);
     this.http.post(ENDPOINT, requestOptions)
       .subscribe(
         (response) => {
@@ -46,13 +67,41 @@ export class ProfileService {
       requestObject: req
       
       
-    };console.log("mmmmmmmmmmm",requestOptions);
+    };console.log("getUserCAshCounterById",requestOptions);
     this.http.post(ENDPOINT, requestOptions)
       .subscribe(
         (response) => {
           return callback && callback(response);
         },
         error => {
+          return callback && callback(error);
+        },
+        () => {
+          console.log("Observable is now completed.");
+        });
+  }
+
+  updateProfileData(req:any, callback:any){
+    const ENDPOINT = `${environment.BASE_URL}/api/updateProfileData`;
+    const requestOptions = {
+      headers: this.appService.headers,
+      method: "post",
+      requestObject: req
+      
+      
+    };console.log("updateProfileData",requestOptions);
+    this.http.post(ENDPOINT, requestOptions)
+      .subscribe(
+        (response) => {
+          this.toastr.success("profile updated", "Success!", {
+            disableTimeOut: false
+          });
+          return callback && callback(response);
+        },
+        error => {
+          this.toastr.success("Profile not updated", "Success!", {
+            disableTimeOut: false
+          });
           return callback && callback(error);
         },
         () => {

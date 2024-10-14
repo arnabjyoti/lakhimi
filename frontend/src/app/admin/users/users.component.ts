@@ -44,6 +44,7 @@ export class UsersComponent implements OnInit{
     address: "",
     position: "",
     category: "",
+    designation: "",
     salaried: "",
     employeeId: "",
     email: "",
@@ -183,6 +184,12 @@ export class UsersComponent implements OnInit{
       });
       return false;
     }
+    if(this.userInputData.designation==='' || this.userInputData.designation===null || this.userInputData.designation===undefined){
+      this.toastr.warning('Please select designation.','Warning',{
+        disableTimeOut:false
+      });
+      return false;
+    }
     if(this.userInputData.salaried==='' || this.userInputData.salaried===null || this.userInputData.salaried===undefined){
       this.toastr.warning('Please enter salaried.','Warning',{
         disableTimeOut:false
@@ -215,6 +222,7 @@ export class UsersComponent implements OnInit{
     this.userInputData.category = "";
     this.userInputData.salaried = "";
     this.userInputData.employeeId = "";
+    this.userInputData.designation = "";
   }
 
 }

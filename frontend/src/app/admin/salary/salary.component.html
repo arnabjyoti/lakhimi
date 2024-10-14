@@ -1,7 +1,7 @@
 <!-- Loading starts -->
 <div id="loading-wrapper" *ngIf="isLodaing">
     <ngx-spinner bdColor="rgba(0,0,0,0.9)" type="ball-clip-rotate"></ngx-spinner>
-  </div>
+</div>
 
 <!-- Loading ends -->
 <div class="content-wrapper">
@@ -90,6 +90,7 @@
                                             <th class="bg-success text-center">BASIC PAY</th>
                                             <th class="bg-success text-center">PERFORMANCE ALLOWANCE</th>
                                             <th class="bg-success text-center">TRAVELLING ALLOWANCE</th>
+                                            <th class="bg-success text-center">OTHER ALLOWANCES</th>
                                             <th class="bg-success text-center">GROSS SALARY</th>
                                             <th class="bg-success text-center">PROFESSIONAL FEE</th>
                                             <th class="bg-success text-center">INSURANCE FEE</th>
@@ -135,6 +136,13 @@
                                                     (input)="calculateGrossSalary(employee.id)"
                                                     (input)="calculateNetPay(employee.id)"
                                                     placeholder="Enter net pay" />
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control"
+                                                    [(ngModel)]="salaries[employee.id].oA"
+                                                    (input)="calculateGrossSalary(employee.id)"
+                                                    (input)="calculateNetPay(employee.id)"
+                                                    placeholder="Enter other allowances" />
                                             </td>
                                             <td>
                                                 <input type="number" class="form-control"
@@ -253,7 +261,9 @@
                                                 {{empData.netSalary | currency: 'INR':'symbol':'1.0-0'}}
                                             </td>
                                             <td class="small-bx">
-                                                
+                                                <button mat-raised-button color="purple"
+                                                    (click)="showPaySlipModal(empData)" data-toggle="modal"
+                                                    data-target="#salarySlip"><i class="far fa-file"></i></button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -272,5 +282,232 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
+    <div class="modal fade" id="salarySlip" tabindex="-1" role="dialog" aria-labelledby="accountOpeningLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accountOpeningLabel">PAY SLIP </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="modalClose">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row  px-4">
+                        <button printSectionId="pay-slip" ngxPrint [useExistingCss]="true"
+                            styleSheetFile="../node_modules/bootstrap/dist/css/bootstrap.min.css" mat-raised-button
+                            color="primary"><i class="fas fa-print"></i>
+                            print</button>
+                    </div>
+                    <div class="card-body"  id="pay-slip">
+                        <div class="col-12">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="tab-content border border-secondary rounded pb-2" id="v-pills-tabContent">
+                                        <div class="tab-pane fade show active" id="v-pills-loan-application"
+                                            role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                            <div class="col12 text-center head-color h6">
+                                                <!-- <h3><b>CASH COUNTER PAYMENT IMAGE</b></h3> -->
+                                                <div class="col-4 p-1 text-center offset-4">
+                                                    <img src="../../../assets/image/login/lakhimi-img.png" class="img-fluid text-center"
+                                                        alt="Project image">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="form-row">
+                                                    <table class="table table-bordered">
+                                                        <!-- Payslip Header -->
+                                                        <thead class="payslip-header" >
+                                                            <tr>
+                                                                <th colspan="4" class="text-center bg-success">PAY SLIP</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <!-- Employee Details -->
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-right"><strong>EMPLOYEE ID:</strong>
+                                                                </td>
+                                                                <td class="text-start">{{selectedPaySlip.employeeId}}
+                                                                </td>
+                                                                <td class="text-right"><strong>EMPLOYEE NAME:</strong>
+                                                                </td>
+                                                                <td>{{selectedPaySlip.name}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-right"><strong>DESIGNATION:</strong>
+                                                                </td>
+                                                                <td>{{selectedPaySlip.designation}}</td>
+                                                                <td class="text-right"><strong>For YEAR -
+                                                                        MONTH:</strong></td>
+                                                                <td>{{selectedPaySlip.year}} -
+                                                                    {{selectedPaySlip.monthName}}</td>
+                                                            </tr>
+                                                            <!-- <tr>
+                                                            <td class="text-right"><strong>DATE OF JOINING:</strong></td>
+                                                            <td>date</td>
+                                                            <td class="text-right"><strong>PRESENT DAYS:</strong></td>
+                                                            <td>30</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-right"><strong>DESIGNATION:</strong></td>
+                                                            <td>{{selectedPaySlip.designation}}</td>
+                                                            <td class="text-right"><strong>BANK NAME:</strong></td>
+                                                            <td>bank</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-right"><strong>DEPUTED AT:</strong></td>
+                                                            <td>das</td>
+                                                            <td class="text-right"><strong>IFSC CODE:</strong></td>
+                                                            <td>bank</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-right"><strong>GENDER:</strong></td>
+                                                            <td>das</td>
+                                                            <td class="text-right"><strong>ACCOUNT NO.:</strong></td>
+                                                            <td>bank</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-right"><strong>JOB LOCATION:</strong></td>
+                                                            <td>das</td>
+                                                            <td class="text-right"><strong>For MONTH:</strong></td>
+                                                            <td>bank</td>
+                                                        </tr> -->
+                                                        </tbody>
+                                                    </table>
+
+                                                    <!-- Earnings and Deductions Table -->
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr class="highlight">
+                                                                <th colspan="2" class="bg-success">DESCRIPTIONS</th>
+                                                                <th colspan="2" class="bg-warning">DEDUCTIONS</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><strong>Basic Pay</strong></td>
+                                                                <td>{{selectedPaySlip.basicPay |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                                <td><strong>Professional Tax</strong></td>
+                                                                <td>{{selectedPaySlip.PTax |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Performance Allowance</strong></td>
+                                                                <td>{{selectedPaySlip.pA |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                                <td><strong>Insurance</strong></td>
+                                                                <td>{{selectedPaySlip.insurance |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Travel Allowance</strong></td>
+                                                                <td>{{selectedPaySlip.tA |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                                <td><strong>EWF Deposit</strong></td>
+                                                                <td>{{selectedPaySlip.eWF |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Other Allowance</strong></td>
+                                                                <td>{{selectedPaySlip.oA |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                                <td><strong>EWF Refund</strong></td>
+                                                                <td>{{selectedPaySlip.EWFrefund |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td><strong>Canteen Fee</strong></td>
+                                                                <td>{{selectedPaySlip.canteenFee |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td><strong>Absent charges</strong></td>
+                                                                <td>{{selectedPaySlip.absentCharge |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td><strong>Loan EMI</strong></td>
+                                                                <td>{{selectedPaySlip.loanEMI |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td><strong>Others</strong></td>
+                                                                <td>{{selectedPaySlip.Others |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th>GROSS EARNINGS</th>
+                                                                <td>{{selectedPaySlip.totalGross |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                                <th>TOTAL DEDUCTIONS</th>
+                                                                <td>{{selectedPaySlip.totalDeduct |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td colspan="4"><strong>NET SALARY (G-E):</strong>
+                                                                    {{selectedPaySlip.netSalary |
+                                                                    currency:'INR':'symbol':'1.2-2'}}</td>
+                                                            </tr>
+                                                            <!-- <tr>
+                                                            <th>TOTAL PAYABLE DAYS</th>
+                                                            <td></td>
+                                                            <th>ARREAR (if any)</th>
+                                                            <td></td>
+                                                          </tr> -->
+                                                            <tr>
+                                                                <td colspan="4"><strong>Rupees:</strong>
+                                                                    {{selectedPaySlip.amountText}} Only.</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4"><br><br><br>Seal & Signature of
+                                                                    Accountant</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4" class="text-right"><br><br><br>Seal &
+                                                                    Signature of Branch Manager</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4">Note: Authorised officer seal and signatures are mandatory.</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="col-12 bg-warning text-center p-2">
+                                                        <p>
+                                                            Lakhimi Sanchay and Rindan S.S.Ltd.Office : 2nd. Floor, Dihingia Bazar, Dhemaji Tiniali, Ward-2, NH-52(15), Near SP Office, 
+                                                        </p>
+                                                        <p>
+                                                            Dhemaji, Assam, 787057. A registered Credit Cooperative Society Ltd.Regd. No. DJ270B, Act, 1949(1 of 1950), Govt. of Assam.
+                                                        </p>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end model -->
+    </div>
     <!-- Loan Account Opening Modal -->
 </div>

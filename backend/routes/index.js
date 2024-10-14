@@ -41,6 +41,10 @@ module.exports = (app) => {
 
 	app.get('/api/getBrunchManager', userController.getBrunchManager);
 
+	app.post('/api/getuserDataById', userController.getuserDataById);
+
+	app.post('/api/updateProfileData', userController.updateProfileData);
+
 
 	//brunch
 	app.post('/api/addBrunch', brunchController.addBrunch);

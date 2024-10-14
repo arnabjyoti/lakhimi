@@ -13,13 +13,15 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { SalaryService } from './salary.service';
+import { months } from 'moment';
+import { NgxPrintModule } from 'ngx-print';
 
 @Component({
   selector: 'app-salary',
   templateUrl: './salary.component.html',
   styleUrls: ['./salary.component.css'],
   standalone: true,
-  imports: [NgxSpinnerModule, MatStepperModule, ReactiveFormsModule, RouterModule, MatTableModule, MatPaginatorModule, MatButtonModule, MatInputModule, MatSortModule, FormsModule, MatFormFieldModule, CommonModule],
+  imports: [NgxPrintModule, NgxSpinnerModule, MatStepperModule, ReactiveFormsModule, RouterModule, MatTableModule, MatPaginatorModule, MatButtonModule, MatInputModule, MatSortModule, FormsModule, MatFormFieldModule, CommonModule],
 })
 export class SalaryComponent implements OnInit {
 
@@ -42,6 +44,7 @@ export class SalaryComponent implements OnInit {
     basicPay: number,
     pA: number, 
     tA: number,
+    oA: number,
     GrossSalary: number,
     PTax: number,
     insurance: number,
@@ -55,6 +58,36 @@ export class SalaryComponent implements OnInit {
    } } = {}; // To store salary, basic pay, and net pay for each employee
 
   public endpoint: any;
+
+
+  //pay slip modal
+
+  public selectedPaySlip:any ={
+    basicPay: "",
+    pA: "", 
+    tA: "",
+    oA: "",
+    GrossSalary: "",
+    PTax: "",
+    insurance: "",
+    eWF: "",
+    canteenFee: "",
+    absentCharge: "",
+    EWFrefund: "",
+    loanEMI: "",
+    Others: "",
+    netSalary: "",
+    id: "",
+    name: "",
+    designation: "",
+    employeeId: "",
+    entryDate: "",
+    year: "",
+    monthName: "",
+    month: "",
+    totalGross: "",
+    totalDeduct: ""
+  }
 
   // public data: any;
 
@@ -70,6 +103,7 @@ export class SalaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeList();
+    // this.checkSalaries();
   }
 
 
@@ -141,8 +175,21 @@ export class SalaryComponent implements OnInit {
           name: item["user.f_name"]+" "+item["user.l_name"],
           designation: item["user.designation"],
           employeeId: item["user.employeeId"],
+          entryDate: item.entryDate,
           basicPay: item.basicPay,
           netSalary: item.netSalary,
+          pA: item.pA, 
+          tA: item.tA,
+          oA: item.oA,
+          GrossSalary: item.GrossSalary,
+          PTax: item.PTax,
+          insurance: item.insurance,
+          eWF: item.eWF,
+          canteenFee: item.canteenFee,
+          absentCharge: item.absentCharge,
+          EWFrefund: item.EWFrefund,
+          loanEMI: item.loanEMI,
+          Others: item.Others,
         })
         
         
@@ -173,6 +220,7 @@ export class SalaryComponent implements OnInit {
             basicPay: 0, 
             pA: 0, 
             tA: 0,
+            oA: 0,
             GrossSalary: 0,
             PTax: 0,
             insurance: 0,
@@ -191,12 +239,14 @@ export class SalaryComponent implements OnInit {
 
   calculateGrossSalary(employeeId: number): void {
     const salaryData = this.salaries[employeeId];
-    salaryData.GrossSalary = salaryData.basicPay + salaryData.pA + salaryData.tA;
+    console.log("bbbbbbbbbb",salaryData);
+    
+    salaryData.GrossSalary = salaryData.basicPay + salaryData.pA + salaryData.tA + salaryData.oA;
   }
 
   calculateNetPay(employeeId: number): void {
     const salaryData = this.salaries[employeeId];
-    salaryData.netSalary = (salaryData.basicPay + salaryData.pA + salaryData.tA) - (salaryData.PTax + salaryData.insurance + salaryData.eWF + salaryData.canteenFee + salaryData.absentCharge + salaryData.EWFrefund + salaryData.loanEMI + salaryData.Others);
+    salaryData.netSalary = (salaryData.basicPay + salaryData.pA + salaryData.tA + salaryData.oA) - (salaryData.PTax + salaryData.insurance + salaryData.eWF + salaryData.canteenFee + salaryData.absentCharge + salaryData.EWFrefund + salaryData.loanEMI + salaryData.Others);
   }
 
 
@@ -218,17 +268,18 @@ export class SalaryComponent implements OnInit {
     const salaryDataArray = this.employees.map(employee => ({
       employeeId: employee.id,
       basicPay: this.salaries[employee.id].basicPay,
-      pA: this.salaries[employee.id].pA,
-      tA: this.salaries[employee.id].tA,
+      pA: this.salaries[employee.id].pA == null ? 0 : this.salaries[employee.id].pA,
+      tA: this.salaries[employee.id].tA == null ? 0 : this.salaries[employee.id].tA,
+      oA: this.salaries[employee.id].oA == null ? 0 : this.salaries[employee.id].oA,
       GrossSalary: this.salaries[employee.id].GrossSalary,
-      PTax: this.salaries[employee.id].PTax,
-      insurance: this.salaries[employee.id].insurance,
-      eWF: this.salaries[employee.id].eWF,
-      canteenFee: this.salaries[employee.id].canteenFee,
-      absentCharge: this.salaries[employee.id].absentCharge,
-      EWFrefund: this.salaries[employee.id].EWFrefund,
-      loanEMI: this.salaries[employee.id].loanEMI,
-      Others: this.salaries[employee.id].Others,
+      PTax: this.salaries[employee.id].PTax == null ? 0 : this.salaries[employee.id].PTax,
+      insurance: this.salaries[employee.id].insurance == null ? 0 : this.salaries[employee.id].insurance,
+      eWF: this.salaries[employee.id].eWF == null ? 0 : this.salaries[employee.id].eWF,
+      canteenFee: this.salaries[employee.id].canteenFee == null ? 0 : this.salaries[employee.id].canteenFee,
+      absentCharge: this.salaries[employee.id].absentCharge == null ? 0 : this.salaries[employee.id].absentCharge,
+      EWFrefund: this.salaries[employee.id].EWFrefund == null ? 0 : this.salaries[employee.id].EWFrefund,
+      loanEMI: this.salaries[employee.id].loanEMI == null ? 0 : this.salaries[employee.id].loanEMI,
+      Others: this.salaries[employee.id].Others == null ? 0 : this.salaries[employee.id].Others,
       netSalary: this.salaries[employee.id].netSalary,
       entryDate: this.inputData.year+this.inputData.month,
     }));
@@ -265,6 +316,124 @@ export class SalaryComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+
+
+  showPaySlipModal(row:any){
+    // this.showImage = true;
+    console.log("Selected Project=", row);
+    this.selectedPaySlip = row;
+
+    this.selectedPaySlip.totalGross = Number(this.selectedPaySlip.basicPay)+ Number(this.selectedPaySlip.pA) + Number(this.selectedPaySlip.tA) + Number(this.selectedPaySlip.oA)
+
+    this.selectedPaySlip.totalDeduct = Number(this.selectedPaySlip.PTax)+ Number(this.selectedPaySlip.insurance) + Number(this.selectedPaySlip.eWF) + Number(this.selectedPaySlip.canteenFee) + Number(this.selectedPaySlip.absentCharge) + Number(this.selectedPaySlip.EWFrefund) + Number(this.selectedPaySlip.loanEMI) + Number(this.selectedPaySlip.Others);
+
+    const numberString = this.selectedPaySlip.entryDate;
+    this.selectedPaySlip.month = numberString.slice(4);    // Extract the first 4 digits for the year
+    this.selectedPaySlip.year = numberString.slice(0, 4);   // Extract the last 2 digits for the month
+
+
+    if (this.selectedPaySlip.month == "01") {
+      this.selectedPaySlip.monthName = "January";
+    }
+    if (this.selectedPaySlip.month == "02") {
+      this.selectedPaySlip.monthName = "February";
+    }
+    if (this.selectedPaySlip.month == "03") {
+      this.selectedPaySlip.monthName = "March";
+    }
+    if (this.selectedPaySlip.month == "04") {
+      this.selectedPaySlip.monthName = "April";
+    }
+    if (this.selectedPaySlip.month == "05") {
+      this.selectedPaySlip.monthName = "May";
+    }
+    if (this.selectedPaySlip.month == "06") {
+      this.selectedPaySlip.monthName = "June";
+    }
+    if (this.selectedPaySlip.month == "07") {
+      this.selectedPaySlip.monthName = "July";
+    }
+    if (this.selectedPaySlip.month == "08") {
+      this.selectedPaySlip.monthName = "August";
+    }
+    if (this.selectedPaySlip.month == "09") {
+      this.selectedPaySlip.monthName = "September";
+    }
+    if (this.selectedPaySlip.month == "10") {
+      this.selectedPaySlip.monthName = "October";
+    }
+    if (this.selectedPaySlip.month == "11") {
+      this.selectedPaySlip.monthName = "November";
+    }
+    if (this.selectedPaySlip.month == "12") {
+      this.selectedPaySlip.monthName = "December";
+    }
+
+
+    // number to text convert
+    const numStr = this.selectedPaySlip.netSalary.toString();
+
+    // Split number into parts for crore, lakh, and thousand
+    const crores = Math.floor(numStr / 10000000);
+    const lakhs = Math.floor((numStr % 10000000) / 100000);
+    const thousands = Math.floor((numStr % 100000) / 1000);
+    const ones = Math.floor(numStr % 1000);
+
+    // Format parts to Indian currency
+    let result = '';
+    if (crores > 0) {
+      result += this.formatNumber(crores) + ' crore ';
+    }
+    if (lakhs > 0) {
+      result += this.formatNumber(lakhs) + ' lakh ';
+    }
+    if (thousands > 0) {
+      result += this.formatNumber(thousands) + ' thousand ';
+    }
+    if (ones > 0) {
+      result += this.formatNumber(ones);
+    }
+
+    result = result.charAt(0).toUpperCase() + result.slice(1);
+
+    this.selectedPaySlip.amountText = result.trim();
+    // return result.trim();
+    console.log("selectedPaySlip",this.selectedPaySlip);
+    
+  }
+
+
+  private formatNumber(num: number): string {
+    const onesMap = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    const teensMap = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+    const tensMap = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+
+    let result = '';
+    const hundreds = Math.floor(num / 100);
+    const tensUnits = num % 100;
+
+    if (hundreds > 0) {
+      result += onesMap[hundreds] + ' hundred ';
+    }
+
+    if (tensUnits > 0) {
+      if (tensUnits < 10) {
+        result += onesMap[tensUnits];
+      } else if (tensUnits < 20) {
+        result += teensMap[tensUnits - 10];
+      } else {
+        const tens = Math.floor(tensUnits / 10);
+        const units = tensUnits % 10;
+        result += tensMap[tens];
+        if (units > 0) {
+          result += ' ' + onesMap[units];
+        }
+      }
+    }
+
+    return result;
   }
 
 }

@@ -9,6 +9,7 @@ module.exports = (sequelize, type) => {
         basicPay: type.STRING,
         pA: type.STRING,
         tA: type.STRING,
+        oA: type.STRING,
         GrossSalary: type.STRING,
         PTax: type.STRING,
         insurance: type.STRING,
