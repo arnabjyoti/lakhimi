@@ -108,4 +108,28 @@ export class ProfileService {
           console.log("Observable is now completed.");
         });
   }
+
+
+
+  uploadAvatar(formData:any, dbId:any, fileType:any, callback:any){
+    const ENDPOINT = `${environment.BASE_URL}/api/uploadAvatar`;
+    console.log("mmmmmmmmmmm",formData);
+    this.http.post(ENDPOINT, formData)
+      .subscribe(
+        (response) => {
+          this.toastr.success("Applicant photo uploaded", "Success!", {
+            disableTimeOut: false
+          });
+          return callback && callback(response);
+        },
+        error => {
+          this.toastr.error("Something went wrong", "warning!", {
+            disableTimeOut: false
+          });
+          return callback && callback(error);
+        },
+        () => {
+          console.log("Observable is now completed.");
+        });
+  }
 }

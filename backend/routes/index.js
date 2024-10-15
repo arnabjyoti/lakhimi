@@ -45,6 +45,9 @@ module.exports = (app) => {
 
 	app.post('/api/updateProfileData', userController.updateProfileData);
 
+	app.post('/api/uploadAvatar', userController.upload_config.single('file'), userController.uploadAvatar);
+	
+
 
 	//brunch
 	app.post('/api/addBrunch', brunchController.addBrunch);
