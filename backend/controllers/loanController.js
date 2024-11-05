@@ -148,7 +148,7 @@ getLoanApplyListByBM(req, res) {
           attributes: ['id']
       }
       ],
-  attributes: ['id', 'full_name', 'reference_no', 'fwd_status', 'fa_status', 'apply_amount', 'apply_date', 'loan_status', 'membership_id', 'bm_status', 'lo_status', 'md_status', 'cm_status', 'userId',
+  attributes: ['id', 'full_name', 'reference_no', 'fwd_status', 'fa_status', 'apply_amount', 'apply_date', 'loan_status', 'membership_id', 'bm_status', 'lo_status', 'md_status', 'cm_status','cm_proposed_amnt', 'userId',
   [Sequelize.col('loan_other.sanction_no'), 'sanction_no'],
   [Sequelize.col('loan_other.interest_type'), 'interest_type'],
   [Sequelize.col('loan_other.amount_of_emi'), 'amount_of_emi'],

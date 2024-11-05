@@ -61,9 +61,7 @@ table {
     /* text-align: center; */
     font-weight: bold;
   }
-  .highlight {
-    /* background-color: #FFD700; */
-  }
+
   .note {
     font-style: italic;
   }
@@ -73,4 +71,47 @@ table {
   }
   .signature-section {
     height: 80px;
+  }
+  @media print {
+    @page {
+      size: legal landscape;
+      margin: 0;
+    }
+    /* For all scrollable elements */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    /* For Firefox */
+    * {
+      scrollbar-width: none;
+    }
+  }
+
+  .scroll-container-salary {
+    width: auto;
+    overflow-x: auto;
+    /* white-space: nowrap; */
+   
+  }
+  
+  .scroll-container-salary::-webkit-scrollbar {
+      border-radius: 10px;
+      height: 9px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3); 
+      background-color: #555;
+  }
+    
+  .scroll-container-salary::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background: #eeeeee;
+  }
+    
+  .scroll-container-salary::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-image: -webkit-gradient(linear,
+                                     left bottom,
+                                     left top,
+                                     color-stop(0.44, rgb(122,153,217)),
+                                     color-stop(0.72, rgb(73,125,189)),
+                                     color-stop(0.86, rgb(28,58,148)));
   }

@@ -105,16 +105,20 @@
                             <th mat-header-cell *matHeaderCellDef>Action</th>
                             <td mat-cell *matCellDef="let element">
                                 <div class="text-warning"
-                                    *ngIf="element.bm_status != 'Forwarded' && element.lo_status == null"><i class="fas fa-exclamation-triangle"></i> Action required</div>
+                                    *ngIf="element.bm_status != 'Forwarded' && element.lo_status == null"><i
+                                        class="fas fa-exclamation-triangle"></i> Action required</div>
                                 <div class="text-lightblue"
-                                    *ngIf="element.bm_status == 'Forwarded' && element.lo_status == null"><i class="fas fa-share"></i> {{element.bm_status}} </div>
-                                <div class="text-success" *ngIf="element.loan_status == 'Completed'"><i class="fas fa-check-circle"></i> Done </div>
-                                
-                                <div class="text-danger" *ngIf="element.cm_status == 'Rejected' || element.md_status == 'Rejected' || element.lo_status == 'Rejected'">
+                                    *ngIf="element.bm_status == 'Forwarded' && element.lo_status == null"><i
+                                        class="fas fa-share"></i> {{element.bm_status}} </div>
+                                <div class="text-success" *ngIf="element.loan_status == 'Completed'"><i
+                                        class="fas fa-check-circle"></i> Done </div>
+
+                                <div class="text-danger"
+                                    *ngIf="element.cm_status == 'Rejected' || element.md_status == 'Rejected' || element.lo_status == 'Rejected'">
                                     <i class="fas fa-times-circle"></i> Action required (Rejected)
                                 </div>
-                                <div class="text-purple" *ngIf="element.loan_status == 'Approved'" data-toggle="modal"
-                                    data-target="#requestUpdate"><i class="fas fa-hourglass-start"></i> Ready to disbursed
+                                <div class="text-purple" *ngIf="element.loan_status == 'Approved'"><i class="fas fa-hourglass-start"></i> Ready to
+                                    disbursed
                                 </div>
                         </ng-container>
 
@@ -165,79 +169,62 @@
                     <div class="row">
 
 
-                        
+
                         <div class="col-sm-12 text-center head-color h6 p-0 m-0">
                             <h3><b>DETAILS OF CHEQUES</b></h3>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label>Name of the drawee bank:<span
-                                            class="required">*</span></label>
-                                    <input type="text" class="form-control"
-                                        placeholder="Name of the drawee bank"
+                                    <label>Name of the drawee bank:<span class="required">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Name of the drawee bank"
                                         [(ngModel)]="inputData.c_bank_name">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label>Name of the drawee branch:<span
-                                            class="required">*</span></label>
-                                    <input type="text" class="form-control"
-                                        placeholder="Name of the drawee branch"
+                                    <label>Name of the drawee branch:<span class="required">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Name of the drawee branch"
                                         [(ngModel)]="inputData.c_br_name">
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label>SB A/c OR Current A/c:<span
-                                            class="required">*</span></label>
-                                    <input type="text" class="form-control"
-                                        placeholder="SB A/c OR Current A/c"
+                                    <label>SB A/c OR Current A/c:<span class="required">*</span></label>
+                                    <input type="text" class="form-control" placeholder="SB A/c OR Current A/c"
                                         [(ngModel)]="inputData.c_account">
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label>Name in A/c:<span class="required">*</span></label>
-                                    <input type="text" class="form-control"
-                                        placeholder="Name in A/c"
+                                    <input type="text" class="form-control" placeholder="Name in A/c"
                                         [(ngModel)]="inputData.c_name_in_ac">
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label>MICR Sort Code (9 digits):<span
-                                            class="required">*</span></label>
+                                    <label>MICR Sort Code (9 digits):<span class="required">*</span></label>
                                     <input type="number" min="0" class="form-control"
-                                        placeholder="MICR Sort Code (9 digits)"
-                                        [(ngModel)]="inputData.c_micr">
+                                        placeholder="MICR Sort Code (9 digits)" [(ngModel)]="inputData.c_micr">
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label>Number of Cheque Leavs:<span
-                                            class="required">*</span></label>
+                                    <label>Number of Cheque Leavs:<span class="required">*</span></label>
                                     <input type="number" min="0" class="form-control"
-                                        placeholder="Number of Cheque Leavs"
-                                        [(ngModel)]="inputData.c_ck_leave">
+                                        placeholder="Number of Cheque Leavs" [(ngModel)]="inputData.c_ck_leave">
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label>Date of Commencement:<span
-                                            class="required">*</span></label>
-                                    <input type="date" class="form-control"
-                                        placeholder="Date of Commencement"
+                                    <label>Date of Commencement:<span class="required">*</span></label>
+                                    <input type="date" class="form-control" placeholder="Date of Commencement"
                                         [(ngModel)]="inputData.c_commencement">
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label>Cheques Numbers:<span
-                                            class="required">*</span></label>
-                                    <input type="number" min="0" class="form-control"
-                                        placeholder="Cheques Numbers"
+                                    <label>Cheques Numbers:<span class="required">*</span></label>
+                                    <input type="number" min="0" class="form-control" placeholder="Cheques Numbers"
                                         [(ngModel)]="inputData.c_ck_number">
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label>Amount of Cheques:<span
-                                            class="required">*</span></label>
-                                    <input type="number" min="0" class="form-control"
-                                        placeholder="Amount of Cheques"
+                                    <label>Amount of Cheques:<span class="required">*</span></label>
+                                    <input type="number" min="0" class="form-control" placeholder="Amount of Cheques"
                                         [(ngModel)]="inputData.c_ck_amnt">
                                 </div>
                             </div>
@@ -260,8 +247,7 @@
 
 
                         <div class="col-md-4 rqrd">
-                            <label for="inputEmail4">Cheque leaf 1:<span
-                                            class="required">*</span></label>
+                            <label for="inputEmail4">Cheque leaf 1:<span class="required">*</span></label>
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label class="custom-file-label" for="file">{{cheque_leaf_1}}</label>
@@ -284,8 +270,7 @@
                         </div>
 
                         <div class="col-md-4 rqrd">
-                            <label for="inputEmail4">Cheque leaf 2:<span
-                                            class="required">*</span></label>
+                            <label for="inputEmail4">Cheque leaf 2:<span class="required">*</span></label>
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label class="custom-file-label" for="file">{{cheque_leaf_2}}</label>
@@ -308,8 +293,7 @@
                         </div>
 
                         <div class="col-md-4 rqrd">
-                            <label for="inputEmail4">Cheque leaf 3:<span
-                                            class="required">*</span></label>
+                            <label for="inputEmail4">Cheque leaf 3:<span class="required">*</span></label>
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label class="custom-file-label" for="file">{{cheque_leaf_3}}</label>
@@ -334,18 +318,28 @@
                         <div class="col-md-12">
                             <hr>
                         </div>
-
+                        <div class="col-12">
+                        <div class="form-row">
+                            <div class="col-6 p-2 bg-warning">
+                                <b>Loan Apply Amount:</b> {{inputData.apply_amount | currency:'INR':'symbol':'1.2-2'}}
+                            </div>
+                            <div class="col-6 p-2 bg-success text-right">
+                                <b>Loan Approved Amount:</b> {{inputData.cm_proposed_amnt | currency:'INR':'symbol':'1.2-2'}}
+                            </div>
+                        </div>
+                        <br>
+                        </div>
+                        
 
                         <div class="col-sm-12">
                             <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <label for="inputEmail4">Sanction Number:<span
-                                            class="required">*</span></label>
-                                    <input type="number" class="form-control" [(ngModel)]="inputData.sanction_no" placeholder="Sanction Number">
+                                    <label for="inputEmail4">Sanction Number:<span class="required">*</span></label>
+                                    <input type="number" class="form-control" [(ngModel)]="inputData.sanction_no"
+                                        placeholder="Sanction Number">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="inputEmail4">Interest Type:<span
-                                            class="required">*</span></label>
+                                    <label for="inputEmail4">Interest Type:<span class="required">*</span></label>
                                     <select class="form-control" [(ngModel)]="inputData.interest_type">
                                         <option label="--Please Select --"></option>
                                         <option value="Flat">Flat</option>
@@ -354,51 +348,50 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="inputEmail4">Loan Start Date:<span
-                                            class="required">*</span></label>
+                                    <label for="inputEmail4">Loan Start Date:<span class="required">*</span></label>
                                     <input type="date" class="form-control" [(ngModel)]="inputData.loanStart">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="inputEmail4">Loan End Date:<span
-                                            class="required">*</span></label>
+                                    <label for="inputEmail4">Loan End Date:<span class="required">*</span></label>
                                     <input type="date" class="form-control" [(ngModel)]="inputData.loanEnd">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="inputEmail4">Amount of EMI:<span
-                                            class="required">*</span></label>
-                                    <input type="number" class="form-control" [(ngModel)]="inputData.amount_of_emi" placeholder="Amount of EMI">
+                                    <label for="inputEmail4">Amount of EMI:<span class="required">*</span></label>
+                                    <input type="number" class="form-control" [(ngModel)]="inputData.amount_of_emi"
+                                        placeholder="Amount of EMI">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="inputEmail4">Number of EMI<span
-                                            class="required">*</span></label>
-                                    <input type="number" class="form-control" [(ngModel)]="inputData.number_of_emi" placeholder="Number of EMI">
+                                    <label for="inputEmail4">Number of EMI<span class="required">*</span></label>
+                                    <input type="number" class="form-control" [(ngModel)]="inputData.number_of_emi"
+                                        placeholder="Number of EMI">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="inputEmail4">Processing Fee<span
-                                            class="required">*</span></label>
-                                    <input type="number" class="form-control" [(ngModel)]="inputData.processing_fee" placeholder="Processing Fee">
+                                    <label for="inputEmail4">Processing Fee<span class="required">*</span></label>
+                                    <input type="number" class="form-control" [(ngModel)]="inputData.processing_fee"
+                                        placeholder="Processing Fee">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="inputEmail4">MSS Super Fee<span
-                                            class="required">*</span></label>
-                                    <input type="number" class="form-control" [(ngModel)]="inputData.mss_super_fee" placeholder="MSS Super Fee">
+                                    <label for="inputEmail4">MSS Super Fee<span class="required">*</span></label>
+                                    <input type="number" class="form-control" [(ngModel)]="inputData.mss_super_fee"
+                                        placeholder="MSS Super Fee">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="inputEmail4">Lapsed Deposit<span
-                                            class="required">*</span></label>
-                                    <input type="number" class="form-control" [(ngModel)]="inputData.Lapsed_eposit" placeholder="Lapsed Deposit">
+                                    <label for="inputEmail4">Lapsed Deposit<span class="required">*</span></label>
+                                    <input type="number" class="form-control" [(ngModel)]="inputData.Lapsed_eposit"
+                                        placeholder="Lapsed Deposit">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="inputEmail4">Others</label>
-                                    <input type="text" class="form-control" [(ngModel)]="inputData.others" placeholder="Others">
+                                    <input type="text" class="form-control" [(ngModel)]="inputData.others"
+                                        placeholder="Others">
                                 </div>
                             </div>
                         </div>
 
 
                         <div class="col-md-12 text-center pb-2">
-                        <button mat-raised-button color="primary" (click)="save()">Final Submit</button>
-                    </div>
+                            <button mat-raised-button color="primary" (click)="save()">Final Submit</button>
+                        </div>
                     </div>
 
 

@@ -25,7 +25,22 @@ import { NgxPrintModule } from 'ngx-print';
 })
 export class SalaryComponent implements OnInit {
 
+  public all_BasicPay: number = 0;
+  public all_netSalary: number = 0;
+  public all_pA: number = 0;
+  public all_tA: number = 0;
+  public all_oA: number = 0;
+  public all_GrossSalary: number = 0;
+  public all_PTax: number = 0;
+  public all_insurance: number = 0;
+  public all_eWF: number = 0;
+  public all_canteenFee: number = 0;
+  public all_absentCharge: number = 0;
+  public all_EWFrefund: number = 0;
+  public all_loanEMI: number = 0;
+  public all_Others: number = 0;
 
+  
   public salaryGen: boolean = false;
   public salaryDown: boolean = false;
   public salaryshow: boolean = false;
@@ -168,34 +183,65 @@ export class SalaryComponent implements OnInit {
         this.salaryshow = true;
 
         let temp:any = [];
+        let totalBasicPay = 0;
       callback.map((item: any) => {
+        
+        const basicPay = parseInt(item.basicPay) || 0;
+        const pA = parseInt(item.pA) || 0;
+        const tA = parseInt(item.tA) || 0;
+        const oA = parseInt(item.oA) || 0;
+        const GrossSalary = parseInt(item.GrossSalary) || 0;
+        const PTax = parseInt(item.PTax) || 0;
+        const insurance = parseInt(item.insurance) || 0;
+        const eWF = parseInt(item.eWF) || 0;
+        const canteenFee = parseInt(item.canteenFee) || 0;
+        const absentCharge = parseInt(item.absentCharge) || 0;
+        const EWFrefund = parseInt(item.EWFrefund) || 0;
+        const loanEMI = parseInt(item.loanEMI) || 0;
+        const Others = parseInt(item.Others) || 0;
+        const netSalary = parseInt(item.netSalary) || 0;
+
         temp.push({
           id: item.id,
           category: item["user.category"],
           name: item["user.f_name"]+" "+item["user.l_name"],
           designation: item["user.designation"],
           employeeId: item["user.employeeId"],
-          entryDate: item.entryDate,
-          basicPay: item.basicPay,
-          netSalary: item.netSalary,
-          pA: item.pA, 
-          tA: item.tA,
-          oA: item.oA,
-          GrossSalary: item.GrossSalary,
-          PTax: item.PTax,
-          insurance: item.insurance,
-          eWF: item.eWF,
-          canteenFee: item.canteenFee,
-          absentCharge: item.absentCharge,
-          EWFrefund: item.EWFrefund,
-          loanEMI: item.loanEMI,
-          Others: item.Others,
+          entryDate: parseInt(item.entryDate) || 0,
+          basicPay: basicPay,
+          netSalary: netSalary,
+          pA: pA,
+          tA:tA,
+          oA: oA,
+          GrossSalary: GrossSalary,
+          PTax: PTax,
+          insurance: insurance,
+          eWF: eWF,
+          canteenFee: canteenFee,
+          absentCharge: absentCharge,
+          EWFrefund: EWFrefund,
+          loanEMI: loanEMI,
+          Others: Others,
         })
         
+        this.all_BasicPay += basicPay;
+        this.all_netSalary += netSalary;
+        this.all_pA += pA;
+        this.all_tA += tA;
+        this.all_oA += oA;
+        this.all_GrossSalary += GrossSalary;
+        this.all_PTax += PTax;
+        this.all_insurance += insurance;
+        this.all_eWF += eWF;
+        this.all_canteenFee += canteenFee;
+        this.all_absentCharge += absentCharge;
+        this.all_EWFrefund += EWFrefund;
+        this.all_loanEMI += loanEMI;
+        this.all_Others += Others;
         
       });
      this.data = temp;
-        console.log("data",this.data);
+        console.log("data",totalBasicPay);
       }
     })
   }
@@ -319,6 +365,92 @@ export class SalaryComponent implements OnInit {
   }
 
 
+  // showPaySlipModal(row: any) {
+  //   console.log("Selected Project=", row);
+  //   this.selectedPaySlip = row;
+  
+  //   // Calculate totalGross and totalDeduct
+  //   this.selectedPaySlip.totalGross = Number(this.selectedPaySlip.basicPay) + Number(this.selectedPaySlip.pA) + Number(this.selectedPaySlip.tA) + Number(this.selectedPaySlip.oA);
+  //   this.selectedPaySlip.totalDeduct = Number(this.selectedPaySlip.PTax) + Number(this.selectedPaySlip.insurance) + Number(this.selectedPaySlip.eWF) + Number(this.selectedPaySlip.canteenFee) + Number(this.selectedPaySlip.absentCharge) + Number(this.selectedPaySlip.EWFrefund) + Number(this.selectedPaySlip.loanEMI) + Number(this.selectedPaySlip.Others);
+  
+  //   // Convert entryDate to a string and extract month and year
+  //   const numberString = this.selectedPaySlip.entryDate.toString();
+  //   this.selectedPaySlip.year = numberString.slice(0, 4);  // Extract the first 4 digits for the year
+  //   this.selectedPaySlip.month = numberString.slice(4, 6); // Extract the next 2 digits for the month
+  
+  //   // Map month number to month name
+  //   const monthNames: { [key: string]: string } = {
+  //     "01": "January",
+  //     "02": "February",
+  //     "03": "March",
+  //     "04": "April",
+  //     "05": "May",
+  //     "06": "June",
+  //     "07": "July",
+  //     "08": "August",
+  //     "09": "September",
+  //     "10": "October",
+  //     "11": "November",
+  //     "12": "December"
+  //   };
+  //   this.selectedPaySlip.monthName = monthNames[this.selectedPaySlip.month] || "Unknown";
+  
+  //   // Convert netSalary to words
+  //   this.selectedPaySlip.amountText = this.convertNumberToWords(this.selectedPaySlip.netSalary);
+  
+  //   console.log("selectedPaySlip", this.selectedPaySlip);
+  // }
+  
+  // // Helper function to convert numbers to words
+  // convertNumberToWords(num: number): string {
+  //   const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+  //   const teens = ["Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+  //   const tens = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+  //   const thousands = ["", "Thousand", "Lakh", "Crore"];
+  
+  //   if (num === 0) return "Zero";
+  
+  //   let result = "";
+  //   let partCount = 0;
+  
+  //   while (num > 0) {
+  //     let part = num % 1000;
+  //     if (part > 0) {
+  //       const partText = this.convertThreeDigitNumber(part).trim();
+  //       if (thousands[partCount]) result = partText + " " + thousands[partCount] + " " + result;
+  //       else result = partText + " " + result;
+  //     }
+  //     partCount++;
+  //     num = Math.floor(num / 1000);
+  //   }
+  
+  //   return result.trim();
+  // }
+  
+  // // Helper to convert three-digit numbers to words
+  // convertThreeDigitNumber(num: number): string {
+  //   const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+  //   const teens = ["Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+  //   const tens = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+  
+  //   let result = "";
+  
+  //   if (num >= 100) {
+  //     result += ones[Math.floor(num / 100)] + " Hundred ";
+  //     num = num % 100;
+  //   }
+  
+  //   if (num >= 11 && num <= 19) {
+  //     result += teens[num - 11] + " ";
+  //   } else {
+  //     result += tens[Math.floor(num / 10)] + " ";
+  //     num = num % 10;
+  //     result += ones[num] + " ";
+  //   }
+  
+  //   return result.trim();
+  // }
+
 
   showPaySlipModal(row:any){
     // this.showImage = true;
@@ -329,9 +461,9 @@ export class SalaryComponent implements OnInit {
 
     this.selectedPaySlip.totalDeduct = Number(this.selectedPaySlip.PTax)+ Number(this.selectedPaySlip.insurance) + Number(this.selectedPaySlip.eWF) + Number(this.selectedPaySlip.canteenFee) + Number(this.selectedPaySlip.absentCharge) + Number(this.selectedPaySlip.EWFrefund) + Number(this.selectedPaySlip.loanEMI) + Number(this.selectedPaySlip.Others);
 
-    const numberString = this.selectedPaySlip.entryDate;
-    this.selectedPaySlip.month = numberString.slice(4);    // Extract the first 4 digits for the year
-    this.selectedPaySlip.year = numberString.slice(0, 4);   // Extract the last 2 digits for the month
+    const numberString = this.selectedPaySlip.entryDate.toString();
+  this.selectedPaySlip.month = numberString.slice(4);    // Extract the last 2 digits for the month
+  this.selectedPaySlip.year = numberString.slice(0, 4);   // Extract the first 4 digits for the year
 
 
     if (this.selectedPaySlip.month == "01") {

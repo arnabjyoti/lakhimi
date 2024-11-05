@@ -115,7 +115,7 @@ export class LoanComponent implements OnInit {
       if (token['usr'].designation == "Chairman") {
         this.loanApplyListCM();
       }
-      if (token['usr'].designation == "Managing Director") {
+      if (token['usr'].designation == "Managing Director" || token['usr'].designation == "Transaction Officer") {
         this.loanApplyListMD();
       }
       if (token['usr'].designation == "Loan Officer") {

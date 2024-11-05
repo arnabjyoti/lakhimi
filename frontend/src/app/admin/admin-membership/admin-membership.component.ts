@@ -24,7 +24,7 @@ import * as _ from 'lodash'
 })
 export class AdminMembershipComponent implements OnInit{
 
-  public displayedColumns: string[] = ['Sl','brunch_name','membership_id','phone_no','panNo','adharNo','reference_no','status','apply_date','action'];
+  public displayedColumns: string[] = ['Sl','brunch_name','membership_id','phone_no','panNo','adharNo','reference_no','status','createdAt','action'];
   dataSource !: MatTableDataSource<brunchData>
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;

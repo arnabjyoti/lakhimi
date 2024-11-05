@@ -108,11 +108,11 @@ export class CloseAccountComponent {
     }
 
     if (token['usr'].position == "Head office") {
-      console.log("zzzzzzzzzzzzzzzzzzzzzzz");
+      console.log("zzzzzzzzzzzzzzzzzzzzzzz",token['usr'].designation);
       if (token['usr'].designation == "Chairman") {
         this.loanApplyListCM();
       }
-      if (token['usr'].designation == "Managing Director") {
+      if (token['usr'].designation == "Managing Director" || token['usr'].designation == "Transaction Officer") {
         this.loanApplyListMD();
       }
       if (token['usr'].designation == "Loan Officer") {

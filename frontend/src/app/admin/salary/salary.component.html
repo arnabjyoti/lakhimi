@@ -222,10 +222,14 @@
 
 
                         <div class="row" *ngIf="salaryshow">
-                            <div class="col-12">
+                            <div class="col-sm-10">
                                 Salary form for the <b>{{inputData.monthName}} - {{inputData.year}}</b>
                             </div>
-                            <div class="col-12 scroll-container-salary">
+                            <div class="col-sm-2 text-right">
+                                <span class="badge badge-warning p-2 btn" data-toggle="modal"
+                                data-target="#salaryReport">Report <b><i class="fas fa-download"></i></b></span>
+                             </div>
+                            <div class="col-12 pt-2 scroll-container-salary">
                                 <table class="table table-hover table-striped">
                                     <thead>
                                         <tr>
@@ -509,5 +513,144 @@
         </div>
         <!-- end model -->
     </div>
+
+
+
+
+    <!-- salary report -->
+
+    <div class="modal fade" id="salaryReport" tabindex="-1" role="dialog" aria-labelledby="accountOpeningLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accountOpeningLabel">Salary Report </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="modalClose">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row  px-4">
+                        <button printSectionId="salary-report" ngxPrint [useExistingCss]="true"
+                            styleSheetFile="../node_modules/bootstrap/dist/css/bootstrap.min.css" mat-raised-button
+                            color="primary"><i class="fas fa-print"></i>
+                            print</button>
+                    </div>
+                    <div class="card-body"  id="salary-report">
+                        <div class="col-12 text-center">
+                            <br>
+                            <br>
+                            <h2 class="p-0 m-0">Lakhimi Sanchay and Rindan S.S. Ltd.</h2>
+                                <p>Dhemaji, Assam - 787057</p>
+                                <br>
+                                <p>Monthly Salary Statement</p>
+                                <p>For the month of: {{inputData.monthName}} - {{inputData.year}}</p>
+                        </div>
+                        <div class="col-12 pt-2 scroll-container-salary">
+                            <table class="table p-0 m-0">
+                                <thead>
+                                    <tr class="p-0 m-0 small">
+                                        <th class="px-1 m-0 small text-center bg-secondary">Sl No.</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary" style="min-width: 150px;">NAME</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary" style="min-width: 140px;">DESIGNATIONS</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary">BASIC PAY</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary">PERFORMANCE ALLOWANCE</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary">TRAVELLING ALLOWANCE</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary">OTHER ALLOWANCE</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary">GROSS SALARY</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary">PROFESSIONAL FEE</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary">INSURANCE FEE</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary">EWF DEPOSIT</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary">CANTEEN FEE</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary">ABSENT CHARGES</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary">EWF REFUND</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary">LOAN EMI</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary">OTHER DEDUCTIONS</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary">NET SALARY</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let empData of data; let i = index">
+                                        <td class="px-1 m-0 small text-center">{{i+1}}</td>
+                                        <td class="px-1 m-0 small">
+                                            {{empData.name}}
+                                        </td>
+                                        <td class="px-1 m-0 small">
+                                            {{empData.designation}}
+                                        </td>
+                                        <td class="px-1 m-0 small text-right">
+                                            {{empData.basicPay | currency: 'INR':'symbol':'1.0-0'}}
+                                        </td>
+                                        <td class="px-1 m-0 small text-right">
+                                            {{empData.pA | currency: 'INR':'symbol':'1.0-0'}}
+                                        </td>
+                                        <td class="px-1 m-0 small text-right">
+                                            {{empData.tA | currency: 'INR':'symbol':'1.0-0'}}
+                                        </td>
+                                        
+                                        <td class="px-1 m-0 small text-right">
+                                            {{empData.oA | currency: 'INR':'symbol':'1.0-0'}}
+                                        </td>
+                                        <td class="px-1 m-0 small text-right">
+                                            {{empData.GrossSalary | currency: 'INR':'symbol':'1.0-0'}}
+                                        </td>
+                                        <td class="px-1 m-0 small text-right">
+                                            {{empData.PTax | currency: 'INR':'symbol':'1.0-0'}}
+                                        </td>
+                                        <td class="px-1 m-0 small text-right">
+                                            {{empData.insurance | currency: 'INR':'symbol':'1.0-0'}}
+                                        </td>
+                                        <td class="px-1 m-0 small text-right">
+                                            {{empData.eWF | currency: 'INR':'symbol':'1.0-0'}}
+                                        </td>
+                                        <td class="px-1 m-0 small text-right">
+                                            {{empData.canteenFee | currency: 'INR':'symbol':'1.0-0'}}
+                                        </td>
+                                        <td class="px-1 m-0 small text-right">
+                                            {{empData.absentCharge | currency: 'INR':'symbol':'1.0-0'}}
+                                        </td>
+                                        <td class="px-1 m-0 small text-right">
+                                            {{empData.EWFrefund | currency: 'INR':'symbol':'1.0-0'}}
+                                        </td>
+                                        <td class="px-1 m-0 small text-right">
+                                            {{empData.loanEMI | currency: 'INR':'symbol':'1.0-0'}}
+                                        </td>
+                                        <td class="px-1 m-0 small text-right">
+                                            {{empData.Others | currency: 'INR':'symbol':'1.0-0'}}
+                                        </td>
+                                        <td class="px-1 m-0 small text-right">
+                                            {{empData.netSalary | currency: 'INR':'symbol':'1.0-0'}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-1 m-0 small text-center" colspan="3"><b>Total</b></td>
+                                        <td class="px-1 m-0 small text-right"><b>{{all_BasicPay | currency: 'INR':'symbol':'1.0-0'}}</b></td>
+                                        <td class="px-1 m-0 small text-right"><b>{{all_pA | currency: 'INR':'symbol':'1.0-0'}}</b></td>
+                                        <td class="px-1 m-0 small text-right"><b>{{all_tA | currency: 'INR':'symbol':'1.0-0'}}</b></td>
+                                        <td class="px-1 m-0 small text-right"><b>{{all_oA | currency: 'INR':'symbol':'1.0-0'}}</b></td>
+                                        <td class="px-1 m-0 small text-right"><b>{{all_GrossSalary | currency: 'INR':'symbol':'1.0-0'}}</b></td>
+                                        <td class="px-1 m-0 small text-right"><b>{{all_PTax | currency: 'INR':'symbol':'1.0-0'}}</b></td>
+                                        <td class="px-1 m-0 small text-right"><b>{{all_insurance | currency: 'INR':'symbol':'1.0-0'}}</b></td>
+                                        <td class="px-1 m-0 small text-right"><b>{{all_eWF | currency: 'INR':'symbol':'1.0-0'}}</b></td>
+                                        <td class="px-1 m-0 small text-right"><b>{{all_canteenFee | currency: 'INR':'symbol':'1.0-0'}}</b></td>
+                                        <td class="px-1 m-0 small text-right"><b>{{all_absentCharge | currency: 'INR':'symbol':'1.0-0'}}</b></td>
+                                        <td class="px-1 m-0 small text-right"><b>{{all_EWFrefund | currency: 'INR':'symbol':'1.0-0'}}</b></td>
+                                        <td class="px-1 m-0 small text-right"><b>{{all_loanEMI | currency: 'INR':'symbol':'1.0-0'}}</b></td>
+                                        <td class="px-1 m-0 small text-right"><b>{{all_Others | currency: 'INR':'symbol':'1.0-0'}}</b></td>
+                                        <td class="px-1 m-0 small text-right"><b>{{all_netSalary | currency: 'INR':'symbol':'1.0-0'}}</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end model -->
+    </div>
+
+
     <!-- Loan Account Opening Modal -->
 </div>
