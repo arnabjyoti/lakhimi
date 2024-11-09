@@ -522,7 +522,7 @@
     <div class="modal fade" id="salaryReport" tabindex="-1" role="dialog" aria-labelledby="accountOpeningLabel"
         aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel">
-        <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-dialog modal-fullscreen" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="accountOpeningLabel">Salary Report </h5>
@@ -532,18 +532,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="row  px-4">
-                        <button printSectionId="salary-report" ngxPrint [useExistingCss]="true"
-                            styleSheetFile="../node_modules/bootstrap/dist/css/bootstrap.min.css" mat-raised-button
+                        <button (click)="saveAsPDF()" mat-raised-button
                             color="primary"><i class="fas fa-print"></i>
                             print</button>
                     </div>
+
                     <div class="card-body"  id="salary-report">
                         <div class="col-12 text-center">
-                            <br>
-                            <br>
+                            
                             <h2 class="p-0 m-0">Lakhimi Sanchay and Rindan S.S. Ltd.</h2>
                                 <p>Dhemaji, Assam - 787057</p>
-                                <br>
                                 <p>Monthly Salary Statement</p>
                                 <p>For the month of: {{inputData.monthName}} - {{inputData.year}}</p>
                         </div>
@@ -553,7 +551,7 @@
                                     <tr class="p-0 m-0 small">
                                         <th class="px-1 m-0 small text-center bg-secondary">Sl No.</th>
                                         <th class="px-1 m-0 small text-center bg-secondary" style="min-width: 150px;">NAME</th>
-                                        <th class="px-1 m-0 small text-center bg-secondary" style="min-width: 140px;">DESIGNATIONS</th>
+                                        <th class="px-1 m-0 small text-center bg-secondary" style="min-width: 150px;">DESIGNATIONS</th>
                                         <th class="px-1 m-0 small text-center bg-secondary">BASIC PAY</th>
                                         <th class="px-1 m-0 small text-center bg-secondary">PERFORMANCE ALLOWANCE</th>
                                         <th class="px-1 m-0 small text-center bg-secondary">TRAVELLING ALLOWANCE</th>

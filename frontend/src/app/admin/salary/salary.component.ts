@@ -15,6 +15,8 @@ import { environment } from 'src/environments/environment';
 import { SalaryService } from './salary.service';
 import { months } from 'moment';
 import { NgxPrintModule } from 'ngx-print';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-salary',
@@ -568,4 +570,86 @@ export class SalaryComponent implements OnInit {
     return result;
   }
 
+
+  public saveAsPDF() {
+    const data = document.getElementById('salary-report'); // Element to be saved as PDF
+
+    if (data) {
+      html2canvas(data, { scale: 2 }).then(canvas => {
+        // Convert canvas to a lower-quality JPEG image
+        const imgData = canvas.toDataURL('image/jpeg', 1); // Adjust quality from 0.1 to 1 (0.7 is a good balance)
+        const pdf = new jsPDF('landscape', 'mm', 'legal'); // Legal page size in landscape mode
+
+        const topMargin = 5; // Top margin in mm
+        const bottomMargin = 3; // Bottom margin in mm
+        const pageWidth = 355.6; // Legal page width in landscape mode
+        const pageHeight = 215.9; // Legal page height in landscape mode
+        const imgWidth = pageWidth - 2 * topMargin; // Image width minus left and right margins
+        const imgHeight = canvas.height * imgWidth / canvas.width; // Scaled image height based on width
+        const contentHeightPerPage = pageHeight - topMargin - bottomMargin; // Adjusted content height for each page
+
+        let heightLeft = imgHeight;
+        let position = topMargin; // Start position at the top margin
+
+        // If content fits on one page
+        if (imgHeight <= contentHeightPerPage) {
+          pdf.addImage(imgData, 'JPEG', topMargin, position, imgWidth, imgHeight);
+        } else {
+          // Render first page with margins
+          pdf.addImage(imgData, 'JPEG', topMargin, position, imgWidth, contentHeightPerPage);
+          heightLeft -= contentHeightPerPage;
+
+          // Render additional pages with margins
+          while (heightLeft > 0) {
+            position = topMargin - (imgHeight - heightLeft); // Calculate position for next slice
+            pdf.addPage();
+            pdf.addImage(imgData, 'JPEG', topMargin, position, imgWidth, contentHeightPerPage);
+            heightLeft -= contentHeightPerPage;
+          }
+        }
+
+        pdf.save(this.inputData.monthName+'-'+this.inputData.year+'-report.pdf');
+      });
+    }
+  }
+
+
+
+
+
+  // multipage print
+
+  
+  // public saveAsPDF() {
+  //   const data = document.getElementById('salary-report'); // Element to be saved as PDF
+
+  //   if (data) {
+  //     html2canvas(data, { scale: 2 }).then(canvas => {
+  //       const imgData = canvas.toDataURL('image/png');
+  //       const pdf = new jsPDF('landscape', 'mm', 'legal'); // Set to legal page size in landscape
+
+  //       const margin = 10; // Margin size in mm
+  //       const pageWidth = 355.6; // Full legal page width in landscape in mm
+  //       const pageHeight = 215.9; // Full legal page height in landscape in mm
+  //       const imgWidth = pageWidth - 2 * margin; // Image width minus margins
+  //       const imgHeight = canvas.height * imgWidth / canvas.width; // Scaled image height
+  //       let heightLeft = imgHeight;
+  //       let position = margin;
+
+  //       // Add first page
+  //       pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+  //       heightLeft -= pageHeight;
+
+  //       // If content is longer than a single page
+  //       while (heightLeft > 0) {
+  //         position -= pageHeight;
+  //         pdf.addPage(); // Add new page in the same orientation
+  //         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+  //         heightLeft -= pageHeight;
+  //       }
+
+  //       pdf.save('document-legal.pdf');
+  //     });
+  //   }
+  // }
 }
