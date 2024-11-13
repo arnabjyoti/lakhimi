@@ -1,4 +1,4 @@
-const { sendMail, brunchController, brunchMasterController, userController, membershipController, loanController, vendorController, expressLoan, expressLoanController } = require('../controllers');
+const { sendMail, brunchController, brunchMasterController, userController, membershipController, loanController, vendorController, expressLoan, expressLoanController, fileUploadController } = require('../controllers');
 const AccountController = require('../controllers/AccountController');
 const departmentController = require('../controllers/departmentController');
 const homeController = require('../controllers/homeController');
@@ -349,4 +349,15 @@ module.exports = (app) => {
 	app.post('/api/saveSalaries', salaryController.saveSalaries);
 
 	app.post('/api/checkSalary', salaryController.checkSalary);
+	
+	app.post('/api/checkSalaryRange', salaryController.checkSalaryRange);
+
+
+
+	// file upload
+	app.post('/api/fileUpload', fileUploadController.upload_config.single('file'), fileUploadController.fileUpload);
+	
+	app.post('/api/getFileUploadData', fileUploadController.getFileUploadData);
+
+	app.post('/api/deleteFileUpload', fileUploadController.deleteFileUpload);
 	};

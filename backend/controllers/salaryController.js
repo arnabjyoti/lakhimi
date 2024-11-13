@@ -99,6 +99,87 @@ module.exports = {
         console.log(error);
         return res.status(500).send({ status: false, message: error });
       });
+    },
+
+
+    async checkSalaryRange(req, res) {
+      try {
+        console.log("Salary data:", req.body.requestObject);
+    
+        const { fromMonthYear, toMonthYear } = req.body.requestObject;
+    
+        // Check if `fromMonthYear` exists
+        const fromData = await salaryModel.findOne({
+          where: {
+            entryDate: fromMonthYear,
+          },
+        });
+    
+        if (!fromData) {
+          return res.status(200).send({
+            status: false,
+            message: `From month-year is invalid.`,
+          });
+        }
+    
+        // Check if `toMonthYear` exists
+        const toData = await salaryModel.findOne({
+          where: {
+            entryDate: toMonthYear,
+          },
+        });
+    
+        if (!toData) {
+          return res.status(200).send({
+            status: false,
+            message: `To month-year is invalid.`,
+          });
+        }
+    
+        // Fetch records within the specified range
+        const records = await salaryModel.findAll({
+          where: {
+            entryDate: {
+              [Op.between]: [fromMonthYear, toMonthYear],
+            },
+          },
+          attributes: [
+            [Sequelize.fn('SUM', Sequelize.col('basicPay')), 'totalBasicPay'],
+            [Sequelize.fn('SUM', Sequelize.col('pA')), 'totalPA'],
+            [Sequelize.fn('SUM', Sequelize.col('tA')), 'totalTA'],
+            [Sequelize.fn('SUM', Sequelize.col('oA')), 'totalOA'],
+            [Sequelize.fn('SUM', Sequelize.col('GrossSalary')), 'totalGrossSalary'],
+            [Sequelize.fn('SUM', Sequelize.col('PTax')), 'totalPTax'],
+            [Sequelize.fn('SUM', Sequelize.col('insurance')), 'totalInsurance'],
+            [Sequelize.fn('SUM', Sequelize.col('eWF')), 'totalEWF'],
+            [Sequelize.fn('SUM', Sequelize.col('canteenFee')), 'totalCanteenFee'],
+            [Sequelize.fn('SUM', Sequelize.col('absentCharge')), 'totalAbsentCharge'],
+            [Sequelize.fn('SUM', Sequelize.col('loanEMI')), 'totalLoanEMI'],
+            [Sequelize.fn('SUM', Sequelize.col('Others')), 'totalOthers'],
+            [Sequelize.fn('SUM', Sequelize.col('netSalary')), 'totalNetPay'],
+          ],
+        });
+
+        // Extract totals from the response
+        const totalData = { totalBasicPay, totalPA, totalTA, totalOA, totalGrossSalary, totalPTax, totalInsurance, totalEWF, totalCanteenFee, totalAbsentCharge, totalLoanEMI, totalOthers, totalNetPay } = records[0].dataValues;
+    
+        // console.log("Total Basic Pay:", totalBasicPay);
+        // console.log("Total Net Pay:", totalNetPay);
+        // console.log("Records:", records);
+    
+        return res.status(200).send({
+          status: true,
+          message: "Records fetched successfully.",
+          data: totalData,
+        });
+    
+      } catch (error) {
+        console.error("Error in checkSalaryRange:", error);
+        return res.status(500).send({
+          status: false,
+          message: "An error occurred while fetching salary range records.",
+        });
+      }
     }
     
 }

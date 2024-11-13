@@ -43,6 +43,7 @@ import { CashCounterPaymentRequestComponent } from './brunchManager/cash-counter
 import { SalaryComponent } from './admin/salary/salary.component';
 import { AdminMembershipComponent } from './admin/admin-membership/admin-membership.component';
 import { AdminAccountApplicationComponent } from './admin/admin-account-application/admin-account-application.component';
+import { FileUploadComponent } from './admin/file-upload/file-upload.component';
 
 const routes: Routes = [
   {
@@ -122,6 +123,11 @@ const routes: Routes = [
   {
     path: "field-agent-list",
     component: FieldAgentListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "file-upload",
+    component: FileUploadComponent,
     canActivate: [AuthGuard]
   },
   {

@@ -27,6 +27,24 @@ import jsPDF from 'jspdf';
 })
 export class SalaryComponent implements OnInit {
 
+  public showMonthlySalary: boolean = false;
+  public showComulativeSalary: boolean = false;
+
+  //comulative
+  public comulativeInput: any = {
+    fromMonth: "",
+    fromYear: "",
+    toMonth: "",
+    toYear: "",
+  }
+
+  public fromMonthYear: any;
+  public toMonthYear: any;
+
+
+
+  //monthly salary
+
   public all_BasicPay: number = 0;
   public all_netSalary: number = 0;
   public all_pA: number = 0;
@@ -298,14 +316,14 @@ export class SalaryComponent implements OnInit {
   }
 
 
-  openSalaryGen(){
-    this.salaryGen = true;
-    this.salaryDown = false;
+  monthlySalary(){
+    this.showMonthlySalary = true;
+    this.showComulativeSalary = false;
   }
 
-  openSalaryDown(){
-    this.salaryDown = true;
-    this.salaryGen = false;
+  ComulativeSalary(){
+    this.showMonthlySalary = false;
+    this.showComulativeSalary = true;
   }
 
 
@@ -652,4 +670,80 @@ export class SalaryComponent implements OnInit {
   //     });
   //   }
   // }
+
+
+
+
+
+
+
+
+
+  // comulative report
+
+  generateData(){
+    this.fromMonthYear = this.comulativeInput.fromYear+this.comulativeInput.fromMonth;
+    this.toMonthYear = this.comulativeInput.toYear+this.comulativeInput.toMonth;
+    let isValid = this.chekInput();
+    if(isValid){
+    this.isLodaing = true;
+    let requestObject = {
+      fromMonthYear: this.fromMonthYear,
+      toMonthYear: this.toMonthYear,
+    };
+    console.log("requestObject",requestObject);
+    
+    this.spiner();
+    this.SalaryService.checkSalaryRange(requestObject, (callback:any)=>{
+      console.log("callback",callback);
+      this.isLodaing = false;
+      if (callback.status == true) {
+        this.toastr.success(callback.message,'Success',{
+        disableTimeOut:false
+      });
+      }if (callback.status == false) {
+          this.toastr.warning(callback.message,'Warning',{
+          disableTimeOut:false
+        });
+      }
+      
+    });
+  }
+  }
+
+
+  chekInput = () =>{
+    console.log("Saving data before validate");
+    if(this.comulativeInput.fromMonth==='' || this.comulativeInput.fromMonth===null || this.comulativeInput.fromMonth===undefined){
+      this.toastr.warning('Please enter from month','Warning',{
+        disableTimeOut:false
+      });
+      return false;
+    }
+    if(this.comulativeInput.fromYear==='' || this.comulativeInput.fromYear===null || this.comulativeInput.fromYear===undefined){
+      this.toastr.warning('Please enter from Year','Warning',{
+        disableTimeOut:false
+      });
+      return false;
+    }
+    if(this.comulativeInput.toMonth==='' || this.comulativeInput.toMonth===null || this.comulativeInput.toMonth===undefined){
+      this.toastr.warning('Please enter to month','Warning',{
+        disableTimeOut:false
+      });
+      return false;
+    }
+    if(this.comulativeInput.toYear==='' || this.comulativeInput.toYear===null || this.comulativeInput.toYear===undefined){
+      this.toastr.warning('Please enter to year','Warning',{
+        disableTimeOut:false
+      });
+      return false;
+    }
+    if(this.fromMonthYear > this.toMonthYear || this.fromMonthYear == this.toMonthYear){
+      this.toastr.warning('from month-year can not be more than to month-year','Warning',{
+        disableTimeOut:false
+      });
+      return false;
+    }
+    return true;
+  }
 }

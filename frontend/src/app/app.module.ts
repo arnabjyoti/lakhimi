@@ -45,6 +45,7 @@ import { CashCounterPaymentRequestComponent } from './brunchManager/cash-counter
 import { SalaryComponent } from './admin/salary/salary.component';
 import { AdminMembershipComponent } from './admin/admin-membership/admin-membership.component';
 import { AdminAccountApplicationComponent } from './admin/admin-account-application/admin-account-application.component';
+import { FileUploadComponent } from './admin/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
