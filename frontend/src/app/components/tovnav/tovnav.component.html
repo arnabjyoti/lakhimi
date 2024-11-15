@@ -274,14 +274,6 @@
               </p>
             </a>
           </li>
-          <li class="nav-item" *ngIf="permission.addBrunchPrivilage">
-            <a routerLink="/file-upload" class="nav-link" routerLinkActive="active">
-              <i class="nav-icon fas fa-money-check-alt"></i>
-              <p>
-                File Upload
-              </p>
-            </a>
-          </li>
           <li class="nav-item" *ngIf="permission.addMembershipApprovalPrivilage">
             <a class="nav-link" [ngClass]="{'active': child1RLA.isActive || child2RLA.isActive || child3RLA.isActive || child4RLA.isActive || child5RLA.isActive}">
               <i class="nav-icon fas fa-code-branch"></i>
@@ -347,6 +339,14 @@
               <p>
                 Cash Counter Payment
                 <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/file-upload" class="nav-link" routerLinkActive="active">
+              <i class="nav-icon fas fa-file-pdf"></i>
+              <p>
+                File Upload
               </p>
             </a>
           </li>

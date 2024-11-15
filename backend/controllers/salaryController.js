@@ -77,7 +77,17 @@ module.exports = {
                       model: brunchModel,
                       required: false,
                     },
-                  ]
+                  ],
+                  where: {
+                    id: {
+                      [Sequelize.Op.in]: Sequelize.literal(`
+                        (SELECT MAX(id) 
+                         FROM brunchmasters
+                         WHERE brunchmasters.userId = user.id
+                         GROUP BY userId)
+                      `),
+                    },
+                  },
                 },
               ]
             },
@@ -154,6 +164,7 @@ module.exports = {
             [Sequelize.fn('SUM', Sequelize.col('eWF')), 'totalEWF'],
             [Sequelize.fn('SUM', Sequelize.col('canteenFee')), 'totalCanteenFee'],
             [Sequelize.fn('SUM', Sequelize.col('absentCharge')), 'totalAbsentCharge'],
+            [Sequelize.fn('SUM', Sequelize.col('EWFrefund')), 'totalEWFrefund'],
             [Sequelize.fn('SUM', Sequelize.col('loanEMI')), 'totalLoanEMI'],
             [Sequelize.fn('SUM', Sequelize.col('Others')), 'totalOthers'],
             [Sequelize.fn('SUM', Sequelize.col('netSalary')), 'totalNetPay'],
@@ -161,7 +172,7 @@ module.exports = {
         });
 
         // Extract totals from the response
-        const totalData = { totalBasicPay, totalPA, totalTA, totalOA, totalGrossSalary, totalPTax, totalInsurance, totalEWF, totalCanteenFee, totalAbsentCharge, totalLoanEMI, totalOthers, totalNetPay } = records[0].dataValues;
+        const totalData = { totalBasicPay, totalPA, totalTA, totalOA, totalGrossSalary, totalPTax, totalInsurance, totalEWF, totalCanteenFee, totalAbsentCharge, totalEWFrefund, totalLoanEMI, totalOthers, totalNetPay } = records[0].dataValues;
     
         // console.log("Total Basic Pay:", totalBasicPay);
         // console.log("Total Net Pay:", totalNetPay);

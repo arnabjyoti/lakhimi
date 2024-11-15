@@ -25,7 +25,7 @@ export interface brunchData {
   imports: [NgxSpinnerModule, RouterModule, MatTableModule, MatPaginatorModule, MatButtonModule, MatInputModule, FormsModule, MatFormFieldModule, CommonModule],
 })
 export class FileUploadComponent implements OnInit {
-  public displayedColumns: string[] = ['Sl', 'file_name', 'view', 'delete'];
+  public displayedColumns: string[] = [];
   dataSource !: MatTableDataSource<brunchData>
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
@@ -47,17 +47,35 @@ export class FileUploadComponent implements OnInit {
   public isSaving: boolean = false;
   public endpoint: any;
   public isLodaing = true;
+
+  public user:any;
   constructor(
     private spinner: NgxSpinnerService,
     private FileUploadService: FileUploadService,
     private toastr: ToastrService,
   ) {
     this.endpoint = environment.BASE_URL;
+    this.init();
+  }
+
+  init = () =>{
+    let token = JSON.parse(JSON.stringify(localStorage.getItem('token')));
+    token = JSON.parse(token);
+
+    this.user = token['usr'];
+    console.log("user",this.user);
+    
   }
 
 
   ngOnInit(): void {
     this.getFileUploadData();
+
+    if (this.user.role == 'head_office') {
+      this.displayedColumns = ['Sl', 'file_name', 'view', 'delete']; // Admin sees all columns
+    } else {
+      this.displayedColumns = ['Sl', 'file_name', 'view']; // Non-admin users see limited columns
+    }
   }
 
   spiner() {

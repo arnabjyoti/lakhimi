@@ -36,10 +36,15 @@ export class SalaryComponent implements OnInit {
     fromYear: "",
     toMonth: "",
     toYear: "",
+    fromMonthName: "",
+    toMonthName: ""
   }
 
   public fromMonthYear: any;
   public toMonthYear: any;
+
+  public camulativeData: any;
+  public showComulativeData: boolean = false;
 
 
 
@@ -60,7 +65,7 @@ export class SalaryComponent implements OnInit {
   public all_loanEMI: number = 0;
   public all_Others: number = 0;
 
-  
+
   public salaryGen: boolean = false;
   public salaryDown: boolean = false;
   public salaryshow: boolean = false;
@@ -73,33 +78,35 @@ export class SalaryComponent implements OnInit {
   public isLodaing = true;
 
   public data: any;
-  
+
   employees: any[] = []; // Will be populated with the data dictionary
-  salaries: { [key: number]: { 
-    basicPay: number,
-    pA: number, 
-    tA: number,
-    oA: number,
-    GrossSalary: number,
-    PTax: number,
-    insurance: number,
-    eWF: number,
-    canteenFee: number,
-    absentCharge: number,
-    EWFrefund: number,
-    loanEMI: number,
-    Others: number,
-    netSalary: number
-   } } = {}; // To store salary, basic pay, and net pay for each employee
+  salaries: {
+    [key: number]: {
+      basicPay: number,
+      pA: number,
+      tA: number,
+      oA: number,
+      GrossSalary: number,
+      PTax: number,
+      insurance: number,
+      eWF: number,
+      canteenFee: number,
+      absentCharge: number,
+      EWFrefund: number,
+      loanEMI: number,
+      Others: number,
+      netSalary: number
+    }
+  } = {}; // To store salary, basic pay, and net pay for each employee
 
   public endpoint: any;
 
 
   //pay slip modal
 
-  public selectedPaySlip:any ={
+  public selectedPaySlip: any = {
     basicPay: "",
-    pA: "", 
+    pA: "",
     tA: "",
     oA: "",
     GrossSalary: "",
@@ -149,7 +156,7 @@ export class SalaryComponent implements OnInit {
     }, 5000);
   }
 
-  checkSalaries(){
+  checkSalaries() {
     if (this.inputData.month == "01") {
       this.inputData.monthName = "January";
     }
@@ -189,102 +196,102 @@ export class SalaryComponent implements OnInit {
 
     console.log("inputData", this.inputData);
     let isValid = this.validateInputs();
-    if(isValid){
-    this.isLodaing = true;
-    this.spiner();
-    this.SalaryService.checkSalary(this.inputData, (callback:any)=>{
-      console.log(callback);
-      this.isLodaing = false;
-      if (callback.length == 0) {
-        this.salaryDown = true;
-        this.salaryshow = false;
-      }else{
-        this.salaryDown = false;
-        this.salaryshow = true;
+    if (isValid) {
+      this.isLodaing = true;
+      this.spiner();
+      this.SalaryService.checkSalary(this.inputData, (callback: any) => {
+        console.log(callback);
+        this.isLodaing = false;
+        if (callback.length == 0) {
+          this.salaryDown = true;
+          this.salaryshow = false;
+        } else {
+          this.salaryDown = false;
+          this.salaryshow = true;
 
-        let temp:any = [];
-        let totalBasicPay = 0;
-      callback.map((item: any) => {
-        
-        const basicPay = parseInt(item.basicPay) || 0;
-        const pA = parseInt(item.pA) || 0;
-        const tA = parseInt(item.tA) || 0;
-        const oA = parseInt(item.oA) || 0;
-        const GrossSalary = parseInt(item.GrossSalary) || 0;
-        const PTax = parseInt(item.PTax) || 0;
-        const insurance = parseInt(item.insurance) || 0;
-        const eWF = parseInt(item.eWF) || 0;
-        const canteenFee = parseInt(item.canteenFee) || 0;
-        const absentCharge = parseInt(item.absentCharge) || 0;
-        const EWFrefund = parseInt(item.EWFrefund) || 0;
-        const loanEMI = parseInt(item.loanEMI) || 0;
-        const Others = parseInt(item.Others) || 0;
-        const netSalary = parseInt(item.netSalary) || 0;
+          let temp: any = [];
+          let totalBasicPay = 0;
+          callback.map((item: any) => {
 
-        temp.push({
-          id: item.id,
-          category: item["user.category"],
-          name: item["user.f_name"]+" "+item["user.l_name"],
-          designation: item["user.designation"],
-          employeeId: item["user.employeeId"],
-          entryDate: parseInt(item.entryDate) || 0,
-          basicPay: basicPay,
-          netSalary: netSalary,
-          pA: pA,
-          tA:tA,
-          oA: oA,
-          GrossSalary: GrossSalary,
-          PTax: PTax,
-          insurance: insurance,
-          eWF: eWF,
-          canteenFee: canteenFee,
-          absentCharge: absentCharge,
-          EWFrefund: EWFrefund,
-          loanEMI: loanEMI,
-          Others: Others,
-        })
-        
-        this.all_BasicPay += basicPay;
-        this.all_netSalary += netSalary;
-        this.all_pA += pA;
-        this.all_tA += tA;
-        this.all_oA += oA;
-        this.all_GrossSalary += GrossSalary;
-        this.all_PTax += PTax;
-        this.all_insurance += insurance;
-        this.all_eWF += eWF;
-        this.all_canteenFee += canteenFee;
-        this.all_absentCharge += absentCharge;
-        this.all_EWFrefund += EWFrefund;
-        this.all_loanEMI += loanEMI;
-        this.all_Others += Others;
-        
-      });
-     this.data = temp;
-        console.log("data",totalBasicPay);
-      }
-    })
+            const basicPay = parseInt(item.basicPay) || 0;
+            const pA = parseInt(item.pA) || 0;
+            const tA = parseInt(item.tA) || 0;
+            const oA = parseInt(item.oA) || 0;
+            const GrossSalary = parseInt(item.GrossSalary) || 0;
+            const PTax = parseInt(item.PTax) || 0;
+            const insurance = parseInt(item.insurance) || 0;
+            const eWF = parseInt(item.eWF) || 0;
+            const canteenFee = parseInt(item.canteenFee) || 0;
+            const absentCharge = parseInt(item.absentCharge) || 0;
+            const EWFrefund = parseInt(item.EWFrefund) || 0;
+            const loanEMI = parseInt(item.loanEMI) || 0;
+            const Others = parseInt(item.Others) || 0;
+            const netSalary = parseInt(item.netSalary) || 0;
+
+            temp.push({
+              id: item.id,
+              category: item["user.category"],
+              name: item["user.f_name"] + " " + item["user.l_name"],
+              designation: item["user.designation"],
+              employeeId: item["user.employeeId"],
+              entryDate: parseInt(item.entryDate) || 0,
+              basicPay: basicPay,
+              netSalary: netSalary,
+              pA: pA,
+              tA: tA,
+              oA: oA,
+              GrossSalary: GrossSalary,
+              PTax: PTax,
+              insurance: insurance,
+              eWF: eWF,
+              canteenFee: canteenFee,
+              absentCharge: absentCharge,
+              EWFrefund: EWFrefund,
+              loanEMI: loanEMI,
+              Others: Others,
+            })
+
+            this.all_BasicPay += basicPay;
+            this.all_netSalary += netSalary;
+            this.all_pA += pA;
+            this.all_tA += tA;
+            this.all_oA += oA;
+            this.all_GrossSalary += GrossSalary;
+            this.all_PTax += PTax;
+            this.all_insurance += insurance;
+            this.all_eWF += eWF;
+            this.all_canteenFee += canteenFee;
+            this.all_absentCharge += absentCharge;
+            this.all_EWFrefund += EWFrefund;
+            this.all_loanEMI += loanEMI;
+            this.all_Others += Others;
+
+          });
+          this.data = temp;
+          console.log("data", totalBasicPay);
+        }
+      })
+    }
   }
-  }
 
-  employeeList=()=>{
+  employeeList = () => {
     let requestObject = {};
     this.isLodaing = true;
     this.spiner();
-    this.SalaryService.employeeList(requestObject, (callback:any)=>{
+    this.SalaryService.employeeList(requestObject, (callback: any) => {
       console.log(callback);
       this.isLodaing = false;
 
       this.employees = callback;
-      console.log("eeeeeeeeeeeee",this.employees);
+      console.log("eeeeeeeeeeeee", this.employees);
 
 
       // Initialize salary data correctly
       this.employees.forEach(employee => {
         if (!this.salaries[employee.id]) {
-          this.salaries[employee.id] = { 
-            basicPay: 0, 
-            pA: 0, 
+          this.salaries[employee.id] = {
+            basicPay: 0,
+            pA: 0,
             tA: 0,
             oA: 0,
             GrossSalary: 0,
@@ -297,16 +304,16 @@ export class SalaryComponent implements OnInit {
             loanEMI: 0,
             Others: 0,
             netSalary: 0
-           };
+          };
         }
       });
-    });      
+    });
   }
 
   calculateGrossSalary(employeeId: number): void {
     const salaryData = this.salaries[employeeId];
-    console.log("bbbbbbbbbb",salaryData);
-    
+    console.log("bbbbbbbbbb", salaryData);
+
     salaryData.GrossSalary = salaryData.basicPay + salaryData.pA + salaryData.tA + salaryData.oA;
   }
 
@@ -316,12 +323,12 @@ export class SalaryComponent implements OnInit {
   }
 
 
-  monthlySalary(){
+  monthlySalary() {
     this.showMonthlySalary = true;
     this.showComulativeSalary = false;
   }
 
-  ComulativeSalary(){
+  ComulativeSalary() {
     this.showMonthlySalary = false;
     this.showComulativeSalary = true;
   }
@@ -347,7 +354,7 @@ export class SalaryComponent implements OnInit {
       loanEMI: this.salaries[employee.id].loanEMI == null ? 0 : this.salaries[employee.id].loanEMI,
       Others: this.salaries[employee.id].Others == null ? 0 : this.salaries[employee.id].Others,
       netSalary: this.salaries[employee.id].netSalary,
-      entryDate: this.inputData.year+this.inputData.month,
+      entryDate: this.inputData.year + this.inputData.month,
     }));
 
 
@@ -362,22 +369,22 @@ export class SalaryComponent implements OnInit {
       this.salaryshow = true;
 
       this.checkSalaries();
-      
+
     })
   }
 
 
-  validateInputs = () =>{
+  validateInputs = () => {
     console.log("Saving data before validate");
-    if(this.inputData.month==='' || this.inputData.month===null || this.inputData.month===undefined){
-      this.toastr.warning('Please enter month','Warning',{
-        disableTimeOut:false
+    if (this.inputData.month === '' || this.inputData.month === null || this.inputData.month === undefined) {
+      this.toastr.warning('Please enter month', 'Warning', {
+        disableTimeOut: false
       });
       return false;
     }
-    if(this.inputData.year==='' || this.inputData.year===null || this.inputData.year===undefined){
-      this.toastr.warning('Please enter year','Warning',{
-        disableTimeOut:false
+    if (this.inputData.year === '' || this.inputData.year === null || this.inputData.year === undefined) {
+      this.toastr.warning('Please enter year', 'Warning', {
+        disableTimeOut: false
       });
       return false;
     }
@@ -388,16 +395,16 @@ export class SalaryComponent implements OnInit {
   // showPaySlipModal(row: any) {
   //   console.log("Selected Project=", row);
   //   this.selectedPaySlip = row;
-  
+
   //   // Calculate totalGross and totalDeduct
   //   this.selectedPaySlip.totalGross = Number(this.selectedPaySlip.basicPay) + Number(this.selectedPaySlip.pA) + Number(this.selectedPaySlip.tA) + Number(this.selectedPaySlip.oA);
   //   this.selectedPaySlip.totalDeduct = Number(this.selectedPaySlip.PTax) + Number(this.selectedPaySlip.insurance) + Number(this.selectedPaySlip.eWF) + Number(this.selectedPaySlip.canteenFee) + Number(this.selectedPaySlip.absentCharge) + Number(this.selectedPaySlip.EWFrefund) + Number(this.selectedPaySlip.loanEMI) + Number(this.selectedPaySlip.Others);
-  
+
   //   // Convert entryDate to a string and extract month and year
   //   const numberString = this.selectedPaySlip.entryDate.toString();
   //   this.selectedPaySlip.year = numberString.slice(0, 4);  // Extract the first 4 digits for the year
   //   this.selectedPaySlip.month = numberString.slice(4, 6); // Extract the next 2 digits for the month
-  
+
   //   // Map month number to month name
   //   const monthNames: { [key: string]: string } = {
   //     "01": "January",
@@ -414,25 +421,25 @@ export class SalaryComponent implements OnInit {
   //     "12": "December"
   //   };
   //   this.selectedPaySlip.monthName = monthNames[this.selectedPaySlip.month] || "Unknown";
-  
+
   //   // Convert netSalary to words
   //   this.selectedPaySlip.amountText = this.convertNumberToWords(this.selectedPaySlip.netSalary);
-  
+
   //   console.log("selectedPaySlip", this.selectedPaySlip);
   // }
-  
+
   // // Helper function to convert numbers to words
   // convertNumberToWords(num: number): string {
   //   const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
   //   const teens = ["Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
   //   const tens = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
   //   const thousands = ["", "Thousand", "Lakh", "Crore"];
-  
+
   //   if (num === 0) return "Zero";
-  
+
   //   let result = "";
   //   let partCount = 0;
-  
+
   //   while (num > 0) {
   //     let part = num % 1000;
   //     if (part > 0) {
@@ -443,23 +450,23 @@ export class SalaryComponent implements OnInit {
   //     partCount++;
   //     num = Math.floor(num / 1000);
   //   }
-  
+
   //   return result.trim();
   // }
-  
+
   // // Helper to convert three-digit numbers to words
   // convertThreeDigitNumber(num: number): string {
   //   const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
   //   const teens = ["Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
   //   const tens = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
-  
+
   //   let result = "";
-  
+
   //   if (num >= 100) {
   //     result += ones[Math.floor(num / 100)] + " Hundred ";
   //     num = num % 100;
   //   }
-  
+
   //   if (num >= 11 && num <= 19) {
   //     result += teens[num - 11] + " ";
   //   } else {
@@ -467,23 +474,23 @@ export class SalaryComponent implements OnInit {
   //     num = num % 10;
   //     result += ones[num] + " ";
   //   }
-  
+
   //   return result.trim();
   // }
 
 
-  showPaySlipModal(row:any){
+  showPaySlipModal(row: any) {
     // this.showImage = true;
     console.log("Selected Project=", row);
     this.selectedPaySlip = row;
 
-    this.selectedPaySlip.totalGross = Number(this.selectedPaySlip.basicPay)+ Number(this.selectedPaySlip.pA) + Number(this.selectedPaySlip.tA) + Number(this.selectedPaySlip.oA)
+    this.selectedPaySlip.totalGross = Number(this.selectedPaySlip.basicPay) + Number(this.selectedPaySlip.pA) + Number(this.selectedPaySlip.tA) + Number(this.selectedPaySlip.oA)
 
-    this.selectedPaySlip.totalDeduct = Number(this.selectedPaySlip.PTax)+ Number(this.selectedPaySlip.insurance) + Number(this.selectedPaySlip.eWF) + Number(this.selectedPaySlip.canteenFee) + Number(this.selectedPaySlip.absentCharge) + Number(this.selectedPaySlip.EWFrefund) + Number(this.selectedPaySlip.loanEMI) + Number(this.selectedPaySlip.Others);
+    this.selectedPaySlip.totalDeduct = Number(this.selectedPaySlip.PTax) + Number(this.selectedPaySlip.insurance) + Number(this.selectedPaySlip.eWF) + Number(this.selectedPaySlip.canteenFee) + Number(this.selectedPaySlip.absentCharge) + Number(this.selectedPaySlip.EWFrefund) + Number(this.selectedPaySlip.loanEMI) + Number(this.selectedPaySlip.Others);
 
     const numberString = this.selectedPaySlip.entryDate.toString();
-  this.selectedPaySlip.month = numberString.slice(4);    // Extract the last 2 digits for the month
-  this.selectedPaySlip.year = numberString.slice(0, 4);   // Extract the first 4 digits for the year
+    this.selectedPaySlip.month = numberString.slice(4);    // Extract the last 2 digits for the month
+    this.selectedPaySlip.year = numberString.slice(0, 4);   // Extract the first 4 digits for the year
 
 
     if (this.selectedPaySlip.month == "01") {
@@ -552,8 +559,8 @@ export class SalaryComponent implements OnInit {
 
     this.selectedPaySlip.amountText = result.trim();
     // return result.trim();
-    console.log("selectedPaySlip",this.selectedPaySlip);
-    
+    console.log("selectedPaySlip", this.selectedPaySlip);
+
   }
 
 
@@ -626,7 +633,7 @@ export class SalaryComponent implements OnInit {
           }
         }
 
-        pdf.save(this.inputData.monthName+'-'+this.inputData.year+'-report.pdf');
+        pdf.save(this.inputData.monthName + '-' + this.inputData.year + '-report.pdf');
       });
     }
   }
@@ -637,7 +644,7 @@ export class SalaryComponent implements OnInit {
 
   // multipage print
 
-  
+
   // public saveAsPDF() {
   //   const data = document.getElementById('salary-report'); // Element to be saved as PDF
 
@@ -681,66 +688,145 @@ export class SalaryComponent implements OnInit {
 
   // comulative report
 
-  generateData(){
-    this.fromMonthYear = this.comulativeInput.fromYear+this.comulativeInput.fromMonth;
-    this.toMonthYear = this.comulativeInput.toYear+this.comulativeInput.toMonth;
+  generateData() {
+    this.fromMonthYear = this.comulativeInput.fromYear + this.comulativeInput.fromMonth;
+    this.toMonthYear = this.comulativeInput.toYear + this.comulativeInput.toMonth;
     let isValid = this.chekInput();
-    if(isValid){
-    this.isLodaing = true;
-    let requestObject = {
-      fromMonthYear: this.fromMonthYear,
-      toMonthYear: this.toMonthYear,
-    };
-    console.log("requestObject",requestObject);
-    
-    this.spiner();
-    this.SalaryService.checkSalaryRange(requestObject, (callback:any)=>{
-      console.log("callback",callback);
-      this.isLodaing = false;
-      if (callback.status == true) {
-        this.toastr.success(callback.message,'Success',{
-        disableTimeOut:false
+    if (isValid) {
+      this.isLodaing = true;
+      let requestObject = {
+        fromMonthYear: this.fromMonthYear,
+        toMonthYear: this.toMonthYear,
+      };
+      console.log("requestObject", requestObject);
+
+      this.spiner();
+      this.SalaryService.checkSalaryRange(requestObject, (callback: any) => {
+        console.log("callback", callback);
+        this.isLodaing = false;
+        if (callback.status == true) {
+          //change month digit to month name
+          if (this.comulativeInput.fromMonth == "01") {
+            this.comulativeInput.fromMonthName = "January";
+          }
+          if (this.comulativeInput.fromMonth == "02") {
+            this.comulativeInput.fromMonthName = "February";
+          }
+          if (this.comulativeInput.fromMonth == "03") {
+            this.comulativeInput.fromMonthName = "March";
+          }
+          if (this.comulativeInput.fromMonth == "04") {
+            this.comulativeInput.fromMonthName = "April";
+          }
+          if (this.comulativeInput.fromMonth == "05") {
+            this.comulativeInput.fromMonthName = "May";
+          }
+          if (this.comulativeInput.fromMonth == "06") {
+            this.comulativeInput.fromMonthName = "June";
+          }
+          if (this.comulativeInput.fromMonth == "07") {
+            this.comulativeInput.fromMonthName = "July";
+          }
+          if (this.comulativeInput.fromMonth == "08") {
+            this.comulativeInput.fromMonthName = "August";
+          }
+          if (this.comulativeInput.fromMonth == "09") {
+            this.comulativeInput.fromMonthName = "September";
+          }
+          if (this.comulativeInput.fromMonth == "10") {
+            this.comulativeInput.fromMonthName = "October";
+          }
+          if (this.comulativeInput.fromMonth == "11") {
+            this.comulativeInput.fromMonthName = "November";
+          }
+          if (this.comulativeInput.fromMonth == "12") {
+            this.comulativeInput.fromMonthName = "December";
+          }
+
+          //change month digit to month name
+          if (this.comulativeInput.toMonth == "01") {
+            this.comulativeInput.toMonthName = "January";
+          }
+          if (this.comulativeInput.toMonth == "02") {
+            this.comulativeInput.toMonthName = "February";
+          }
+          if (this.comulativeInput.toMonth == "03") {
+            this.comulativeInput.toMonthName = "March";
+          }
+          if (this.comulativeInput.toMonth == "04") {
+            this.comulativeInput.toMonthName = "April";
+          }
+          if (this.comulativeInput.toMonth == "05") {
+            this.comulativeInput.toMonthName = "May";
+          }
+          if (this.comulativeInput.toMonth == "06") {
+            this.comulativeInput.toMonthName = "June";
+          }
+          if (this.comulativeInput.toMonth == "07") {
+            this.comulativeInput.toMonthName = "July";
+          }
+          if (this.comulativeInput.toMonth == "08") {
+            this.comulativeInput.toMonthName = "August";
+          }
+          if (this.comulativeInput.toMonth == "09") {
+            this.comulativeInput.toMonthName = "September";
+          }
+          if (this.comulativeInput.toMonth == "10") {
+            this.comulativeInput.toMonthName = "October";
+          }
+          if (this.comulativeInput.toMonth == "11") {
+            this.comulativeInput.toMonthName = "November";
+          }
+          if (this.comulativeInput.toMonth == "12") {
+            this.comulativeInput.toMonthName = "December";
+          }
+
+          this.showComulativeData = true;
+          this.camulativeData = callback;
+          this.toastr.success(callback.message, 'Success', {
+            disableTimeOut: false
+          });
+        } if (callback.status == false) {
+          this.showComulativeData = false;
+          this.toastr.warning(callback.message, 'Warning', {
+            disableTimeOut: false
+          });
+        }
+
       });
-      }if (callback.status == false) {
-          this.toastr.warning(callback.message,'Warning',{
-          disableTimeOut:false
-        });
-      }
-      
-    });
-  }
+    }
   }
 
 
-  chekInput = () =>{
+  chekInput = () => {
     console.log("Saving data before validate");
-    if(this.comulativeInput.fromMonth==='' || this.comulativeInput.fromMonth===null || this.comulativeInput.fromMonth===undefined){
-      this.toastr.warning('Please enter from month','Warning',{
-        disableTimeOut:false
+    if (this.comulativeInput.fromMonth === '' || this.comulativeInput.fromMonth === null || this.comulativeInput.fromMonth === undefined) {
+      this.toastr.warning('Please enter from month', 'Warning', {
+        disableTimeOut: false
       });
       return false;
     }
-    if(this.comulativeInput.fromYear==='' || this.comulativeInput.fromYear===null || this.comulativeInput.fromYear===undefined){
-      this.toastr.warning('Please enter from Year','Warning',{
-        disableTimeOut:false
+    if (this.comulativeInput.fromYear === '' || this.comulativeInput.fromYear === null || this.comulativeInput.fromYear === undefined) {
+      this.toastr.warning('Please enter from Year', 'Warning', {
+        disableTimeOut: false
       });
       return false;
     }
-    if(this.comulativeInput.toMonth==='' || this.comulativeInput.toMonth===null || this.comulativeInput.toMonth===undefined){
-      this.toastr.warning('Please enter to month','Warning',{
-        disableTimeOut:false
+    if (this.comulativeInput.toMonth === '' || this.comulativeInput.toMonth === null || this.comulativeInput.toMonth === undefined) {
+      this.toastr.warning('Please enter to month', 'Warning', {
+        disableTimeOut: false
       });
       return false;
     }
-    if(this.comulativeInput.toYear==='' || this.comulativeInput.toYear===null || this.comulativeInput.toYear===undefined){
-      this.toastr.warning('Please enter to year','Warning',{
-        disableTimeOut:false
+    if (this.comulativeInput.toYear === '' || this.comulativeInput.toYear === null || this.comulativeInput.toYear === undefined) {
+      this.toastr.warning('Please enter to year', 'Warning', {
+        disableTimeOut: false
       });
       return false;
     }
-    if(this.fromMonthYear > this.toMonthYear || this.fromMonthYear == this.toMonthYear){
-      this.toastr.warning('from month-year can not be more than to month-year','Warning',{
-        disableTimeOut:false
+    if (this.fromMonthYear > this.toMonthYear || this.fromMonthYear == this.toMonthYear) {
+      this.toastr.warning('from month-year can not be more than to month-year', 'Warning', {
+        disableTimeOut: false
       });
       return false;
     }
