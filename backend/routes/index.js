@@ -253,6 +253,8 @@ module.exports = (app) => {
 
 	app.post('/api/getApplieVendorDataByBranchId', vendorController.getApplieVendorDataByBranchId);
 
+	app.post('/api/getAllVendorList', vendorController.getAllVendorList);
+
 	app.get('/api/getVendorById/:rqstId', vendorController.getVendorById);
 
 	app.post('/api/resubmitVendorAplData', vendorController.resubmitVendorAplData);
@@ -351,6 +353,8 @@ module.exports = (app) => {
 	app.post('/api/checkSalary', salaryController.checkSalary);
 	
 	app.post('/api/checkSalaryRange', salaryController.checkSalaryRange);
+
+	app.post('/api/getEmployeeCumulativeSalaryData', salaryController.getEmployeeCumulativeSalaryData);
 
 
 

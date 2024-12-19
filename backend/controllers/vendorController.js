@@ -431,4 +431,28 @@ module.exports = {
     .catch(error => res.status(400).send(error));
     
     },
+
+
+    getAllVendorList(req, res) {
+      return vendorModel
+      .findAll({
+        order: [
+          ['createdAt', 'DESC']
+        ],
+        where: {
+          [Op.or]: [
+              { status: "Applied"},
+              { status: "Rejected" },
+              { status: "Approved" },
+            ]
+        },
+        raw: true,
+      })
+      .then(data => {
+        console.log("hhhhhhhhhhhhhhh",data);
+        return res.status(200).send(data);
+    })
+    .catch(error => res.status(400).send(error));
+    
+    },
 }

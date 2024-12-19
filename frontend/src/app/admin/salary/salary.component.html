@@ -405,7 +405,7 @@
                                                                 Basic Pay
                                                             </td>
                                                             <td class="px-1 m-0 small">
-                                                                {{camulativeData.data.totalBasicPay}}
+                                                                {{camulativeData.data.totalBasicPay | currency:'INR':'symbol':'1.2-2'}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -414,7 +414,7 @@
                                                                 Performance Allowance
                                                             </td>
                                                             <td class="px-1 m-0 small">
-                                                                {{camulativeData.data.totalPA}}
+                                                                {{camulativeData.data.totalPA | currency:'INR':'symbol':'1.2-2'}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -423,7 +423,7 @@
                                                                 Travelling Allowance
                                                             </td>
                                                             <td class="px-1 m-0 small">
-                                                                {{camulativeData.data.totalTA}}
+                                                                {{camulativeData.data.totalTA | currency:'INR':'symbol':'1.2-2'}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -432,7 +432,7 @@
                                                                 Other Allowance
                                                             </td>
                                                             <td class="px-1 m-0 small">
-                                                                {{camulativeData.data.totalOA}}
+                                                                {{camulativeData.data.totalOA | currency:'INR':'symbol':'1.2-2'}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -441,7 +441,7 @@
                                                                 Gross Salary
                                                             </td>
                                                             <td class="px-1 m-0 small">
-                                                                {{camulativeData.data.totalGrossSalary}}
+                                                                {{camulativeData.data.totalGrossSalary | currency:'INR':'symbol':'1.2-2'}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -450,7 +450,7 @@
                                                                 Professional Fee
                                                             </td>
                                                             <td class="px-1 m-0 small">
-                                                                {{camulativeData.data.totalPTax}}
+                                                                {{camulativeData.data.totalPTax | currency:'INR':'symbol':'1.2-2'}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -459,7 +459,7 @@
                                                                 Insurance Fee
                                                             </td>
                                                             <td class="px-1 m-0 small">
-                                                                {{camulativeData.data.totalInsurance}}
+                                                                {{camulativeData.data.totalInsurance | currency:'INR':'symbol':'1.2-2'}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -468,7 +468,7 @@
                                                                 EWF Deposit
                                                             </td>
                                                             <td class="px-1 m-0 small">
-                                                                {{camulativeData.data.totalEWF}}
+                                                                {{camulativeData.data.totalEWF | currency:'INR':'symbol':'1.2-2'}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -477,7 +477,7 @@
                                                                 Canteen Fee
                                                             </td>
                                                             <td class="px-1 m-0 small">
-                                                                {{camulativeData.data.totalCanteenFee}}
+                                                                {{camulativeData.data.totalCanteenFee | currency:'INR':'symbol':'1.2-2'}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -486,7 +486,7 @@
                                                                 Absent Charges
                                                             </td>
                                                             <td class="px-1 m-0 small">
-                                                                {{camulativeData.data.totalAbsentCharge}}
+                                                                {{camulativeData.data.totalAbsentCharge | currency:'INR':'symbol':'1.2-2'}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -495,7 +495,7 @@
                                                                 EWF Refund
                                                             </td>
                                                             <td class="px-1 m-0 small">
-                                                                {{camulativeData.data.totalEWFrefund}}
+                                                                {{camulativeData.data.totalEWFrefund | currency:'INR':'symbol':'1.2-2'}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -504,7 +504,7 @@
                                                                 Loan EMI
                                                             </td>
                                                             <td class="px-1 m-0 small">
-                                                                {{camulativeData.data.totalLoanEMI}}
+                                                                {{camulativeData.data.totalLoanEMI | currency:'INR':'symbol':'1.2-2'}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -513,7 +513,7 @@
                                                                 Other Deductions
                                                             </td>
                                                             <td class="px-1 m-0 small">
-                                                                {{camulativeData.data.totalOthers}}
+                                                                {{camulativeData.data.totalOthers | currency:'INR':'symbol':'1.2-2'}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -522,7 +522,53 @@
                                                                 Net Salary
                                                             </td>
                                                             <td class="px-1 m-0 small">
-                                                                {{camulativeData.data.totalNetPay}}
+                                                                {{camulativeData.data.totalNetPay | currency:'INR':'symbol':'1.2-2'}}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="card">
+                                    <div class="card-header text-center">
+                                        Comulative Salary Report for Employee
+                                    </div>
+                                    <div class="card-body">
+                                        
+                                        <div class="card-body">
+                                            <div class="col-12 text-center">
+                                            <div class="col-12 pt-2 scroll-container-salary">
+                                                <table class="table table-hover table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="bg-success text-center">STAFF NAME</th>
+                                                            <th class="bg-success text-center">DESIGNATIONS</th>
+                                                            <th class="bg-success text-center">EMPLOYEE CODE</th>
+                                                            <th class="bg-success text-center">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let employeeData of comulativeEmployeeData">
+                                                            <td>
+                                                                {{employeeData.f_name}} {{employeeData.l_name}}
+                                                            </td>
+                                                            <td>
+                                                                {{employeeData.designation}}
+                                                            </td>
+                                                            <td>
+                                                                {{employeeData.employeeid}}
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-primary btn-sm" data-toggle="modal"
+                                                                data-target="#comulativeSalaryReport" (click)="openModal(employeeData)">
+                                                                    View Details
+                                                                  </button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -535,6 +581,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
             <!-- Main row -->
@@ -931,5 +978,183 @@
     </div>
 
 
-    <!-- Loan Account Opening Modal -->
+    <!-- comulative salary report -->
+
+    <div class="modal fade" id="comulativeSalaryReport" tabindex="-1" role="dialog" aria-labelledby="accountOpeningLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accountOpeningLabel">Comulative Salary Report for {{selectedEmployee?.f_name}} {{selectedEmployee?.l_name}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="modalClose">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                            <div class="row  px-4">
+                                <button printSectionId="comulativeReport" ngxPrint [useExistingCss]="true"
+                                    styleSheetFile="../node_modules/bootstrap/dist/css/bootstrap.min.css" mat-raised-button
+                                    color="primary"><i class="fas fa-print"></i>
+                                    print</button>
+                            </div>
+                            <div id="comulativeReport">
+                                <div class="col-12 text-center">
+        
+                                    <h2 class="p-0 m-0">Lakhimi Sanchay and Rindan S.S. Ltd.</h2>
+                                    <p>Dhemaji, Assam - 787057</p>
+                                    <p>Cumulative Salary Statement</p>
+                                    <p><b>Employee Name:</b> {{selectedEmployee?.f_name}} {{selectedEmployee?.l_name}}</p>
+                                    <p><b>Employee id:</b> {{selectedEmployee?.employeeid}}</p>
+                                    <p><b>Employee designation:</b> {{selectedEmployee?.designation}}</p>
+                                    <p>For the period: {{comulativeInput.fromMonthName}}/{{comulativeInput.fromYear}} to {{comulativeInput.toMonthName}}/{{comulativeInput.toYear}}</p>
+                                </div>
+                                <div class="col-12 pt-2 scroll-container-salary">
+                                    <table class="table p-0 m-0">
+                                        <thead>
+                                            <tr class="p-0 m-0 small">
+                                                <th class="px-1 m-0 small text-center bg-secondary">Sl No.</th>
+                                                <th class="px-1 m-0 small text-center bg-secondary" style="min-width: 150px;">
+                                                    Head</th>
+                                                <th class="px-1 m-0 small text-center bg-secondary" style="max-width: 30px;">
+                                                    Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="px-1 m-0 small text-center">1</td>
+                                                <td class="px-1 m-0 small">
+                                                    Basic Pay
+                                                </td>
+                                                <td class="px-1 m-0 small">
+                                                    {{selectedEmployee?.totalBasicPay | currency:'INR':'symbol':'1.2-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-1 m-0 small text-center">2</td>
+                                                <td class="px-1 m-0 small">
+                                                    Performance Allowance
+                                                </td>
+                                                <td class="px-1 m-0 small">
+                                                    {{selectedEmployee?.totalPA | currency:'INR':'symbol':'1.2-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-1 m-0 small text-center">3</td>
+                                                <td class="px-1 m-0 small">
+                                                    Travelling Allowance
+                                                </td>
+                                                <td class="px-1 m-0 small">
+                                                    {{selectedEmployee?.totalTA | currency:'INR':'symbol':'1.2-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-1 m-0 small text-center">4</td>
+                                                <td class="px-1 m-0 small">
+                                                    Other Allowance
+                                                </td>
+                                                <td class="px-1 m-0 small">
+                                                    {{selectedEmployee?.totalOA | currency:'INR':'symbol':'1.2-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-1 m-0 small text-center">5</td>
+                                                <td class="px-1 m-0 small">
+                                                    Gross Salary
+                                                </td>
+                                                <td class="px-1 m-0 small">
+                                                    {{selectedEmployee?.totalGrossSalary | currency:'INR':'symbol':'1.2-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-1 m-0 small text-center">6</td>
+                                                <td class="px-1 m-0 small">
+                                                    Professional Fee
+                                                </td>
+                                                <td class="px-1 m-0 small">
+                                                    {{selectedEmployee?.totalPTax | currency:'INR':'symbol':'1.2-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-1 m-0 small text-center">7</td>
+                                                <td class="px-1 m-0 small">
+                                                    Insurance Fee
+                                                </td>
+                                                <td class="px-1 m-0 small">
+                                                    {{selectedEmployee?.totalInsurance | currency:'INR':'symbol':'1.2-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-1 m-0 small text-center">8</td>
+                                                <td class="px-1 m-0 small">
+                                                    EWF Deposit
+                                                </td>
+                                                <td class="px-1 m-0 small">
+                                                    {{selectedEmployee?.totalEWF | currency:'INR':'symbol':'1.2-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-1 m-0 small text-center">9</td>
+                                                <td class="px-1 m-0 small">
+                                                    Canteen Fee
+                                                </td>
+                                                <td class="px-1 m-0 small">
+                                                    {{selectedEmployee?.totalCanteenFee | currency:'INR':'symbol':'1.2-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-1 m-0 small text-center">10</td>
+                                                <td class="px-1 m-0 small">
+                                                    Absent Charges
+                                                </td>
+                                                <td class="px-1 m-0 small">
+                                                    {{selectedEmployee?.totalAbsentCharge | currency:'INR':'symbol':'1.2-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-1 m-0 small text-center">11</td>
+                                                <td class="px-1 m-0 small">
+                                                    EWF Refund
+                                                </td>
+                                                <td class="px-1 m-0 small">
+                                                    {{selectedEmployee?.totalEWFrefund | currency:'INR':'symbol':'1.2-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-1 m-0 small text-center">12</td>
+                                                <td class="px-1 m-0 small">
+                                                    Loan EMI
+                                                </td>
+                                                <td class="px-1 m-0 small">
+                                                    {{selectedEmployee?.totalLoanEMI | currency:'INR':'symbol':'1.2-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-1 m-0 small text-center">13</td>
+                                                <td class="px-1 m-0 small">
+                                                    Other Deductions
+                                                </td>
+                                                <td class="px-1 m-0 small">
+                                                    {{selectedEmployee?.totalOthers | currency:'INR':'symbol':'1.2-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-1 m-0 small text-center">14</td>
+                                                <td class="px-1 m-0 small">
+                                                    Net Salary
+                                                </td>
+                                                <td class="px-1 m-0 small">
+                                                    {{selectedEmployee?.totalNetPay | currency:'INR':'symbol':'1.2-2'}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end model -->
+    </div>
 </div>

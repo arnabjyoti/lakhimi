@@ -12,6 +12,7 @@ import { brunchDetailsData } from '../brunch-details/brunch-details.component';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { CommonModule } from '@angular/common';
+import * as _ from 'lodash'
 
 
 export interface usersData {
@@ -59,7 +60,15 @@ export class UsersComponent implements OnInit{
   public userId:any;
   returnMsg:any;
 
+  public brunchFormData: any;
+  public branchData:any;
+
   public isLodaing = true;
+
+  public filter: any = {
+    branch_id: '',
+  }
+  public apiResponse: any = [];
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -85,6 +94,7 @@ export class UsersComponent implements OnInit{
 
   ngOnInit(): void {
     this.getUserList();
+    // this.getBrunchData();
   }
 
 
@@ -95,12 +105,25 @@ export class UsersComponent implements OnInit{
     }, 5000);
   }
 
+
+  getBrunchData=()=>{
+    let requestObject = {};
+    
+    this.UsersService.getBrunch(requestObject, (callback:any)=>{
+      console.log(callback);
+      this.brunchFormData = callback; 
+      this.branchData = callback;     
+    });  
+  }
+
   getUserList=()=>{
     let requestObject = {};
     
     this.UsersService.getUser(requestObject, (callback:any)=>{
       console.log(callback);
       
+      this.apiResponse = callback;
+
       this.dataSource = new MatTableDataSource(callback);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -111,6 +134,22 @@ export class UsersComponent implements OnInit{
   FilterChange(data:Event){
     const value=(data.target as HTMLInputElement).value;
     this.dataSource.filter=value;
+  }
+
+  FilterChangeBranch($event:any){
+    console.log("fffffffff",_.filter(this.apiResponse));
+    let filteredData = _.filter(this.apiResponse,(item)=>{
+      
+      
+      return item.brunchId == this.filter.branch_id;
+    })
+    console.log("ssssss",filteredData);
+    this.dataSource = new MatTableDataSource(filteredData);
+  }
+
+  resetFilter(){
+    this.filter.branch_id = '';
+    this.getUserList();
   }
 
   save() {

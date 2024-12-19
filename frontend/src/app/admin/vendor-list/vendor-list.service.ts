@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class VendorListService {
   public headers: any;
   constructor(
     private appService: AppService,
@@ -15,29 +15,8 @@ export class UsersService {
     private toastr: ToastrService
   ) { }
 
-  getUser(req:any, callback:any) {
-    const ENDPOINT = `${environment.BASE_URL}/api/getUserList`;
-    const requestOptions = {
-      headers: this.headers,
-      method: 'post'
-    };
-    this.http.get(ENDPOINT, requestOptions).subscribe(
-      (response) => {
-        console.log('Success');
-        return callback && callback(response);
-      },
-      (error) => {
-        return callback && callback(error);
-      },
-      () => {
-        console.log('Observable is now completed.');
-      }
-    );
-  }
-
-
-  createUser(req:any, callback:any){
-    const ENDPOINT = `${environment.BASE_URL}/api/createUser`;
+  getAllVendorList(req:any, callback:any){
+    const ENDPOINT = `${environment.BASE_URL}/api/getAllVendorList`;
     const requestOptions = {
       headers: this.appService.headers,
       method: "post",
@@ -48,15 +27,9 @@ export class UsersService {
     this.http.post(ENDPOINT, requestOptions)
       .subscribe(
         (response) => {
-          this.toastr.success("User added", "Success!", {
-            disableTimeOut: false
-          });
           return callback && callback(response);
         },
         error => {
-          this.toastr.error("User not added", "warning!", {
-            disableTimeOut: false
-          });
           return callback && callback(error);
         },
         () => {

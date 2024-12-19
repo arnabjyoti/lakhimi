@@ -111,5 +111,28 @@ export class SalaryService {
         () => {
         });
   }
+
+
+  getEmployeeCumulativeSalaryData(req:any, callback:any) {
+    const ENDPOINT = `${environment.BASE_URL}/api/getEmployeeCumulativeSalaryData`;
+    const requestOptions = {
+      headers: this.appService.headers,
+      requestObject: req
+    };
+    console.log("ssssssssssss",req);
+    
+    this.http.post(ENDPOINT, requestOptions)
+      .subscribe(
+        (response) => {            
+          return callback && callback(response);
+        },
+        error => {
+          
+          return callback && callback(error);
+          
+        },
+        () => {
+        });
+  }
   
 }

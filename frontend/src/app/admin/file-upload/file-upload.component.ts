@@ -71,7 +71,7 @@ export class FileUploadComponent implements OnInit {
   ngOnInit(): void {
     this.getFileUploadData();
 
-    if (this.user.role == 'head_office') {
+    if (this.user.designation == 'Managing Director') {
       this.displayedColumns = ['Sl', 'file_name', 'view', 'delete']; // Admin sees all columns
     } else {
       this.displayedColumns = ['Sl', 'file_name', 'view']; // Non-admin users see limited columns

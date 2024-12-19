@@ -231,6 +231,15 @@
             </a>
           </li>
           <li class="nav-item" *ngIf="permission.addBrunchPrivilage">
+            <a routerLink="/all-vendor-list" class="nav-link" routerLinkActive="active">
+              <i class="nav-icon fab fa-accusoft"></i>
+              <p>
+                Vendor List
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="permission.addBrunchPrivilage">
             <a routerLink="/loan-request-list" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-percentage"></i>
               <p>
@@ -346,7 +355,7 @@
             <a routerLink="/file-upload" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-file-pdf"></i>
               <p>
-                File Upload
+                Files
               </p>
             </a>
           </li>

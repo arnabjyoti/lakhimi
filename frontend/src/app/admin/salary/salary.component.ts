@@ -133,6 +133,10 @@ export class SalaryComponent implements OnInit {
 
   // public data: any;
 
+
+  public comulativeEmployeeData: any[] = [];
+  public selectedEmployee: any = null;
+
   constructor(
     private spinner: NgxSpinnerService,
     private SalaryService: SalaryService,
@@ -194,13 +198,13 @@ export class SalaryComponent implements OnInit {
       this.inputData.monthName = "December";
     }
 
-    console.log("inputData", this.inputData);
+    // console.log("inputData", this.inputData);
     let isValid = this.validateInputs();
     if (isValid) {
       this.isLodaing = true;
       this.spiner();
       this.SalaryService.checkSalary(this.inputData, (callback: any) => {
-        console.log(callback);
+        // console.log(callback);
         this.isLodaing = false;
         if (callback.length == 0) {
           this.salaryDown = true;
@@ -268,7 +272,7 @@ export class SalaryComponent implements OnInit {
 
           });
           this.data = temp;
-          console.log("data", totalBasicPay);
+          // console.log("data", totalBasicPay);
         }
       })
     }
@@ -279,11 +283,11 @@ export class SalaryComponent implements OnInit {
     this.isLodaing = true;
     this.spiner();
     this.SalaryService.employeeList(requestObject, (callback: any) => {
-      console.log(callback);
+      // console.log(callback);
       this.isLodaing = false;
 
       this.employees = callback;
-      console.log("eeeeeeeeeeeee", this.employees);
+      // console.log("eeeeeeeeeeeee", this.employees);
 
 
       // Initialize salary data correctly
@@ -312,7 +316,7 @@ export class SalaryComponent implements OnInit {
 
   calculateGrossSalary(employeeId: number): void {
     const salaryData = this.salaries[employeeId];
-    console.log("bbbbbbbbbb", salaryData);
+    // console.log("bbbbbbbbbb", salaryData);
 
     salaryData.GrossSalary = salaryData.basicPay + salaryData.pA + salaryData.tA + salaryData.oA;
   }
@@ -336,7 +340,7 @@ export class SalaryComponent implements OnInit {
 
 
   saveSalaries(): void {
-    console.log(this.salaries);
+    // console.log(this.salaries);
 
     const salaryDataArray = this.employees.map(employee => ({
       employeeId: employee.id,
@@ -375,7 +379,7 @@ export class SalaryComponent implements OnInit {
 
 
   validateInputs = () => {
-    console.log("Saving data before validate");
+    // console.log("Saving data before validate");
     if (this.inputData.month === '' || this.inputData.month === null || this.inputData.month === undefined) {
       this.toastr.warning('Please enter month', 'Warning', {
         disableTimeOut: false
@@ -393,7 +397,7 @@ export class SalaryComponent implements OnInit {
 
 
   // showPaySlipModal(row: any) {
-  //   console.log("Selected Project=", row);
+  //   // console.log("Selected Project=", row);
   //   this.selectedPaySlip = row;
 
   //   // Calculate totalGross and totalDeduct
@@ -425,7 +429,7 @@ export class SalaryComponent implements OnInit {
   //   // Convert netSalary to words
   //   this.selectedPaySlip.amountText = this.convertNumberToWords(this.selectedPaySlip.netSalary);
 
-  //   console.log("selectedPaySlip", this.selectedPaySlip);
+  //   // console.log("selectedPaySlip", this.selectedPaySlip);
   // }
 
   // // Helper function to convert numbers to words
@@ -481,7 +485,7 @@ export class SalaryComponent implements OnInit {
 
   showPaySlipModal(row: any) {
     // this.showImage = true;
-    console.log("Selected Project=", row);
+    // console.log("Selected Project=", row);
     this.selectedPaySlip = row;
 
     this.selectedPaySlip.totalGross = Number(this.selectedPaySlip.basicPay) + Number(this.selectedPaySlip.pA) + Number(this.selectedPaySlip.tA) + Number(this.selectedPaySlip.oA)
@@ -559,7 +563,7 @@ export class SalaryComponent implements OnInit {
 
     this.selectedPaySlip.amountText = result.trim();
     // return result.trim();
-    console.log("selectedPaySlip", this.selectedPaySlip);
+    // console.log("selectedPaySlip", this.selectedPaySlip);
 
   }
 
@@ -698,11 +702,11 @@ export class SalaryComponent implements OnInit {
         fromMonthYear: this.fromMonthYear,
         toMonthYear: this.toMonthYear,
       };
-      console.log("requestObject", requestObject);
+      // console.log("requestObject", requestObject);
 
       this.spiner();
       this.SalaryService.checkSalaryRange(requestObject, (callback: any) => {
-        console.log("callback", callback);
+        // console.log("callback", callback);
         this.isLodaing = false;
         if (callback.status == true) {
           //change month digit to month name
@@ -786,6 +790,7 @@ export class SalaryComponent implements OnInit {
           this.toastr.success(callback.message, 'Success', {
             disableTimeOut: false
           });
+          this.getEmployeeCumulativeSalaryData();
         } if (callback.status == false) {
           this.showComulativeData = false;
           this.toastr.warning(callback.message, 'Warning', {
@@ -797,9 +802,32 @@ export class SalaryComponent implements OnInit {
     }
   }
 
+  getEmployeeCumulativeSalaryData(){
+    let requestObject = {
+      fromMonthYear: this.fromMonthYear,
+      toMonthYear: this.toMonthYear,
+    };
+    // console.log("requestObject", requestObject);
+
+    // this.spiner();
+    this.SalaryService.getEmployeeCumulativeSalaryData(requestObject, (callback: any) => {
+      // console.log("callback", callback);
+      this.comulativeEmployeeData = callback.data
+    })
+  }
+
+
+    // Function to open the modal with employee data
+    openModal(employeeData: any): void {
+      this.selectedEmployee = employeeData;
+      // console.log("selectedEmployee",this.selectedEmployee);
+      
+    }
+  
+
 
   chekInput = () => {
-    console.log("Saving data before validate");
+    // console.log("Saving data before validate");
     if (this.comulativeInput.fromMonth === '' || this.comulativeInput.fromMonth === null || this.comulativeInput.fromMonth === undefined) {
       this.toastr.warning('Please enter from month', 'Warning', {
         disableTimeOut: false
