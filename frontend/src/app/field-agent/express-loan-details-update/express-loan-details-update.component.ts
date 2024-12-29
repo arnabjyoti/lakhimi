@@ -39,6 +39,14 @@ export class ExpressLoanDetailsUpdateComponent implements OnInit{
     l_roi: 1.135, //13.5
     l_EMI_amount: "",
 
+    intro_name: "",
+    intro_email: "",
+    intro_telephone: "",
+    intro_phone: "",
+    intro_gender: "",
+    intro_age: "",
+    intro_address: "",
+
 
     share_fee: 110,
     share_admsn_fee: 50,
@@ -199,6 +207,15 @@ export class ExpressLoanDetailsUpdateComponent implements OnInit{
       this.memberData.l_tenure = res.l_tenure;
       this.memberData.l_roi = res.l_roi;
       this.memberData.l_EMI_amount = res.l_EMI_amount;
+
+      this.memberData.intro_name = res.intro_name;
+      this.memberData.intro_email = res.intro_email;
+      this.memberData.intro_telephone = res.intro_telephone;
+      this.memberData.intro_phone = res.intro_phone;
+      this.memberData.intro_gender = res.intro_gender;
+      this.memberData.intro_age = res.intro_age;
+      this.memberData.intro_address = res.intro_address;
+
       this.memberData.share_fee = res.share_fee;
       this.memberData.share_admsn_fee = res.share_admsn_fee;
       this.memberData.ac_admsn_fee = res.ac_admsn_fee;
@@ -493,6 +510,14 @@ updateData(){
     emi_amnt_new: this.emi_amnt_new,
     adv_emi_new: this.adv_emi_new,
     l_tenure: this.l_tenure,
+
+    intro_name: this.memberData.intro_name,
+    intro_email: this.memberData.intro_email,
+    intro_telephone: this.memberData.intro_telephone,
+    intro_phone: this.memberData.intro_phone,
+    intro_gender: this.memberData.intro_gender,
+    intro_age: this.memberData.intro_age,
+    intro_address: this.memberData.intro_address,
     
     reference_no: this.reference_number,
 

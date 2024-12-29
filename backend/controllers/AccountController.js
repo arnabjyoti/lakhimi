@@ -29,6 +29,34 @@ module.exports = {
     },
 
 
+    checkPreAc(req, res){
+      console.log("oooooooooooooooooooooooooo",req.body.requestObject);
+      return accountModel
+      .findOne({
+          where: {
+            membershipId: req.body.requestObject,
+          },
+      })
+      .then(data => {
+        if (data) {
+          console.log("ifffffffffffffff");
+          
+          return res.status(200).send({
+            status: true,
+            message: `Membership already exist.`,
+          });
+        } else {
+          console.log("elseeeeeeeeeeeee");
+          return res.status(200).send({
+            status: false,
+          });
+          
+        }
+      })
+      .catch(error => res.status(400).send(error));
+  },
+
+
 
     addNewAccount(req, res) {
         console.log("jjjjjjjjjjjjjjjjj",req.body.requestObject);

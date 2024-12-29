@@ -44,6 +44,29 @@ export class NewMembershipService {
       });
   }
 
+  checkExistMember(req:any, callback:any){
+    const ENDPOINT = `${environment.BASE_URL}/api/checkExistMember`;
+    const requestOptions = {
+      headers: this.appService.headers,
+      method: "post",
+      requestObject: req
+      
+      
+    // };
+  };console.log("mmmmmmmmmmm",requestOptions);
+  this.http.post(ENDPOINT, requestOptions)
+    .subscribe(
+      (response) => {
+        return callback && callback(response);
+      },
+      error => {
+        return callback && callback(error);
+      },
+      () => {
+        console.log("Observable is now completed.");
+      });
+}
+
 
   uploadPan(formData:any, dbId:any, fileType:any, callback:any){
     const ENDPOINT = `${environment.BASE_URL}/api/uploadPan`;

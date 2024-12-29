@@ -41,6 +41,33 @@ export class NewAccountService {
   }
 
 
+  checkPreAc(req:any, callback:any){
+    const ENDPOINT = `${environment.BASE_URL}/api/checkPreAc`;
+    const requestOptions = {
+      headers: this.appService.headers,
+      method: "post",
+      requestObject: req
+      
+      
+    };console.log("mmmmmmmmmmm",requestOptions);
+    this.http.post(ENDPOINT, requestOptions)
+      .subscribe(
+        (response) => {
+          console.log("success");
+          
+          return callback && callback(response);
+        },
+        error => {
+          console.log("fail");
+          
+          return callback && callback(error);
+        },
+        () => {
+          console.log("Observable is now completed.");
+        });
+  }
+
+
 
   addNewAccount(req:any, callback:any){
     const ENDPOINT = `${environment.BASE_URL}/api/addNewAccount`;

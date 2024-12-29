@@ -59,6 +59,14 @@ export class ExpressLoanApplyComponent implements OnInit{
     l_roi: 1.135, //13.5
     l_EMI_amount: "",
 
+    intro_name: "",
+    intro_email: "",
+    intro_telephone: "",
+    intro_phone: "",
+    intro_gender: "",
+    intro_age: "",
+    intro_address: "",
+
 
     share_fee: 110,
     share_admsn_fee: 50,

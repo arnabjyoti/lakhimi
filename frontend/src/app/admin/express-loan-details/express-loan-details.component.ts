@@ -180,6 +180,15 @@ export class ExpressLoanDetailsComponent implements OnInit{
       this.loanData.l_processing_fee = res.l_processing_fee;
       this.loanData.l_tenure = res.l_tenure;
       this.loanData.l_roi = res.l_roi;
+
+      this.loanData.intro_name = res.intro_name;
+      this.loanData.intro_email = res.intro_email;
+      this.loanData.intro_telephone = res.intro_telephone;
+      this.loanData.intro_phone = res.intro_phone;
+      this.loanData.intro_gender = res.intro_gender;
+      this.loanData.intro_age = res.intro_age;
+      this.loanData.intro_address = res.intro_address;
+
       // this.loanData.l_EMI_amount = res.l_EMI_amount;
       // this.loanData.total_processing_fee = res.total_processing_fee;
       // this.loanData.net_finance_amnt = res.net_finance_amnt;

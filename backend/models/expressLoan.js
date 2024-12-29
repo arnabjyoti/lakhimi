@@ -22,6 +22,14 @@ module.exports = (sequelize, type) => {
         l_roi: type.STRING,
         l_EMI_amount: type.STRING,
 
+        intro_name: type.STRING,
+        intro_email: type.STRING,
+        intro_telephone: type.STRING,
+        intro_phone: type.STRING,
+        intro_gender: type.STRING,
+        intro_age: type.STRING,
+        intro_address: type.STRING,
+
         share_fee: type.STRING,
         share_admsn_fee: type.STRING,
         ac_admsn_fee: type.STRING,

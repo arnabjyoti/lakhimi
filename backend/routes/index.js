@@ -108,6 +108,9 @@ module.exports = (app) => {
 
 
 	//membership
+	
+	app.post('/api/checkExistMember', membershipController.checkExistMember);
+	
 	app.post('/api/addMembership', membershipController.addMembership);
 
 	app.post('/api/uploadPan', membershipController.upload_config.single('file'), membershipController.uploadPan);
@@ -137,6 +140,8 @@ module.exports = (app) => {
 	
 	//account
 	app.post('/api/checkMemberData', AccountController.checkMemberData);
+
+	app.post('/api/checkPreAc', AccountController.checkPreAc);
 
 	app.post('/api/addNewAccount', AccountController.addNewAccount);
 

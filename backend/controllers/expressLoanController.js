@@ -142,6 +142,16 @@ module.exports = {
                 l_tenure: req.body.requestObject.l_tenure,
                 l_roi: req.body.requestObject.l_roi,
                 l_EMI_amount: req.body.requestObject.l_EMI_amount,
+
+
+                intro_name: req.body.requestObject.intro_name,
+                intro_email: req.body.requestObject.intro_email,
+                intro_telephone: req.body.requestObject.intro_telephone,
+                intro_phone: req.body.requestObject.intro_phone,
+                intro_gender: req.body.requestObject.intro_gender,
+                intro_age: req.body.requestObject.intro_age,
+                intro_address: req.body.requestObject.intro_address,
+                
                 // total_processing_fee: req.body.requestObject.total_processing_fee,
                 // net_finance_amnt: req.body.requestObject.net_finance_amnt,
                 // tenure_in_month: req.body.requestObject.tenure_in_month,

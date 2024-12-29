@@ -5,6 +5,11 @@
         "database": "lakhimi",
         "host": "127.0.0.1",
         "dialect": "mysql",
+        "dialectOptions": {
+        "timezone": "local"
+        },
+        "logging": false,
+        "timezone": "+05:30",
         "operatorsAliases": false,
         "FILE_UPLOAD_PATH":"D:\\ADRP\\lakhimi\\backend\\image",
         "cert": {

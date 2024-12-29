@@ -41,6 +41,8 @@ export class NewMembershipComponent implements OnInit {
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
+  
+  public checkMemberData: any;
 
   public regInput: any = {
     f_name: '',
@@ -303,7 +305,7 @@ export class NewMembershipComponent implements OnInit {
   };
 
 
-  onFileSelectedsign(event: any) { 
+  onFileSelectedsign(event: any) {
     console.log("onFileSelected", event.target.files);
     if (event.target.files.length > 0 && event.target.files[0].size < 200000) {
       this.uploadImageObject.sign = event.target.files[0];
@@ -348,20 +350,39 @@ export class NewMembershipComponent implements OnInit {
     this.regInput.reference_no = this.convertDate();
     console.log("input data", this.regInput);
     let isValid = this.validateInputs();
-    if(isValid){
-    this.NewMembershipService.addMembership(this.regInput, (res: any) => {
-      this.returnMsg = res.message;
-      this.rfrncNo = this.regInput.reference_no;
-      console.log("lllllllllll", this.returnMsg);
+    if (isValid) {
+        this.NewMembershipService.addMembership(this.regInput, (res: any) => {
+          this.returnMsg = res.message;
+          this.rfrncNo = this.regInput.reference_no;
+          console.log("lllllllllll", this.returnMsg);
+          this.isSaving = false;
+          this.showPan = false;
+          this.showSaveData = true;
+          this.showUpload = false;
+          this.dbId = this.returnMsg;
+        });
+    } else {
       this.isSaving = false;
-      this.showPan = false;
-      this.showSaveData = true;
-      this.showUpload = false;
-      this.dbId = this.returnMsg;
-    });
-    }else{
-        this.isSaving = false;
+    }
+  }
+
+  checkIfExistMember(){
+
+    this.NewMembershipService.checkExistMember(this.regInput, (res: any) => {
+      this.checkMemberData = res.status;
+      console.log("checllllllllllllll", this.checkMemberData);
+      if (this.checkMemberData === false) {
+        this.toastr.warning("Membership already exist.", 'Warning', {
+          disableTimeOut: false
+        });
+      }else{
+        console.log("hhhh");
+        
+        this.saveData();
       }
+
+    });
+    
   }
 
 
@@ -610,7 +631,7 @@ export class NewMembershipComponent implements OnInit {
 
     });
   }
-  
+
 
   FilterChange(data: Event) {
     const value = (data.target as HTMLInputElement).value;

@@ -137,6 +137,7 @@ export class NewAccountComponent implements OnInit{
 
   public data:any;
 
+  public classEnableDisable: boolean = true;
   constructor(
     private spinner: NgxSpinnerService,
     private NewAccountService: NewAccountService,
@@ -277,7 +278,21 @@ export class NewAccountComponent implements OnInit{
           this.memberData.phone_no = res.phone_no,
        
       console.log("aitu",this.memberData);
-      
+
+      this.NewAccountService.checkPreAc(this.memberData.id, (res: any) => {
+        console.log("hhhhhhhhhhhhh",res);
+        if(res.status == true){
+          this.classEnableDisable = true;
+          console.log("if",res);
+          this.memberData.classAdminFee = 50;
+        }else{
+          this.classEnableDisable = false;
+          console.log("else",res);
+          this.memberData.class = "-";
+          this.memberData.classPrice = 0;
+          this.memberData.classAdminFee = 0;
+        }
+      })
       }
   })
 }
@@ -479,7 +494,7 @@ resetForm(){
   this.ckInput.membershipId = "";
   this.found = false;
   this.memberData.class = "";
-  this.memberData.classPrice = "";
+  this.memberData.classPrice = 0;
   this.memberData.classAdminFee = 50;
   this.memberData.nomineeName = "";
   this.memberData.nomineeDOB = "";

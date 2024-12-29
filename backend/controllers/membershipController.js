@@ -71,7 +71,42 @@ module.exports = {
 
     
 
-
+  checkExistMember(req, res) {
+    return membershipModel
+    .findOne({
+      where: {
+        [Op.or]: [
+          { phone_no: req.body.requestObject.phone_no},
+          { panNo: req.body.requestObject.panNo },
+          { adharNo: req.body.requestObject.adharNo },
+        ]
+      },
+    })
+    .then(memberData => {
+      console.log("memberDataaaaaaaaaaaaaaaaaaa",memberData);
+      if (memberData) {
+        console.log("ifffffffffffffff");
+        
+        return res.status(200).send({
+          status: false,
+          message: `Membership already exist.`,
+        });
+      } else {
+        console.log("elseeeeeeeeeeeee");
+        return res.status(200).send({
+          status: true,
+        });
+        
+      }
+      })
+      .catch(error => {
+        console.log(error);
+        return res
+          .status(500)
+          .send({ status: false, message: error });
+      });
+    },
+      
 
     addMembership(req, res) {
         console.log("jjjjjjjjjjjjjjjjj",req.body.requestObject);
