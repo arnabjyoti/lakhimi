@@ -281,12 +281,12 @@ export class NewAccountComponent implements OnInit{
 
       this.NewAccountService.checkPreAc(this.memberData.id, (res: any) => {
         console.log("hhhhhhhhhhhhh",res);
-        if(res.status == true){
-          this.classEnableDisable = true;
+        if(res.status == false){
+          this.classEnableDisable = false;
           console.log("if",res);
           this.memberData.classAdminFee = 50;
         }else{
-          this.classEnableDisable = false;
+          this.classEnableDisable = true;
           console.log("else",res);
           this.memberData.class = "-";
           this.memberData.classPrice = 0;

@@ -110,9 +110,17 @@ module.exports = {
           ]
           // loan_status: "Applied",
         },
+        include: [
+          {
+            model: membershipModel,
+            required: false,
+          },
+        ],
         order: [
           ['createdAt', 'ASC']
         ],
+        attributes: ['id','full_name','l_product_cost','reference_no','fwd_status','loan_status','apply_date',
+          [Sequelize.col('membership.membership_id'), 'membership_id']],
         raw: true,
       })
       .then(data => {
@@ -165,6 +173,7 @@ module.exports = {
                 ac_admsn_fee: req.body.requestObject.ac_admsn_fee,
                 insrnc: req.body.requestObject.insrnc,
                 nach: req.body.requestObject.nach,
+                emi_card_fee: req.body.requestObject.emi_card_fee,
                 l_total_return_amnt: req.body.requestObject.l_total_return_amnt,
                 emi_amnt: req.body.requestObject.emi_amnt,
                 adv_emi: req.body.requestObject.adv_emi,
@@ -328,9 +337,17 @@ module.exports = {
               
               // loan_status: "Applied",
             },
+            include: [
+              {
+                model: membershipModel,
+                required: false,
+              },
+            ],
             order: [
               ['createdAt', 'ASC']
             ],
+            attributes: ['id','full_name','l_product_cost','reference_no','fwd_status','loan_status','apply_date',
+              [Sequelize.col('membership.membership_id'), 'membership_id']],
             raw: true,
           })
           .then(data => {
@@ -353,9 +370,17 @@ module.exports = {
               // loan_status: "Applied",
               // bm_status: "Forwarded",
             },
+            include: [
+              {
+                model: membershipModel,
+                required: false,
+              },
+            ],
             order: [
               ['createdAt', 'ASC']
             ],
+            attributes: ['id','full_name','l_product_cost','reference_no','fwd_status','loan_status','apply_date',
+              [Sequelize.col('membership.membership_id'), 'membership_id']],
             raw: true,
           })
           .then(data => {
@@ -378,9 +403,17 @@ module.exports = {
               // loan_status: "Applied",
               // lo_status: "Forwarded",
             },
+            include: [
+              {
+                model: membershipModel,
+                required: false,
+              },
+            ],
             order: [
               ['createdAt', 'ASC']
             ],
+            attributes: ['id','full_name','l_product_cost','reference_no','fwd_status','loan_status','apply_date',
+              [Sequelize.col('membership.membership_id'), 'membership_id']],
             raw: true,
           })
           .then(data => {
@@ -403,9 +436,17 @@ module.exports = {
               // loan_status: "Applied",
               // md_status: "Forwarded",
             },
+            include: [
+              {
+                model: membershipModel,
+                required: false,
+              },
+            ],
             order: [
               ['createdAt', 'ASC']
             ],
+            attributes: ['id','full_name','l_product_cost','reference_no','fwd_status','loan_status','apply_date',
+              [Sequelize.col('membership.membership_id'), 'membership_id']],
             raw: true,
           })
           .then(data => {

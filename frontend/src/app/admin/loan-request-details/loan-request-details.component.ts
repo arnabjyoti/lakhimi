@@ -217,7 +217,7 @@ export class LoanRequestDetailsComponent implements OnInit {
       this.loanData.cm_fwd_date = res.cm_fwd_date;
 
       this.loanData.address = res["membership.address"];
-      this.loanData.email = res["membership.user.email"];
+      this.loanData.email = res["membership.email"];
       this.loanData.memberF_name = res["membership.user.f_name"];
       this.loanData.memberL_name = res["membership.user.l_name"];
       this.loanData.membership_id = res["membership.membership_id"];

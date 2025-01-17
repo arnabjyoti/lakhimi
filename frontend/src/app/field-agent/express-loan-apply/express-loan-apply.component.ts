@@ -24,7 +24,7 @@ import { brunchData } from '../new-membership/new-membership.component';
 })
 export class ExpressLoanApplyComponent implements OnInit{
 
-  public displayedColumns: string[] = ['Sl', 'full_name', 'membership_id', 'apply_amount', 'reference_no', 'fwd_status', 'loan_status', 'apply_date', 'action'];
+  public displayedColumns: string[] = ['Sl', 'full_name', 'membership_id', 'l_product_cost', 'reference_no', 'fwd_status', 'loan_status', 'apply_date', 'action'];
   dataSource !: MatTableDataSource<brunchData>
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
@@ -71,8 +71,9 @@ export class ExpressLoanApplyComponent implements OnInit{
     share_fee: 110,
     share_admsn_fee: 50,
     ac_admsn_fee: 50,
-    insrnc: 499,
-    nach: 30,
+    insrnc: 0,
+    emi_card_fee: '',
+    nach: 118,
 
     l_total_return_amnt: "",
     emi_amnt: "",
@@ -190,10 +191,10 @@ export class ExpressLoanApplyComponent implements OnInit{
   Calculate(){
 
     if (this.memberData.l_product_cost < 100001) {
-      this.memberData.l_processing_fee = Math.round(this.memberData.l_product_cost*0.015);
-    // console.log("this.memberData.l_processing_fee",this.memberData.l_processing_fee);    
-    this.memberData.l_total_return_amnt = Math.round((this.memberData.share_fee + this.memberData.share_admsn_fee + this.memberData.ac_admsn_fee + this.memberData.insrnc + this.memberData.nach + this.memberData.l_processing_fee + this.memberData.l_product_cost)*this.memberData.l_roi);
-    // console.log("this.memberData.l_total_return_amnt",this.memberData.l_total_return_amnt);
+      this.memberData.l_processing_fee = Math.round(this.memberData.l_product_cost*0.010);
+    console.log("this.memberData.l_processing_fee",this.memberData.l_processing_fee);    
+    this.memberData.l_total_return_amnt = Math.round((this.memberData.share_fee + this.memberData.share_admsn_fee + this.memberData.ac_admsn_fee + this.memberData.insrnc + Number(this.memberData.emi_card_fee) + this.memberData.nach + this.memberData.l_processing_fee + this.memberData.l_product_cost)*this.memberData.l_roi);
+    console.log("this.memberData.l_total_return_amnt",this.memberData.l_total_return_amnt);
     this.memberData.emi_amnt = Math.round(this.memberData.l_total_return_amnt/12);
     // console.log("this.memberData.emi_amnt",this.memberData.emi_amnt);
     this.memberData.adv_emi = Math.round(this.memberData.l_tenure*this.memberData.emi_amnt);
@@ -569,6 +570,12 @@ export class ExpressLoanApplyComponent implements OnInit{
     }
     if (this.memberData.l_product_cost === '' || this.memberData.l_product_cost === null || this.memberData.l_product_cost === undefined || this.memberData.l_product_cost > 100001) {
       this.toastr.warning('Please type Product Cost less than 1,00,000', 'Warning', {
+        disableTimeOut: false
+      });
+      return false;
+    }
+    if (this.memberData.emi_card_fee === '' || this.memberData.emi_card_fee === null || this.memberData.emi_card_fee === undefined) {
+      this.toastr.warning('Please select EMI card fee/Renewal fee', 'Warning', {
         disableTimeOut: false
       });
       return false;

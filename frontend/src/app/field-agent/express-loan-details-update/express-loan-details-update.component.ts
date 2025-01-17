@@ -51,8 +51,9 @@ export class ExpressLoanDetailsUpdateComponent implements OnInit{
     share_fee: 110,
     share_admsn_fee: 50,
     ac_admsn_fee: 50,
-    insrnc: 499,
-    nach: 30,
+    insrnc: 0,
+    emi_card_fee: 499,
+    nach: 118,
 
     l_total_return_amnt: "",
     emi_amnt: "",
@@ -79,8 +80,9 @@ export class ExpressLoanDetailsUpdateComponent implements OnInit{
   public share_fee: any =  110;
   public share_admsn_fee: any =  50;
   public ac_admsn_fee: any =  50;
-  public insrnc: any =  499;
-  public nach: any =  30;
+  public insrnc: any =  0;
+  public emi_card_fee: any =  499;
+  public nach: any =  118;
 
   public reference_number: any;
 
@@ -220,6 +222,7 @@ export class ExpressLoanDetailsUpdateComponent implements OnInit{
       this.memberData.share_admsn_fee = res.share_admsn_fee;
       this.memberData.ac_admsn_fee = res.ac_admsn_fee;
       this.memberData.insrnc = res.insrnc;
+      this.memberData.emi_card_fee = res.emi_card_fee;
       this.memberData.nach = res.nach;
       this.memberData.l_total_return_amnt = res.l_total_return_amnt;
       this.memberData.emi_amnt = res.emi_amnt;
@@ -441,9 +444,9 @@ isAllowedFilePdf = (file: any, callback: any) => {
 Calculate(){
 
   if (this.l_product_cost_new < 100001) {
-    this.l_processing_fee_new = Math.round(this.l_product_cost_new*0.015);
+    this.l_processing_fee_new = Math.round(this.l_product_cost_new*0.010);
   // console.log("this.l_processing_fee",this.l_processing_fee_new);    
-  this.l_total_return_amnt_new = Math.round((this.share_fee + this.share_admsn_fee + this.ac_admsn_fee + this.insrnc + this.nach + this.l_processing_fee_new + this.l_product_cost_new)*this.l_roi);
+  this.l_total_return_amnt_new = Math.round((this.share_fee + this.share_admsn_fee + this.ac_admsn_fee + this.insrnc + this.nach + this.emi_card_fee + this.l_processing_fee_new + this.l_product_cost_new)*this.l_roi);
   // console.log("this.l_total_return_amnt",this.l_total_return_amnt_new);
   this.emi_amnt_new = Math.round(this.l_total_return_amnt_new/12);
   // console.log("this.emi_amnt",this.emi_amnt_new);

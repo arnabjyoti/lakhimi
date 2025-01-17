@@ -75,12 +75,21 @@ module.exports = {
     return membershipModel
     .findOne({
       where: {
-        [Op.or]: [
-          { phone_no: req.body.requestObject.phone_no},
-          { panNo: req.body.requestObject.panNo },
-          { adharNo: req.body.requestObject.adharNo },
+        [Op.and]: [
+          {
+            [Op.or]: [
+              { phone_no: req.body.requestObject.phone_no },
+              { panNo: req.body.requestObject.panNo },
+              { adharNo: req.body.requestObject.adharNo }
+            ]
+          },
+          {
+            status: {
+              [Op.ne]: "Reject"
+            }
+          }
         ]
-      },
+      }
     })
     .then(memberData => {
       console.log("memberDataaaaaaaaaaaaaaaaaaa",memberData);

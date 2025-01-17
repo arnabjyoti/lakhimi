@@ -35,6 +35,7 @@ module.exports = (sequelize, type) => {
         ac_admsn_fee: type.STRING,
         insrnc: type.STRING,
         nach: type.STRING,
+        emi_card_fee: type.STRING,
         l_total_return_amnt: type.STRING,
         emi_amnt: type.STRING,
         adv_emi: type.STRING,
