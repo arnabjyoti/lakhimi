@@ -52,11 +52,11 @@
                                     <div class="sm-txt"><b>Status:</b> {{loanData.bm_status}}</div>
                                     <div class="sm-txt"><b>Reason:</b> {{loanData.bm_reason}}</div>
                                     <div class="sm-txt"> Date: {{loanData.bm_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                                 <div *ngIf="loanData.bm_status == 'Forwarded'">
                                     <div class="sm-txt">Proposed Date: {{loanData.bm_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                             </div>
                             <div class="col progress-step">
@@ -66,11 +66,11 @@
                                     <div class="sm-txt"><b>Status:</b> {{loanData.lo_status}}</div>
                                     <div class="sm-txt"><b>Reason:</b> {{loanData.lo_reason}}</div>
                                     <div class="sm-txt"> Date: {{loanData.lo_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                                 <div *ngIf="loanData.lo_status == 'Forwarded'">
                                     <div class="sm-txt">Proposed Date: {{loanData.lo_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                             </div>
                             <div class="col progress-step">
@@ -80,11 +80,11 @@
                                     <div class="sm-txt"><b>Status:</b> {{loanData.md_status}}</div>
                                     <div class="sm-txt"><b>Reason:</b> {{loanData.md_reason}}</div>
                                     <div class="sm-txt"> Date: {{loanData.md_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                                 <div *ngIf="loanData.md_status == 'Forwarded'">
                                     <div class="sm-txt">Proposed Date: {{loanData.md_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                             </div>
                             <div class="col progress-step">
@@ -94,11 +94,11 @@
                                     <div class="sm-txt"><b>Status:</b> {{loanData.cm_status}}</div>
                                     <div class="sm-txt"><b>Reason:</b> {{loanData.cm_reason}}</div>
                                     <div class="sm-txt"> Date: {{loanData.cm_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                                 <div *ngIf="loanData.cm_status == 'Approved'">
                                     <div class="sm-txt">Proposed Date: {{loanData.cm_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                             </div>
                         </div>
@@ -405,7 +405,7 @@
                                                         </div>
                                                         <div class="form-group col-3">
                                                             <b>:</b>
-                                                            {{loanData.dob |date:'dd-MM-YYYY'}}
+                                                            {{loanData.dob |date:'dd-MM-yyyy'}}
                                                         </div>
 
                                                         <div class="form-group col-3">

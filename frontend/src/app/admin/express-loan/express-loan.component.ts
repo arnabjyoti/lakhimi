@@ -52,6 +52,8 @@ export class ExpressLoanComponent {
   }
   public apiResponse: any = [];
 
+  public data:any;
+
   constructor(
     private spinner: NgxSpinnerService,
     private ExpressLoanService: ExpressLoanService,
@@ -126,9 +128,29 @@ export class ExpressLoanComponent {
     let requestObject = {};
     this.ExpressLoanService.getExpressLoanApplyListLO(requestObject, (callback:any)=>{
       console.log("getLoanApplyList", callback);
+
+      let temp:any = [];
+      callback.map((item: any) => {
+        temp.push({
+          id: item.id,
+          full_name: item.full_name,
+          membership_id: item.membership_id,
+          l_product_cost: item.l_product_cost,
+          reference_no: item.reference_no,
+          fwd_status: item.fwd_status,
+          loan_status: item.loan_status,
+          apply_date: item.apply_date,
+          lo_status: item.lo_status,
+          md_status: item.md_status,
+          cm_status: item.cm_status,
+          brunchId: item["membership.brunchId"]
+
+        })
+        this.data = temp;
+      });
       
-      this.apiResponse = callback;
-      this.dataSource = new MatTableDataSource(callback);
+      this.apiResponse = this.data;
+      this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       console.log("bbbbbbbbbb",this.dataSource);
@@ -139,9 +161,28 @@ export class ExpressLoanComponent {
     let requestObject = {};
     this.ExpressLoanService.getExpressLoanApplyListMD(requestObject, (callback:any)=>{
       console.log("getLoanApplyList", callback);
+      let temp:any = [];
+      callback.map((item: any) => {
+        temp.push({
+          id: item.id,
+          full_name: item.full_name,
+          membership_id: item.membership_id,
+          l_product_cost: item.l_product_cost,
+          reference_no: item.reference_no,
+          fwd_status: item.fwd_status,
+          loan_status: item.loan_status,
+          apply_date: item.apply_date,
+          lo_status: item.lo_status,
+          md_status: item.md_status,
+          cm_status: item.cm_status,
+          brunchId: item["membership.brunchId"]
+
+        })
+        this.data = temp;
+      });
       
-      this.apiResponse = callback;
-      this.dataSource = new MatTableDataSource(callback);
+      this.apiResponse = this.data;
+      this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       console.log("bbbbbbbbbb",this.dataSource);
@@ -152,9 +193,28 @@ export class ExpressLoanComponent {
     let requestObject = {};
     this.ExpressLoanService.getExpressLoanApplyListCM(requestObject, (callback:any)=>{
       console.log("getLoanApplyList", callback);
+      let temp:any = [];
+      callback.map((item: any) => {
+        temp.push({
+          id: item.id,
+          full_name: item.full_name,
+          membership_id: item.membership_id,
+          l_product_cost: item.l_product_cost,
+          reference_no: item.reference_no,
+          fwd_status: item.fwd_status,
+          loan_status: item.loan_status,
+          apply_date: item.apply_date,
+          lo_status: item.lo_status,
+          md_status: item.md_status,
+          cm_status: item.cm_status,
+          brunchId: item["membership.brunchId"]
+
+        })
+        this.data = temp;
+      });
       
-      this.apiResponse = callback;
-      this.dataSource = new MatTableDataSource(callback);
+      this.apiResponse = this.data;
+      this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       console.log("bbbbbbbbbb",this.dataSource);
@@ -170,6 +230,9 @@ export class ExpressLoanComponent {
   FilterChangeBranch($event:any){
     console.log("fffffffff",_.filter(this.apiResponse));
     let filteredData = _.filter(this.apiResponse,(item)=>{
+
+      console.log("itemmmmmmmmmm",item.brunchId);
+      
       
       
       return item.brunchId == this.filter.branch_id;

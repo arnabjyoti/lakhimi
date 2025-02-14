@@ -181,7 +181,8 @@ uploadAvatar(req, res) {
           END`), 'ASC']
         ],
         where: {
-          salaried: "Yes"
+          salaried: "Yes",
+          active: "Active"
         },
     }
 

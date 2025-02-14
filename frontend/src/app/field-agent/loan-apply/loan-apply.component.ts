@@ -702,6 +702,9 @@ public finalSubmit: boolean = false;
     if (this.memberData.l_loan_scheme == 'Business Loan (IGL)') {
       this.memberData.l_loan_scheme_intrst = 14.99;
     }
+    if (this.memberData.l_loan_scheme == 'Business Loan (IGL DL)') {
+      this.memberData.l_loan_scheme_intrst = 14.99;
+    }
     if (this.memberData.l_loan_scheme == 'Gold Reen(GR)') {
       this.memberData.l_loan_scheme_intrst = 15.99;
     }

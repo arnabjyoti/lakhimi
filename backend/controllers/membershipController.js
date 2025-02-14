@@ -273,10 +273,10 @@ module.exports = {
                 raw: true,
                 order: [
                     ['createdAt', 'DESC']
-                  ],
-                  where: {
-                    brunchId: req.body.requestObject.brunchId
-                  }
+                  ]
+                  // where: {
+                  //   brunchId: req.body.requestObject.brunchId
+                  // }
             }
       
         console.log("Query is==========> ",query);

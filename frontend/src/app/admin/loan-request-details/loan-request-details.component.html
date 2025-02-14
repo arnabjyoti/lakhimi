@@ -53,13 +53,13 @@
                                     <div class="sm-txt"><b>Status:</b> {{loanData.bm_status}}</div>
                                     <div class="sm-txt"><b>Reason:</b> {{loanData.bm_reason}}</div>
                                     <div class="sm-txt"> Date: {{loanData.bm_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                                 <div *ngIf="loanData.bm_status == 'Forwarded'">
                                     <div class="sm-txt">Proposed Amount: {{loanData.bm_proposed_amnt |
                                         currency:'INR':'symbol':'1.2-2'}}</div>
                                     <div class="sm-txt">Proposed Date: {{loanData.bm_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                             </div>
                             <div class="col progress-step">
@@ -69,13 +69,13 @@
                                     <div class="sm-txt"><b>Status:</b> {{loanData.lo_status}}</div>
                                     <div class="sm-txt"><b>Reason:</b> {{loanData.lo_reason}}</div>
                                     <div class="sm-txt"> Date: {{loanData.lo_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                                 <div *ngIf="loanData.lo_status == 'Forwarded'">
                                     <div class="sm-txt">Proposed Amount: {{loanData.lo_proposed_amnt |
                                         currency:'INR':'symbol':'1.2-2'}}</div>
                                     <div class="sm-txt">Proposed Date: {{loanData.lo_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                             </div>
                             <div class="col progress-step">
@@ -85,13 +85,13 @@
                                     <div class="sm-txt"><b>Status:</b> {{loanData.md_status}}</div>
                                     <div class="sm-txt"><b>Reason:</b> {{loanData.md_reason}}</div>
                                     <div class="sm-txt"> Date: {{loanData.md_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                                 <div *ngIf="loanData.md_status == 'Forwarded'">
                                     <div class="sm-txt">Proposed Amount: {{loanData.md_proposed_amnt |
                                         currency:'INR':'symbol':'1.2-2'}}</div>
                                     <div class="sm-txt">Proposed Date: {{loanData.md_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                             </div>
                             <div class="col progress-step">
@@ -101,13 +101,13 @@
                                     <div class="sm-txt"><b>Status:</b> {{loanData.cm_status}}</div>
                                     <div class="sm-txt"><b>Reason:</b> {{loanData.cm_reason}}</div>
                                     <div class="sm-txt"> Date: {{loanData.cm_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                                 <div *ngIf="loanData.cm_status == 'Approved'">
                                     <div class="sm-txt">Proposed Amount: {{loanData.cm_proposed_amnt |
                                         currency:'INR':'symbol':'1.2-2'}}</div>
                                     <div class="sm-txt">Proposed Date: {{loanData.cm_fwd_date |
-                                        date:'dd-MM-YYYY'}}</div>
+                                        date:'dd-MM-yyyy'}}</div>
                                 </div>
                             </div>
                         </div>
@@ -447,7 +447,7 @@
                                                         </div>
                                                         <div class="form-group col-4">
                                                             <b>:</b>
-                                                            {{loanData.dob |date:'dd-MM-YYYY'}}
+                                                            {{loanData.dob | date:'dd-MM-yyyy'}}
                                                         </div>
                                                         <div class="form-group col-2">
                                                             <b>Age</b>
@@ -487,7 +487,7 @@
                                                         </div>
                                                         <div class="form-group col-3">
                                                             <b>:</b>
-                                                            {{loanData.a_stay_since |date:'dd-MM-YYYY'}}
+                                                            {{loanData.a_stay_since |date:'dd-MM-yyyy'}}
                                                         </div>
 
 
@@ -674,7 +674,7 @@
                                                                     <td>{{loanData.l_deposit_scheme}}</td>
                                                                     <td>{{loanData.l_deposit_status}}</td>
                                                                     <td>{{loanData.l_deposit_maturity
-                                                                        |date:'dd-MM-YYYY'}}</td>
+                                                                        |date:'dd-MM-yyyy'}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>{{loanData.l_deposit_acNo1}}</td>
@@ -683,7 +683,7 @@
                                                                     <td>{{loanData.l_deposit_scheme1}}</td>
                                                                     <td>{{loanData.l_deposit_status1}}</td>
                                                                     <td>{{loanData.l_deposit_maturity1
-                                                                        |date:'dd-MM-YYYY'}}</td>
+                                                                        |date:'dd-MM-yyyy'}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>{{loanData.l_deposit_acNo2}}</td>
@@ -692,7 +692,7 @@
                                                                     <td>{{loanData.l_deposit_scheme2}}</td>
                                                                     <td>{{loanData.l_deposit_status2}}</td>
                                                                     <td>{{loanData.l_deposit_maturity2
-                                                                        |date:'dd-MM-YYYY'}}</td>
+                                                                        |date:'dd-MM-yyyy'}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>{{loanData.l_deposit_acNo3}}</td>
@@ -701,7 +701,7 @@
                                                                     <td>{{loanData.l_deposit_scheme3}}</td>
                                                                     <td>{{loanData.l_deposit_status3}}</td>
                                                                     <td>{{loanData.l_deposit_maturity3
-                                                                        |date:'dd-MM-YYYY'}}</td>
+                                                                        |date:'dd-MM-yyyy'}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>{{loanData.l_deposit_acN4}}</td>
@@ -710,7 +710,7 @@
                                                                     <td>{{loanData.l_deposit_schem4}}</td>
                                                                     <td>{{loanData.l_deposit_statu4}}</td>
                                                                     <td>{{loanData.l_deposit_maturit4
-                                                                        |date:'dd-MM-YYYY'}}</td>
+                                                                        |date:'dd-MM-yyyy'}}</td>
                                                                 </tr>
                                                             </tbody>
                                                             <thead>
@@ -790,7 +790,7 @@
                                                 <div class="form-group col-3"
                                                     *ngIf="loanData.l_employee_type == 'Self Employed'">
                                                     <b>:</b>
-                                                    {{loanData.l_self_bsns_start |date:'dd-MM-YYYY'}}
+                                                    {{loanData.l_self_bsns_start |date:'dd-MM-yyyy'}}
                                                 </div>
 
                                                 <div class="form-group col-3"
@@ -809,7 +809,7 @@
                                                 <div class="form-group col-3"
                                                     *ngIf="loanData.l_employee_type == 'Self Employed'">
                                                     <b>:</b>
-                                                    {{loanData.l_self_practice_start |date:'dd-MM-YYYY'}}
+                                                    {{loanData.l_self_practice_start |date:'dd-MM-yyyy'}}
                                                 </div>
 
                                                 <!-- common -->
@@ -873,7 +873,7 @@
                                                                         currency:'INR':'symbol':'1.2-2'}}</td>
                                                                     <td>{{loanData.l_emp_balance |
                                                                         currency:'INR':'symbol':'1.2-2'}}</td>
-                                                                    <td>{{loanData.l_emp_startDate |date:'dd-MM-YYYY'}}
+                                                                    <td>{{loanData.l_emp_startDate |date:'dd-MM-yyyy'}}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -884,7 +884,7 @@
                                                                         currency:'INR':'symbol':'1.2-2'}}</td>
                                                                     <td>{{loanData.l_emp_balance1 |
                                                                         currency:'INR':'symbol':'1.2-2'}}</td>
-                                                                    <td>{{loanData.l_emp_startDate1 |date:'dd-MM-YYYY'}}
+                                                                    <td>{{loanData.l_emp_startDate1 |date:'dd-MM-yyyy'}}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -895,7 +895,7 @@
                                                                         currency:'INR':'symbol':'1.2-2'}}</td>
                                                                     <td>{{loanData.l_emp_balance2 |
                                                                         currency:'INR':'symbol':'1.2-2'}}</td>
-                                                                    <td>{{loanData.l_emp_startDate2 |date:'dd-MM-YYYY'}}
+                                                                    <td>{{loanData.l_emp_startDate2 |date:'dd-MM-yyyy'}}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -906,7 +906,7 @@
                                                                         currency:'INR':'symbol':'1.2-2'}}</td>
                                                                     <td>{{loanData.l_emp_balance3 |
                                                                         currency:'INR':'symbol':'1.2-2'}}</td>
-                                                                    <td>{{loanData.l_emp_startDate3 |date:'dd-MM-YYYY'}}
+                                                                    <td>{{loanData.l_emp_startDate3 |date:'dd-MM-yyyy'}}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -917,7 +917,7 @@
                                                                         currency:'INR':'symbol':'1.2-2'}}</td>
                                                                     <td>{{loanData.l_emp_balance4 |
                                                                         currency:'INR':'symbol':'1.2-2'}}</td>
-                                                                    <td>{{loanData.l_emp_startDate4 |date:'dd-MM-YYYY'}}
+                                                                    <td>{{loanData.l_emp_startDate4 |date:'dd-MM-yyyy'}}
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -1033,7 +1033,7 @@
                                                     <u>BANK ACCOUNT DETAILS OF DEALER</u>
                                                 </div>
                                                 <div class="col-12 p-4 text-center"
-                                                    *ngIf="loanData.l_loan_scheme == 'Personal Loan (PL)' || loanData.l_loan_scheme == 'Business Loan (IGL)' || loanData.l_loan_scheme == 'Gold Reen(GR)' || loanData.l_loan_scheme == 'Loans Under Deposit (LUD)' || loanData.l_loan_scheme == 'Staff Loan' || loanData.l_loan_scheme == 'Krishan Kalyan Reen(KKR)' || loanData.l_loan_scheme == 'Parivar Kalyan Reen (SHG)'">
+                                                    *ngIf="loanData.l_loan_scheme == 'Personal Loan (PL)' || loanData.l_loan_scheme == 'Business Loan (IGL)' || loanData.l_loan_scheme == 'Business Loan (IGL DL)' || loanData.l_loan_scheme == 'Gold Reen(GR)' || loanData.l_loan_scheme == 'Loans Under Deposit (LUD)' || loanData.l_loan_scheme == 'Staff Loan' || loanData.l_loan_scheme == 'Krishan Kalyan Reen(KKR)' || loanData.l_loan_scheme == 'Parivar Kalyan Reen (SHG)'">
                                                     <u>BANK ACCOUNT DETAILS</u>
                                                 </div>
                                                 <div class="form-group col-3">
@@ -1245,7 +1245,7 @@
                                                     </div>
                                                     <div class="form-group col-3">
                                                         <b>:</b>
-                                                        {{loanData.g_dob |date:'dd-MM-YYYY'}}
+                                                        {{loanData.g_dob |date:'dd-MM-yyyy'}}
                                                     </div>
 
                                                     <div class="form-group col-3">
@@ -1333,7 +1333,7 @@
                                                     </div>
                                                     <div class="form-group col-3">
                                                         <b>:</b>
-                                                        {{loanData.g_start |date:'dd-MM-YYYY'}}
+                                                        {{loanData.g_start |date:'dd-MM-yyyy'}}
                                                     </div>
 
                                                     <div class="form-group col-3">
@@ -1348,7 +1348,7 @@
                                                     </div>
                                                     <div class="form-group col-3">
                                                         <b>:</b>
-                                                        {{loanData.g_end |date:'dd-MM-YYYY'}}
+                                                        {{loanData.g_end |date:'dd-MM-yyyy'}}
                                                     </div>
                                                     <div class="form-group col-3">
                                                         <b>Total Deposit Amt.</b>
@@ -1442,7 +1442,7 @@
                                                     <div class="form-group col-3"
                                                         *ngIf="loanData.g_employee_type == 'Self Employed'">
                                                         <b>:</b>
-                                                        {{loanData.g_self_bsns_start |date:'dd-MM-YYYY'}}
+                                                        {{loanData.g_self_bsns_start |date:'dd-MM-yyyy'}}
                                                     </div>
 
                                                     <div class="form-group col-3"
@@ -1461,7 +1461,7 @@
                                                     <div class="form-group col-3"
                                                         *ngIf="loanData.g_employee_type == 'Self Employed'">
                                                         <b>:</b>
-                                                        {{loanData.g_self_practice_start |date:'dd-MM-YYYY'}}
+                                                        {{loanData.g_self_practice_start |date:'dd-MM-yyyy'}}
                                                     </div>
 
                                                     <!-- common -->
@@ -1517,7 +1517,7 @@
                                                                         <td>{{loanData.g_LA_balance |
                                                                             currency:'INR':'symbol':'1.2-2'}}</td>
                                                                         <td>{{loanData.g_LA_startDate |
-                                                                            date:'dd-MM-YYYY'}}</td>
+                                                                            date:'dd-MM-yyyy'}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>{{loanData.g_LA_name1}}</td>
@@ -1528,7 +1528,7 @@
                                                                         <td>{{loanData.g_LA_balance1 |
                                                                             currency:'INR':'symbol':'1.2-2'}}</td>
                                                                         <td>{{loanData.g_LA_startDate1
-                                                                            |date:'dd-MM-YYYY'}}</td>
+                                                                            |date:'dd-MM-yyyy'}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>{{loanData.g_LA_name2}}</td>
@@ -1539,7 +1539,7 @@
                                                                         <td>{{loanData.g_LA_balance2 |
                                                                             currency:'INR':'symbol':'1.2-2'}}</td>
                                                                         <td>{{loanData.g_LA_startDate2
-                                                                            |date:'dd-MM-YYYY'}}</td>
+                                                                            |date:'dd-MM-yyyy'}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>{{loanData.g_LA_name3}}</td>
@@ -1550,7 +1550,7 @@
                                                                         <td>{{loanData.g_LA_balance3 |
                                                                             currency:'INR':'symbol':'1.2-2'}}</td>
                                                                         <td>{{loanData.g_LA_startDate3
-                                                                            |date:'dd-MM-YYYY'}}</td>
+                                                                            |date:'dd-MM-yyyy'}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>{{loanData.g_LA_name4}}</td>
@@ -1561,7 +1561,7 @@
                                                                         <td>{{loanData.g_LA_balance4 |
                                                                             currency:'INR':'symbol':'1.2-2'}}</td>
                                                                         <td>{{loanData.g_LA_startDate4
-                                                                            |date:'dd-MM-YYYY'}}</td>
+                                                                            |date:'dd-MM-yyyy'}}</td>
                                                                     </tr>
                                                                 </tbody>
                                                                 <thead>
@@ -1719,7 +1719,7 @@
                                                     </div>
                                                     <div class="form-group col-3">
                                                         <b>:</b>
-                                                        {{loanData.n_dob |date:'dd-MM-YYYY'}}
+                                                        {{loanData.n_dob |date:'dd-MM-yyyy'}}
                                                     </div>
 
                                                     <div class="form-group col-3">
@@ -2021,7 +2021,7 @@
                                                         </div>
                                                         <div class="form-group col-3">
                                                             <b>:</b>
-                                                            {{loanData.msp_knwn_since |date:'dd-MM-YYYY'}}
+                                                            {{loanData.msp_knwn_since |date:'dd-MM-yyyy'}}
                                                         </div>
 
                                                         <div class="form-group col-3">
@@ -2239,7 +2239,7 @@
                                                     </div>
                                                     <div class="form-group col-4">
                                                         <b>:</b>
-                                                        {{loanData.msp_apply_date |date:'dd-MM-YYYY'}}
+                                                        {{loanData.msp_apply_date |date:'dd-MM-yyyy'}}
                                                     </div>
                                                     <div class="form-group col-2">
                                                         <b>Place</b>
@@ -2532,7 +2532,7 @@
                                                         </div>
                                                         <div class="form-group col-10 mb-1">
                                                             <b>:</b>
-                                                            {{loanData.cm_fwd_date | date:'dd-MM-YYYY'}}
+                                                            {{loanData.cm_fwd_date | date:'dd-MM-yyyy'}}
                                                         </div>
                                                         <div class="form-group col-2 mb-1">
                                                             <b>Sanction No.</b>
@@ -2848,7 +2848,7 @@
                                                         <b><u>Bank A/c Details of Dealer:</u></b>
                                                     </div>
                                                     <div class="form-group col-12"
-                                                        *ngIf="loanData.l_loan_scheme == 'Personal Loan (PL)' || loanData.l_loan_scheme == 'Business Loan (IGL)' || loanData.l_loan_scheme == 'Gold Reen(GR)' || loanData.l_loan_scheme == 'Loans Under Deposit (LUD)' || loanData.l_loan_scheme == 'Staff Loan' || loanData.l_loan_scheme == 'Krishan Kalyan Reen(KKR)' || loanData.l_loan_scheme == 'Parivar Kalyan Reen (SHG)'">
+                                                        *ngIf="loanData.l_loan_scheme == 'Personal Loan (PL)' || loanData.l_loan_scheme == 'Business Loan (IGL)' || loanData.l_loan_scheme == 'Business Loan (IGL DL)' || loanData.l_loan_scheme == 'Gold Reen(GR)' || loanData.l_loan_scheme == 'Loans Under Deposit (LUD)' || loanData.l_loan_scheme == 'Staff Loan' || loanData.l_loan_scheme == 'Krishan Kalyan Reen(KKR)' || loanData.l_loan_scheme == 'Parivar Kalyan Reen (SHG)'">
                                                         <b><u>Bank A/c Details :</u></b>
                                                     </div>
                                                     <br>
@@ -3109,7 +3109,7 @@
                                                     </div>
                                                     <div class="form-group col-9">
                                                         <b>:</b>
-                                                        {{loanData.c_commencement |date:'dd-MM-YYYY'}}
+                                                        {{loanData.c_commencement |date:'dd-MM-yyyy'}}
                                                     </div>
                                                     <div class="form-group col-3">
                                                         <b>Cheques Numbers</b>
@@ -3279,7 +3279,7 @@
                                                                 <tr>
                                                                     <td class="text-left">
                                                                         {{loanData.cm_fwd_date |
-                                                                        date:'dd-MM-YYYY'}}
+                                                                        date:'dd-MM-yyyy'}}
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -7005,7 +7005,7 @@
 
                             <div *ngIf="loanData.loan_status == 'Completed'">
                             <div class="card"
-                                *ngIf="loanData.loan_status == 'Completed' && loanData.l_loan_scheme == 'Personal Loan (PL)' || loanData.l_loan_scheme == 'Business Loan (IGL)' || loanData.l_loan_scheme == 'Gold Reen(GR)' || loanData.l_loan_scheme == 'Loans Under Deposit (LUD)' || loanData.l_loan_scheme == 'Staff Loan' || loanData.l_loan_scheme == 'Krishan Kalyan Reen(KKR)' || loanData.l_loan_scheme == 'Parivar Kalyan Reen (SHG)'">
+                                *ngIf="loanData.loan_status == 'Completed' && loanData.l_loan_scheme == 'Personal Loan (PL)' || loanData.l_loan_scheme == 'Business Loan (IGL)' || loanData.l_loan_scheme == 'Business Loan (IGL DL)' || loanData.l_loan_scheme == 'Gold Reen(GR)' || loanData.l_loan_scheme == 'Loans Under Deposit (LUD)' || loanData.l_loan_scheme == 'Staff Loan' || loanData.l_loan_scheme == 'Krishan Kalyan Reen(KKR)' || loanData.l_loan_scheme == 'Parivar Kalyan Reen (SHG)'">
                                 <div class="card-header" id="headingTwelve" *ngIf="loanData.loan_status == 'Completed'">
                                     <h2 class="mb-0">
                                         <button class="btn btn-link btn-block text-left collapsed" type="button"

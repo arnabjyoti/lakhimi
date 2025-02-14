@@ -3,6 +3,7 @@ const usersModel = require("../models").users;
 const brunchModel = require("../models").brunch;
 const accountModel = require("../models").account;
 var Sequelize = require('sequelize');
+const Op = require('sequelize').Op;
 
 module.exports = {
     checkMemberData(req, res){
@@ -11,7 +12,7 @@ module.exports = {
         .findOne({
             where: {
                 membership_id: req.body.requestObject.membershipId,
-                brunchId: req.body.requestObject.brunchId
+                // brunchId: req.body.requestObject.brunchId
             },
             raw: true,
             include: [
@@ -32,13 +33,19 @@ module.exports = {
     checkPreAc(req, res){
       console.log("oooooooooooooooooooooooooo",req.body.requestObject);
       return accountModel
-      .findOne({
-          where: {
-            membershipId: req.body.requestObject,
-          },
-      })
+      .findAll({
+        where: {
+            membershipId: {
+                [Op.ne]: null, // Ensure membershipId is not null
+                [Op.eq]: req.body.requestObject // Match the given ID
+            },
+            status: {
+                [Op.ne]: "Reject" // Exclude rejected records
+            }
+        }
+    })
       .then(data => {
-        if (data) {
+        if (data.length > 0) {
           console.log("ifffffffffffffff");
           
           return res.status(200).send({

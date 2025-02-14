@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   test:true,
-  BASE_URL: 'https://backend.lakhimisr.in'
+  // BASE_URL: 'https://backend.lakhimisr.in'
   // BASE_URL: 'http://103.180.120.203:8600'
-  // BASE_URL: 'http://localhost:8600'
+  BASE_URL: 'http://localhost:8600'
 };
 
 /*
