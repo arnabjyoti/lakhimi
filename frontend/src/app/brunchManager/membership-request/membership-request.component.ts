@@ -66,6 +66,7 @@ export class MembershipRequestComponent implements OnInit{
     nomineeDOB: "",
     nomineeGender: "",
     nomineePhnoe: "",
+    nomineeRelation: "",
     type: "",
     scheme: "",
     dep_period: "",

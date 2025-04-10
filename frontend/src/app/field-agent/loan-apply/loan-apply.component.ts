@@ -295,6 +295,7 @@ export class LoanApplyComponent implements OnInit {
     nomineeDOB: "",
     nomineeGender: "",
     nomineePhnoe: "",
+    nomineeRelation: "",
     opening_balance: "",
     type: "",
     scheme: "",
@@ -697,13 +698,13 @@ public finalSubmit: boolean = false;
 
   onSchemeChange() {
     if (this.memberData.l_loan_scheme == 'Personal Loan (PL)') {
-      this.memberData.l_loan_scheme_intrst = 14.99;
+      this.memberData.l_loan_scheme_intrst = 28;
     }
     if (this.memberData.l_loan_scheme == 'Business Loan (IGL)') {
-      this.memberData.l_loan_scheme_intrst = 14.99;
+      this.memberData.l_loan_scheme_intrst = 28;
     }
     if (this.memberData.l_loan_scheme == 'Business Loan (IGL DL)') {
-      this.memberData.l_loan_scheme_intrst = 14.99;
+      this.memberData.l_loan_scheme_intrst = 28;
     }
     if (this.memberData.l_loan_scheme == 'Gold Reen(GR)') {
       this.memberData.l_loan_scheme_intrst = 15.99;

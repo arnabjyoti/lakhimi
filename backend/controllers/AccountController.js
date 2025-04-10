@@ -77,6 +77,7 @@ module.exports = {
             nomineeDOB: req.body.requestObject.nomineeDOB,
             nomineeGender: req.body.requestObject.nomineeGender,
             nomineePhnoe: req.body.requestObject.nomineePhnoe,
+            nomineeRelation: req.body.requestObject.nomineeRelation,
             opening_balance: req.body.requestObject.opening_balance,
             type: req.body.requestObject.type,
             scheme: req.body.requestObject.scheme,
@@ -118,6 +119,7 @@ module.exports = {
             nomineeDOB: req.body.requestObject.nomineeDOB,
             nomineeGender: req.body.requestObject.nomineeGender,
             nomineePhnoe: req.body.requestObject.nomineePhnoe,
+            nomineeRelation: req.body.requestObject.nomineeRelation,
             opening_balance: req.body.requestObject.opening_balance,
             type: req.body.requestObject.type,
             scheme: req.body.requestObject.scheme,
@@ -230,13 +232,14 @@ module.exports = {
             {
                 model: membershipModel,
                 required: false,
-                attributes: ['f_name','l_name','fathers_name','address','dob','gender','panNo','adharNo','purpose','occupation','introducer','introducer_id']
+                attributes: ['f_name','l_name','fathers_name', 'phone_no','address','dob','gender','panNo','adharNo','purpose','occupation','introducer','introducer_id']
             }
         ],
-        attributes: ['id', 'account_no', 'class','classPrice','classAdminFee','nomineeName','nomineeDOB','nomineeGender','nomineePhnoe','type','scheme','dep_period','dep_frequency','startDate','endDate','first_instlmnt','openingFee','brName','csp_msp','ac_name','ac_type','ac_no','ac_ifsc','ac_bankName','ac_brName','status','userId','brunchId','membershipId','reference_no',
+        attributes: ['id', 'account_no', 'class','classPrice','classAdminFee','nomineeName','nomineeDOB','nomineeGender','nomineePhnoe','nomineeRelation','type','scheme','dep_period','dep_frequency','startDate','endDate','first_instlmnt','openingFee','brName','csp_msp','ac_name','ac_type','ac_no','ac_ifsc','ac_bankName','ac_brName','status','userId','brunchId','membershipId','reference_no',
             [Sequelize.col('membership.f_name'), 'f_name'],
             [Sequelize.col('membership.l_name'), 'l_name'],
             [Sequelize.col('membership.fathers_name'), 'fathers_name'],
+            [Sequelize.col('membership.phone_no'), 'phone_no'],
             [Sequelize.col('membership.address'), 'address'],
             [Sequelize.col('membership.dob'), 'dob'],
             [Sequelize.col('membership.gender'), 'gender'],

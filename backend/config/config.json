@@ -18,9 +18,9 @@
 		}
     },
     "test": {
-      "username": "lakhimisr_eoadmin",
-      "password": "AsHy3E7UE@4l",
-      "database": "lakhimisr_eoffice",
+      "username": "root",
+      "password": "",
+      "database": "test_lakhimi",
       "host": "localhost",
         "dialect": "mysql",
         "operatorsAliases": false,

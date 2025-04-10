@@ -14,6 +14,7 @@ module.exports = (sequelize, type) => {
         nomineeDOB: { type: 'DATE' },
         nomineeGender: type.STRING,
         nomineePhnoe: type.STRING,
+        nomineeRelation: type.STRING,
         opening_balance: type.STRING,
         type: type.STRING,
         scheme: type.STRING,

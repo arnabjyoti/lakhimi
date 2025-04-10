@@ -108,6 +108,7 @@ export class AdminAccountApplicationComponent implements OnInit{
           nomineeDOB: item.nomineeDOB,
           nomineeGender: item.nomineeGender,
           nomineePhnoe: item.nomineePhnoe,
+          nomineeRelation: item.nomineeRelation,
           opening_balance: item.opening_balance,
           scheme: item.scheme,
           dep_period: item.dep_period,

@@ -198,14 +198,14 @@ getLoanApplyListHOByMD(req, res) {
   console.log("xxxxxxxxxxxxxxxxxxxxxxxxx",req.body.requestObject);
   return loanModel
   .findAll({
-    where: {
-      [Op.or]: [
-        { lo_status: "Rejected"},
-        { lo_status: "Forwarded" },
-      ]
-      // loan_status: "Applied",
-      // lo_status: "Forwarded",
-    },
+    // where: {
+    //   [Op.or]: [
+    //     { lo_status: "Rejected"},
+    //     { lo_status: "Forwarded" },
+    //   ]
+    //   // loan_status: "Applied",
+    //   // lo_status: "Forwarded",
+    // },
     order: [
       ['createdAt', 'ASC']
     ],

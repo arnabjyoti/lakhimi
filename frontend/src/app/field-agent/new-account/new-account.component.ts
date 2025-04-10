@@ -55,6 +55,7 @@ export class NewAccountComponent implements OnInit{
  nomineeDOB: "",
  nomineeGender: "",
  nomineePhnoe: "",
+ nomineeRelation: "",
  opening_balance: "",
  type: "",
  scheme: "",
@@ -99,6 +100,7 @@ export class NewAccountComponent implements OnInit{
   nomineeDOB: "",
   nomineeGender: "",
   nomineePhnoe: "",
+  nomineeRelation: "",
   opening_balance: "",
   type: "",
   scheme: "",
@@ -206,6 +208,7 @@ export class NewAccountComponent implements OnInit{
           nomineeDOB: item.nomineeDOB,
           nomineeGender: item.nomineeGender,
           nomineePhnoe: item.nomineePhnoe,
+          nomineeRelation: item.nomineeRelation,
           opening_balance: item.opening_balance,
           scheme: item.scheme,
           dep_period: item.dep_period,
@@ -384,6 +387,12 @@ validateInputs = () =>{
     });
     return false;
   }
+  if(this.memberData.nomineeRelation==='' || this.memberData.nomineeRelation===null || this.memberData.nomineeRelation===undefined){
+    this.toastr.warning('Please type nominee relationship','Warning',{
+      disableTimeOut:false
+    });
+    return false;
+  }
   if(this.memberData.opening_balance==='' || this.memberData.opening_balance===null || this.memberData.opening_balance===undefined){
     this.toastr.warning('Please type account opening balance','Warning',{
       disableTimeOut:false
@@ -500,6 +509,7 @@ resetForm(){
   this.memberData.nomineeDOB = "";
   this.memberData.nomineeGender = "";
   this.memberData.nomineePhnoe = "";
+  this.memberData.nomineeRelation = "",
   this.memberData.opening_balance = "";
   this.memberData.type = "";
   this.memberData.scheme = "";
@@ -589,6 +599,12 @@ validateUpdateInputs = () =>{
   }
   if(this.accountData.nomineePhnoe < 1000000000 || this.accountData.nomineePhnoe > 9999999999){
     this.toastr.warning('Please type nominee phone number & must be 10 digits','Warning',{
+      disableTimeOut:false
+    });
+    return false;
+  }
+  if(this.accountData.nomineeRelation==='' || this.accountData.nomineeRelation===null || this.accountData.nomineeRelation===undefined){
+    this.toastr.warning('Please type nominee relationship','Warning',{
       disableTimeOut:false
     });
     return false;

@@ -284,6 +284,7 @@ export class LoanRequestDetailsUpdateComponent implements OnInit{
     nomineeDOB: "",
     nomineeGender: "",
     nomineePhnoe: "",
+    nomineeRelation: "",
     opening_balance: "",
     type: "",
     scheme: "",

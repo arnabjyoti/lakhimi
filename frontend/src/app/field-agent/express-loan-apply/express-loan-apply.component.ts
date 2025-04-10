@@ -56,7 +56,7 @@ export class ExpressLoanApplyComponent implements OnInit{
     l_down_payment_amount: 0,
     l_processing_fee: "",
     l_tenure: 3,
-    l_roi: 1.135, //13.5
+    l_roi: 1.1575, // 13.5 change to 15.75
     l_EMI_amount: "",
 
     intro_name: "",

@@ -190,6 +190,13 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Phone Number:</label>
+                                        <input type="text" class="form-control" id="inputEmail4"
+                                            placeholder="Phone Number" disabled [(ngModel)]="memberData.phone_no">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
                                         <label for="inputEmail4">Address:</label>
                                         <textarea class="form-control" id="inputEmail4" placeholder="Address" disabled
                                             [(ngModel)]="memberData.address"></textarea>
@@ -346,6 +353,14 @@
                                             placeholder="Mobile Number" [(ngModel)]="memberData.nomineePhnoe">
                                     </div>
                                 </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Relationship:</label>
+                                        <input type="text" min="0" class="form-control" id="inputEmail4"
+                                            placeholder="Relationship" [(ngModel)]="memberData.nomineeRelation">
+                                    </div>
+                                </div>
+                                <br>
                                 <br>
                             </div>
                             <hr>
@@ -584,6 +599,13 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Phone Number:</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Phone Number"
+                                        disabled [(ngModel)]="accountData.phone_no">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
                                     <label for="inputEmail4">Address:</label>
                                     <textarea class="form-control" id="inputEmail4" placeholder="Address" disabled
                                         [(ngModel)]="accountData.address"></textarea>
@@ -718,6 +740,13 @@
                                     <label for="inputEmail4">Mobile Number:</label>
                                     <input type="number" min="0" class="form-control" id="inputEmail4"
                                         placeholder="Mobile Number" [(ngModel)]="accountData.nomineePhnoe">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Relationship:</label>
+                                    <input type="text" min="0" class="form-control" id="inputEmail4"
+                                        placeholder="Relationship" [(ngModel)]="accountData.nomineeRelation">
                                 </div>
                             </div>
                             <br>

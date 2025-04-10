@@ -231,40 +231,73 @@ module.exports = {
       },
 
 
-      getFreeFieldAgent(req, res){
-        return brunchMasterModel
-        .findAll({
-          order: [["userId", "ASC"]],
-          raw: true,
-        })
-        .then(bm => {
-          ss = _.map(bm, function(bm) { return bm.userId; })
-          // bm is all branchmaster data
-          console.log("hhhhhhhhhhh",ss);
-          // ss is branch master userId(foreign key) who is assigned to branch
-          if (!bm) {
-            res.status(200).send({});
-            // return fn(proj);
-          }
-              usersModel.findAll({
-                where: {
-                  id: {[Op.notIn]: ss },
-                  role: "field_agent"
-                },
-                raw: true
-              })
-              .then(brunch => {
-                // here we compare user model Id with branch master userId and whose role is "field_agent" in user model
-                console.log("free agent",brunch);
-                return res.status(200).send(brunch);
-              })
-              .catch(error => {
-                console.log(error);
-                return res.status(400).send(error);
-              });
+      // old code causing empty for null value
+      
+      // getFreeFieldAgent(req, res){
+      //   return brunchMasterModel
+      //   .findAll({
+      //     order: [["userId", "ASC"]],
+      //     raw: true,
+      //   })
+      //   .then(bm => {
+      //     ss = _.map(bm, function(bm) { return bm.userId; })
+      //     console.log("hhhhhhhhhhh",ss);
+      //     if (!bm) {
+      //       res.status(200).send({});
+      //     }
+      //         usersModel.findAll({
+      //           where: {
+      //             id: {[Op.notIn]: ss },
+      //             role: "field_agent"
+      //           },
+      //           raw: true
+      //         })
+      //         .then(brunch => {
+      //           console.log("free agent",brunch);
+      //           return res.status(200).send(brunch);
+      //         })
+      //         .catch(error => {
+      //           console.log(error);
+      //           return res.status(400).send(error);
+      //         });
             
-        })
-      },
+      //   })
+      // },
+
+
+      getFreeFieldAgent(req, res) {
+        return brunchMasterModel
+            .findAll({
+                order: [["userId", "ASC"]],
+                raw: true,
+            })
+            .then(bm => {
+                let ss = _.map(bm, bm => bm.userId).filter(id => id !== null && id !== undefined);
+                // Removes NULL/undefined values from ss
+    
+                console.log("Filtered userId list (branch master assigned):", ss);
+    
+                if (!bm || bm.length === 0) {
+                    return res.status(200).send([]);
+                }
+    
+                return usersModel.findAll({
+                    where: {
+                        id: { [Op.notIn]: ss.length > 0 ? ss : [-1] }, // Prevents SQL error when ss is empty
+                        role: "field_agent"
+                    },
+                    raw: true
+                });
+            })
+            .then(brunch => {
+                console.log("Free agents:", brunch);
+                return res.status(200).send(brunch);
+            })
+            .catch(error => {
+                console.error("Error fetching agents:", error);
+                return res.status(400).send(error);
+            });
+    },    
 
 
       brunchByUserId(req, res){
