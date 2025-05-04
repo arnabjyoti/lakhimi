@@ -7,6 +7,7 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const request = require('request');
+const { sign } = require("crypto");
 const env = process.env.NODE_ENV || 'test';
 // const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
@@ -157,6 +158,84 @@ module.exports = {
         .catch(error => res.status(400).send(error));
     },
 
+
+    uploadAllMembershipImage(req, res){
+      console.log("++++++++++++++++++++++++++++++++",req.body);
+      console.log("++++++++++++++++++++++++++++++++",req.file);
+      if(req.body.photo_number == "pan"){
+        const newData = {
+          panCard: req.file ? req.file.originalname : null, // Handle null case
+          status: "Applied",
+        };
+        membershipModel
+          .update(newData, {
+            where: {
+              id: req.body.dbid
+            }
+          })
+          .then(project => {
+            hi=project.id;
+            console.log("hhhhhhhhhhhhhhh",hi);
+            return res.status(200).send({message: hi});
+        })
+        .catch(error => res.status(400).send(error));
+      }if(req.body.photo_number == "adhar"){
+        const newData = {
+          adharCard: req.file ? req.file.originalname : null, // Handle null case
+          status: "Applied",
+        };
+        membershipModel
+          .update(newData, {
+            where: {
+              id: req.body.dbid
+            }
+          })
+          .then(project => {
+            hi=project.id;
+            console.log("hhhhhhhhhhhhhhh",hi);
+            return res.status(200).send({message: hi});
+        })
+        .catch(error => res.status(400).send(error));
+      }if(req.body.photo_number == "photo"){
+        const newData = {
+          photo: req.file ? req.file.originalname : null, // Handle null case
+          status: "Applied",
+        };
+        membershipModel
+          .update(newData, {
+            where: {
+              id: req.body.dbid
+            }
+          })
+          .then(project => {
+            hi=project.id;
+            console.log("hhhhhhhhhhhhhhh",hi);
+            return res.status(200).send({message: hi});
+        })
+        .catch(error => res.status(400).send(error));
+      }if(req.body.photo_number == "sign"){
+        const newData = {
+          sign: req.file ? req.file.originalname : null, // Handle null case
+          status: "Applied",
+        };
+        membershipModel
+          .update(newData, {
+            where: {
+              id: req.body.dbid
+            }
+          })
+          .then(project => {
+            hi=project.id;
+            console.log("hhhhhhhhhhhhhhh",hi);
+            return res.status(200).send({message: hi});
+        })
+        .catch(error => res.status(400).send(error));
+      }
+    },
+
+
+
+    
 
     uploadPan(req, res) {
             console.log("oooooooooooooooooooooooooo",req.file);

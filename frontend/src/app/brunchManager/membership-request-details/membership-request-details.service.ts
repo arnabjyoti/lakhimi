@@ -116,6 +116,32 @@ export class MembershipRequestDetailsService {
       });
   }
 
+  
+  uploadAllMembershipImages(formData: any, fileType:any, callback: any) {
+    const ENDPOINT = `${environment.BASE_URL}/api/uploadAllMembershipImage`;
+  
+    // console.log("FormData being sent:", formData);
+    
+    this.http.post(ENDPOINT, formData).subscribe(
+      (response) => {
+        // console.log("Update response", response);
+        this.toastr.success("Membership updated with photos", "Success!", {
+          disableTimeOut: false
+        });
+        return callback && callback(response);
+      },
+      (error) => {
+        // console.log("Update error", error);
+        this.toastr.error(error.error.message || "Something went wrong", "Error!", {
+          disableTimeOut: false
+        });
+        return callback && callback(error);
+      },
+      () => {
+        // console.log("Observable is now completed.");
+      }
+    );
+  }
 
   uploadPan(formData:any, dbId:any, fileType:any, callback:any){
     const ENDPOINT = `${environment.BASE_URL}/api/uploadPan`;

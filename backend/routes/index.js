@@ -121,6 +121,8 @@ module.exports = (app) => {
 
 	app.post('/api/uploadSign', membershipController.upload_config.single('file'), membershipController.uploadSign);
 
+	app.post('/api/uploadAllMembershipImage', membershipController.upload_config.single('file'), membershipController.uploadAllMembershipImage);
+
 	app.post('/api/getAppliedMemberData', membershipController.getAppliedMemberData);
 
 	app.post('/api/getAplMembrById', membershipController.getAplMembrById);
@@ -133,7 +135,7 @@ module.exports = (app) => {
 
 	app.post('/api/updateReject', membershipController.updateReject);
 
-		// for admin
+	// for admin
 	app.post('/api/getMemberDataForAdmin', membershipController.getMemberDataForAdmin);
 	
 	

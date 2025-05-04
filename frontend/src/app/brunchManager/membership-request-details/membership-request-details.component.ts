@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AppService } from 'src/app/app.service';
 import { LoginService } from 'src/app/login/login.service';
 import { environment } from 'src/environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-membership-request-details',
@@ -59,10 +60,10 @@ export class MembershipRequestDetailsComponent implements OnInit {
   public userId: any;
   public tokenData: any;
 
-  public uploadImageObject: any = {
-    panImg: '',
-    adharImg: ''
-  }
+  // public uploadImageObject: any = {
+  //   panImg: '',
+  //   adharImg: ''
+  // }
 
   public brAction: any = {
     action: ''
@@ -77,6 +78,27 @@ export class MembershipRequestDetailsComponent implements OnInit {
     reason: '',
     status: 'Reject'
   }
+
+
+  uploadImageObject: any = {
+    pan: null,
+    adhar: null,
+    photo: null,
+    sign: null,
+    imageFiles: {
+      pan: null,
+      adhar: null,
+      photo: null,
+      sign: null,
+    }
+  };
+  
+  photoLabels: any = {
+    pan: 'Choose File',
+    adhar: 'Choose File',
+    photo: 'Choose File',
+    sign: 'Choose File',
+  };
 
   public chooseFile: string = "Choose File";
   public pan: string = "Choose File";
@@ -119,6 +141,7 @@ export class MembershipRequestDetailsComponent implements OnInit {
     private loginService: LoginService,
     private route: ActivatedRoute,
     private toastr: ToastrService,
+    private spinner: NgxSpinnerService,
   ) {
     this.endpoint = environment.BASE_URL;
     this.route.paramMap.subscribe(params => {
@@ -129,6 +152,14 @@ export class MembershipRequestDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.getDataById();
     this.getUserDetails();
+  }
+
+
+  spiner() {
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 5000);
   }
 
   getUserDetails = () => {
@@ -185,8 +216,8 @@ export class MembershipRequestDetailsComponent implements OnInit {
       introducer: this.regInput.introducer,
       introducer_id: this.regInput.introducer_id,
       email: this.regInput.email,
-      panNo: this.regInput.panNo,
-      adharNo: this.regInput.adharNo,
+      // panNo: this.regInput.panNo,
+      // adharNo: this.regInput.adharNo,
       status: "Applied"
     };
     let isValid = this.validateInputs();
@@ -201,193 +232,72 @@ export class MembershipRequestDetailsComponent implements OnInit {
 
   convertDate() {
     var date = new Date();
-    this.day = date.getDate();
-    this.month = date.getFullYear() + "" + date.getMonth() + "" + date.getDate() + "" + date.getHours() + "" + date.getMinutes() + "" + date.getMilliseconds();
-    // this.month=this.month+1;
-    // if((String(this.day)).length==1)
-    // this.day='0'+this.day;
-    // if((String(this.month)).length==1)
-    // this.month='0'+this.month;
-    return this.month;
+    const year = date.getFullYear();
+    const month = this.padZero(date.getMonth() + 1); // Month starts from 0
+    const day = this.padZero(date.getDate());
+    const hours = this.padZero(date.getHours());
+    const minutes = this.padZero(date.getMinutes());
+    const seconds = this.padZero(date.getSeconds());
+    return `${year}${month}${day}${hours}${minutes}${seconds}`;
+  }
+
+  padZero(num: number): string {
+    return num < 10 ? `0${num}` : `${num}`;
+  }
+
+  
+  onPhotoSelected(event: any, field: string) {
+    const allowedTypes = ['jpeg', 'jpg', 'png'];
+  
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      const fileSizeLimit = 200 * 1024; // 200kb
+  
+      const fileName = file.name;
+      const fileExtension = fileName.split('.').pop().toLowerCase();
+  
+      if (!allowedTypes.includes(fileExtension)) {
+        this.toastr.error('Only JPG, JPEG, or PNG files are allowed', 'Invalid File Type', {
+          disableTimeOut: false
+        });
+        return;
+      }
+  
+      if (file.size > fileSizeLimit) {
+        this.toastr.error('File size should be less than 2 KB', 'Error', {
+          disableTimeOut: false
+        });
+        return;
+      }
+  
+      const newName = `${field.toUpperCase()}_${this.convertDate()}.${fileExtension}`;
+      const blob = file.slice(0, file.size, file.type);
+      const renamedFile = new File([blob], newName, { type: file.type });
+  
+      this.uploadImageObject[field] = file;
+      this.uploadImageObject.imageFiles[field] = renamedFile;
+      this.photoLabels[field] = file.name;
+    }
   }
 
 
-  //for PAN Card
-  onFileSelect(event: any) {
-    console.log(event.target.files[0].size);
-    if (event.target.files.length > 0 && event.target.files[0].size < 200000) {
-      this.uploadImageObject.pan = event.target.files[0];
-
-
-      var fff = this.convertDate();
-      console.log("convert date", fff);
-
-      var fileExtension = '.' + event.target.files[0].name.split('.')[1];
-      console.log("extension", fileExtension);
-
-      var prefix = event.target.files[0].name.split('.')[0];
-      console.log("prefix", prefix);
-
-      var name = "PAN" + this.convertDate() + fileExtension;
-      console.log("name", name);
-
-      var blob = event.target.files[0].slice(0, event.target.files[0].size, event.target.files[0].type);
-      console.log("blob", blob);
-
-      var newFile = new File([blob], name, { type: event.target.files[0].type });
-      console.log("newfile", newFile);
-      this.uploadImageObject.image = newFile;
-
-
-
-
-      this.pan = this.uploadImageObject.pan
-        ? this.uploadImageObject.pan["name"]
-        : "Choose File";
-      console.log("Choose", this.chooseFile);
-      console.log("imgObject===", this.uploadImageObject);
-    } else {
-      this.toastr.error('Image size should be less than 200kb', 'Error', {
-        disableTimeOut: false
-      });
-    }
-    return true;
-  };
-
-  onFileSelected(event: any) {
-    console.log("onFileSelected", event.target.files);
-    if (event.target.files.length > 0 && event.target.files[0].size < 200000) {
-      this.uploadImageObject.adhar = event.target.files[0];
-
-      var fff = this.convertDate();
-      console.log("convert date", fff);
-
-      var fileExtension = '.' + event.target.files[0].name.split('.')[1];
-      console.log("extension", fileExtension);
-
-      var prefix = event.target.files[0].name.split('.')[0];
-      console.log("prefix", prefix);
-
-      var name = "ADHAR" + this.convertDate() + fileExtension;
-      console.log("name", name);
-
-      var blob = event.target.files[0].slice(0, event.target.files[0].size, event.target.files[0].type);
-      console.log("blob", blob);
-
-      var newFile = new File([blob], name, { type: event.target.files[0].type });
-      console.log("newfile", newFile);
-      this.uploadImageObject.image = newFile;
-
-      this.adhar = this.uploadImageObject.adhar
-        ? this.uploadImageObject.adhar["name"]
-        : "Choose File";
-      console.log("Choose", this.adhar);
-      console.log("imgObject===", this.uploadImageObject);
-    } else {
-      this.toastr.error('Image size should be less than 200kb', 'Error', {
-        disableTimeOut: false
-      });
-    }
-    return true;
-  };
-
-  onFileSelectedPhoto(event: any) {
-    console.log("onFileSelected", event.target.files);
-    if (event.target.files.length > 0 && event.target.files[0].size < 200000) {
-      this.uploadImageObject.photo = event.target.files[0];
-
-      var fff = this.convertDate();
-      console.log("convert date", fff);
-
-      var fileExtension = '.' + event.target.files[0].name.split('.')[1];
-      console.log("extension", fileExtension);
-
-      var prefix = event.target.files[0].name.split('.')[0];
-      console.log("prefix", prefix);
-
-      var name = "PHOTO" + this.convertDate() + fileExtension;
-      console.log("name", name);
-
-      var blob = event.target.files[0].slice(0, event.target.files[0].size, event.target.files[0].type);
-      console.log("blob", blob);
-
-      var newFile = new File([blob], name, { type: event.target.files[0].type });
-      console.log("newfile", newFile);
-      this.uploadImageObject.image = newFile;
-
-      this.photo = this.uploadImageObject.photo
-        ? this.uploadImageObject.photo["name"]
-        : "Choose File";
-      console.log("Choose", this.photo);
-      console.log("imgObject===", this.uploadImageObject);
-    } else {
-      this.toastr.error('Image size should be less than 200kb', 'Error', {
-        disableTimeOut: false
-      });
-    }
-    return true;
-  };
-
-
-  onFileSelectedsign(event: any) {
-    console.log("onFileSelected", event.target.files);
-    if (event.target.files.length > 0 && event.target.files[0].size < 200000) {
-      this.uploadImageObject.sign = event.target.files[0];
-
-      var fff = this.convertDate();
-      console.log("convert date", fff);
-
-      var fileExtension = '.' + event.target.files[0].name.split('.')[1];
-      console.log("extension", fileExtension);
-
-      var prefix = event.target.files[0].name.split('.')[0];
-      console.log("prefix", prefix);
-
-      var name = "Sign" + this.convertDate() + fileExtension;
-      console.log("name", name);
-
-      var blob = event.target.files[0].slice(0, event.target.files[0].size, event.target.files[0].type);
-      console.log("blob", blob);
-
-      var newFile = new File([blob], name, { type: event.target.files[0].type });
-      console.log("newfile", newFile);
-      this.uploadImageObject.image = newFile;
-
-      this.sign = this.uploadImageObject.sign
-        ? this.uploadImageObject.sign["name"]
-        : "Choose File";
-      console.log("Choose", this.sign);
-      console.log("imgObject===", this.uploadImageObject);
-    } else {
-      this.toastr.error('Image size should be less than 200kb', 'Error', {
-        disableTimeOut: false
-      });
-    }
-    return true;
-  };
+  
 
   uploadPan() {
-    console.log("Uploading Pan", this.uploadImageObject);
-    this.dbId = this.rqstId;
-    let isValid = this.validatePan();
-    if (isValid) {
-      this.isAllowedFile(this.uploadImageObject.image, (res: any) => {
-        console.log("res", res);
-        if (res == true) {
-          console.log("input data", this.uploadImageObject);
-          const formData = new FormData();
+    if(this.uploadImageObject.imageFiles.pan != null){
+      this.dbId = this.rqstId;
+      this.isLodaing = true;
+      this.spiner();
+      const formData = new FormData();
           formData.append("dbid", this.dbId);
-          formData.append("file", this.uploadImageObject.image);
-          formData.append("panImg", this.uploadImageObject.panImg);
+          formData.append("file", this.uploadImageObject.imageFiles.pan);
+          formData.append("photo_number", "pan");
           formData.append("status", "Applied");
-          console.log("FORMDATA===", formData);
-          console.log("dbid===", this.dbId);
-          this.MembershipRequestDetailsService.uploadPan(
+          this.MembershipRequestDetailsService.uploadAllMembershipImages(
             formData,
-            this.dbId,
             this.acceptfileType, (response: any) => {
+              this.isLodaing = false;
               this.returnMsg = response.message;
-              console.log("lllllllllll", this.dbId);
               this.showPanSc = false;
               this.showPanBtn = true;
               this.uploadImageObject.image = "";
@@ -395,122 +305,88 @@ export class MembershipRequestDetailsComponent implements OnInit {
               this.getDataById();
             }
           );
-        } else {
-          this.toastr.error('Invalid image file', 'Error', {
-            disableTimeOut: false
-          });
-        }
-
-      });
-    } else {
-      this.isSaving = false;
-    }
+  }else{
+    this.toastr.warning("Photo not selected", "Warning!", {
+      disableTimeOut: false
+    });
   }
+}
 
 
   uploadAdhar() {
-    console.log("Uploading Adhar", this.uploadImageObject);
-    this.dbId = this.rqstId;
-    let isValid = this.validatePan();
-    if (isValid) {
-      this.isAllowedFile(this.uploadImageObject.image, (res: any) => {
-        console.log("res", res);
-        if (res == true) {
-          console.log("input data", this.uploadImageObject);
-          const formData = new FormData();
+    if(this.uploadImageObject.imageFiles.adhar != null){
+      this.dbId = this.rqstId;
+      this.isLodaing = true;
+      this.spiner();
+      const formData = new FormData();
           formData.append("dbid", this.dbId);
-          formData.append("file", this.uploadImageObject.image);
-          formData.append("panImg", this.uploadImageObject.panImg);
+          formData.append("file", this.uploadImageObject.imageFiles.adhar);
+          formData.append("photo_number", "adhar");
           formData.append("status", "Applied");
-          console.log("FORMDATA===", formData);
-          console.log("dbid===", this.dbId);
-          this.MembershipRequestDetailsService.uploadAdhar(
+          this.MembershipRequestDetailsService.uploadAllMembershipImages(
             formData,
-            this.dbId,
             this.acceptfileType, (response: any) => {
+              this.isLodaing = false;
               this.returnMsg = response.message;
-              console.log("lllllllllll", this.dbId);
               this.showAdharSc = false;
               this.showAdharBtn = true;
               this.uploadImageObject.image = "";
+              this.isSaving = false;
               this.getDataById();
             }
           );
-        } else {
-          this.toastr.error('Invalid image file', 'Error', {
-            disableTimeOut: false
-          });
-        }
-      });
-    } else {
-      this.isSaving = false;
-    }
+  }else{
+    this.toastr.warning("Photo not selected", "Warning!", {
+      disableTimeOut: false
+    });
+  }
   }
 
   uploadPhoto() {
-    console.log("Uploading photo", this.uploadImageObject);
-    this.dbId = this.rqstId;
-    let isValid = this.validatePan();
-    if (isValid) {
-      this.isAllowedFile(this.uploadImageObject.image, (res: any) => {
-        console.log("res", res);
-        if (res == true) {
-          console.log("input data", this.uploadImageObject);
-          const formData = new FormData();
+    if(this.uploadImageObject.imageFiles.photo != null){
+      this.dbId = this.rqstId;
+      this.isLodaing = true;
+      this.spiner();
+      const formData = new FormData();
           formData.append("dbid", this.dbId);
-          formData.append("file", this.uploadImageObject.image);
-          formData.append("panImg", this.uploadImageObject.panImg);
+          formData.append("file", this.uploadImageObject.imageFiles.photo);
+          formData.append("photo_number", "photo");
           formData.append("status", "Applied");
-          console.log("FORMDATA===", formData);
-          console.log("dbid===", this.dbId);
-          this.MembershipRequestDetailsService.uploadPhoto(
+          this.MembershipRequestDetailsService.uploadAllMembershipImages(
             formData,
-            this.dbId,
             this.acceptfileType, (response: any) => {
+              this.isLodaing = false;
               this.returnMsg = response.message;
-              console.log("lllllllllll", this.dbId);
               this.showPhotoSc = false;
               this.showPhotoBtn = true;
               this.uploadImageObject.image = "";
+              this.isSaving = false;
               this.getDataById();
             }
           );
-        } else {
-          this.toastr.error('Invalid image file', 'Error', {
-            disableTimeOut: false
-          });
-        }
-      }
-      );
-    } else {
-      this.isSaving = false;
-    }
+  }else{
+    this.toastr.warning("Photo not selected", "Warning!", {
+      disableTimeOut: false
+    });
+  }
   }
 
 
   uploadSign() {
-    console.log("Uploading Sign", this.uploadImageObject);
-    this.dbId = this.rqstId;
-    let isValid = this.validatePan();
-    if (isValid) {
-      this.isAllowedFile(this.uploadImageObject.image, (res: any) => {
-        console.log("res", res);
-        if (res == true) {
-          console.log("input data", this.uploadImageObject);
-          const formData = new FormData();
+    if(this.uploadImageObject.imageFiles.sign != null){
+      this.dbId = this.rqstId;
+      this.isLodaing = true;
+      this.spiner();
+      const formData = new FormData();
           formData.append("dbid", this.dbId);
-          formData.append("file", this.uploadImageObject.image);
-          formData.append("panImg", this.uploadImageObject.panImg);
+          formData.append("file", this.uploadImageObject.imageFiles.sign);
+          formData.append("photo_number", "sign");
           formData.append("status", "Applied");
-          console.log("FORMDATA===", formData);
-          console.log("dbid===", this.dbId);
-          this.MembershipRequestDetailsService.uploadSign(
+          this.MembershipRequestDetailsService.uploadAllMembershipImages(
             formData,
-            this.dbId,
             this.acceptfileType, (response: any) => {
+              this.isLodaing = false;
               this.returnMsg = response.message;
-              console.log("lllllllllll", this.dbId);
-              // this.showSign = false;
               this.showSignSc = false;
               this.showSignBtn = true;
               this.uploadImageObject.image = "";
@@ -518,16 +394,11 @@ export class MembershipRequestDetailsComponent implements OnInit {
               this.getDataById();
             }
           );
-        } else {
-          this.toastr.error('Invalid image file', 'Error', {
-            disableTimeOut: false
-          });
-        }
-      }
-      );
-    } else {
-      this.isSaving = false;
-    }
+  }else{
+    this.toastr.warning("Photo not selected", "Warning!", {
+      disableTimeOut: false
+    });
+  }
   }
 
   validateInputs = () => {
